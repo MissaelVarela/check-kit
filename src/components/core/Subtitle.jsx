@@ -7,7 +7,7 @@ export default function Subtitle(props) {
     const heightStyle = !children && !text ? { height: 0 } : {};
 
     return (
-        <Text style={[styles.text, heightStyle , style]}>
+        <Text style={[styles.text, heightStyle, style]}>
             { children ? children : text }
         </Text>
     )

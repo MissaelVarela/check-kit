@@ -6,6 +6,7 @@ import IconButton from '../core/IconButton';
 import sources from '../../utils/sources';
 import TextDefault from '../core/TextDefault';
 import Title from '../core/Title';
+import TextButton from '../core/TextButton'
 
 export default function Notification(props) {
 
@@ -21,20 +22,12 @@ export default function Notification(props) {
             style={styles.main}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modal}>
-                        <View style={styles.modalHeader}>
-                            <Title style={styles.titleStyle}>{title}</Title>
-                            <IconButton 
-                                small 
-                                icon={sources.icons.arrow} 
-                                onPress={() => setVisible(false)} />
-                        </View>
                         <View style={styles.modalBody}>
-                            
-                            <TextDefault>{ children ? children : text }</TextDefault>
+                            <Title style={styles.titleStyle}>{title}</Title>
+                            <TextDefault>{children ? children : text}</TextDefault>
                         </View>
                         <View style={styles.modalFooter}>
-                            <Text>Cancel</Text>
-                            <Text>Ok</Text>
+                            <TextButton onPress={() => setVisible(false)}>Ok</TextButton>
                         </View>
                     </View>
                 </View>
@@ -76,23 +69,25 @@ const styles = StyleSheet.create({
         //backgroundColor: "red"
     },
     titleStyle: {
-        marginLeft: 24,
         fontSize: theme.fontSizes.text, 
-        flex: 1, 
         textAlign: "center",
     },
     modalBody: {
         //flex: 1,
-        paddingVertical: 10,
+        paddingVertical: 20,
         paddingHorizontal: 36,
         justifyContent: "center",
+        //backgroundColor: "green"
     },
     modalFooter: {
         width: "100%",
-        height: 34,
-        paddingHorizontal: 25,
+        height: 40,
+        paddingHorizontal: 15,
         flexDirection: "row",
-        justifyContent: "space-between",
+        justifyContent: "center",
+        alignItems: "center",
+        borderColor: theme.colors.lightDark,
+        borderTopWidth: 2,
         //backgroundColor: "red"
-    }
+    },
 })

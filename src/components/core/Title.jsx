@@ -4,9 +4,10 @@ import theme from '../../utils/theme';
 export default function Title(props) {
 
     const { text, style, children } = props;
+    const heightStyle = !children && !text ? { height: 0 } : {};
 
     return (
-        <Text style={[styles.text, style]}>
+        <Text style={[styles.text, heightStyle, style]}>
             { children ? children : text }
         </Text>
     )

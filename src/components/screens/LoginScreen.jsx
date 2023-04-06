@@ -21,10 +21,10 @@ export default function LoginScreen({navigation}) {
             return;
         }
         
-        Sesion.setName(userText)
-        Sesion.setPass(passText)
+        Sesion.setName(userText);
+        Sesion.setPass(passText);
 
-        navigation.navigate("Main")
+        if (navigation) navigation.navigate("Main");
     };
 
     return (

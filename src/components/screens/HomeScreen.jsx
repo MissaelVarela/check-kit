@@ -6,24 +6,37 @@ import Sesion from '../../utils/Sesion.js';
 
 import Subtitle from '../core/Subtitle.jsx';
 import Notification from '../integrated/Notification.jsx';
+import MessageDialog from '../integrated/MessageDialog.jsx'
+import ConfirmDialog from '../integrated/ConfirmDialog.jsx'
 import Button from '../core/Button.jsx';
 
 export default function HomeScreen() {
 
     const userName = Sesion.getName()
-    const [ visible, setVisible ] = React.useState(false);
+    const [ visibleMsg, setVisibleMsg ] = React.useState(false);
+    const [ visibleCfm, setVisibleCfm ] = React.useState(false);
 
     return (
         <View style={styles.view}>
             <ScrollView contentContainerStyle={styles.body}>
                 <Subtitle>
-                    ¡Bienvenido de nuevo <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text> !
+                    ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
                 </Subtitle> 
-                <View style={{width: "100%", paddingTop: 30, alignItems: "center"}}>
-                    <Button onPress={() => setVisible(true)}>Press me!</Button>    
+                <View style={{width: "100%", height: 150, paddingTop: 30, alignItems: "center", justifyContent: "space-around"}}>
+                    <Button onPress={() => setVisibleMsg(true)}>Press me!</Button>    
+                    <Button onPress={() => setVisibleCfm(true)}>Press me too!</Button>  
                 </View>
             </ScrollView>
-            <Notification visible={visible} setVisible={setVisible}>Hola a todos!</Notification>
+            <MessageDialog 
+                title="" 
+                text="¡Hola a todos!"
+                visible={visibleMsg} 
+                setVisible={setVisibleMsg} />
+            <ConfirmDialog 
+                title="Aviso" 
+                text="Toca mantenimiento"
+                visible={visibleCfm} 
+                setVisible={setVisibleCfm} />
         </View>
     )
 }
