@@ -1,7 +1,5 @@
 import 'react-native-gesture-handler';
 
-import { Text, View } from 'react-native';
-
 import Auth from './src/components/navigation/Auth.jsx';
 import Main from './src/components/navigation/Main.jsx';
 import CatalogNav from './src/components/navigation/CatalogNav.jsx';
