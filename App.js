@@ -14,9 +14,8 @@ import EquipmentScreen from './src/components/screens/EquipmentScreen.jsx';
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function App() {
+  
   return (
-    <NavigationContainer>
-      <HomeScreen/>
-    </NavigationContainer>
+    <HomeScreen/>
   );
 }
