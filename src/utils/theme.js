@@ -16,7 +16,8 @@ const theme = {
         text: 14,
         title: 20,
         subtitle: 16,
-        buttonText: 14
+        buttonText: 14,
+        smallText: 12,
     },
     fontWeights: {
         regular: "400",

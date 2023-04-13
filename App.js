@@ -10,10 +10,13 @@ import CatalogScreen from './src/components/screens/CatalogScreen.jsx';
 import EquipmentScreen from './src/components/screens/EquipmentScreen.jsx';
 
 import { NavigationContainer } from '@react-navigation/native';
+import DatebookScreen from './src/components/screens/DatebookScreen.jsx';
 
 export default function App() {
   
   return (
-    <HomeScreen/>
+    <NavigationContainer>
+      <DatebookScreen/>
+    </NavigationContainer>
   );
 }
