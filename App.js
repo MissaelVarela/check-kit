@@ -16,7 +16,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <DatebookScreen/>
+      <Auth/>
     </NavigationContainer>
   );
 }

@@ -4,7 +4,7 @@
 const imgDirectory = require.context('./img');
 const equipmentsDirectory = require.context('./img/equipments');
 
-export default [
+export const equipments = [
     {
         tipo: "Camilla hospitalaria",
         nombre: "",
@@ -63,7 +63,7 @@ export default [
     },
 ];
 
-export const equipments = [
+export default [
     {
         id: 1,
         category: "Equipos medicos",

@@ -9,7 +9,6 @@ export default function DatebookScreen() {
 
     return (
         <View style={styles.screen}>
-            <View style={{height:35}}/>
             <View style={styles.header}>
                 <Subtitle>Reservacion de</Subtitle>
             </View>

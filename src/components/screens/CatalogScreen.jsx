@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 import IconButton from '../core/IconButton.jsx';
 import Subtitle from '../core/Subtitle.jsx';
@@ -7,10 +7,15 @@ import EquipmentCard from '../integrated/EquipmentCard.jsx';
 
 import theme from '../../utils/theme.js';
 import sources from '../../utils/sources.js';
-import equipments from '../../data/equipments.js';
+//import equipments from '../../data/equipments.js';
 
+import Data from '../../data/Data.js';
+
+let equipments;
 
 export default function CatalogScreen({navigation}) {
+    
+    if (!equipments) equipments = Data.getEquipments();
 
     React.useEffect(() => {
         const navigationParent = navigation ? navigation.getParent() : null
@@ -29,19 +34,20 @@ export default function CatalogScreen({navigation}) {
                 data={equipments}
                 numColumns={2}
                 columnWrapperStyle={{justifyContent: "space-between"}}
-                keyExtractor={item => item.identificador}
+                keyExtractor={item => item.id}
                 ListHeaderComponent={<></>}
                 renderItem={
                     ({ item }) =>
                         <EquipmentCard
-                            id={item.identificador}
-                            image={item.imagen}
-                            type={item.tipo}
-                            name={item.nombre}
+                            id={item.id}
+                            image={item.image}
+                            type={item.type}
+                            name={item.name}
                             navigation={navigation} />
                 }
                 ListFooterComponent={<></>}
-                showsVerticalScrollIndicator={false} />
+                showsVerticalScrollIndicator={false} 
+                ListEmptyComponent={<Text>No hay elementos para mostrar...</Text>}/>
         </View>
     )
 }

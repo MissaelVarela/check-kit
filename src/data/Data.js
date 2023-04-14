@@ -22,7 +22,7 @@ export default class Data {
 
     static getEquipment(id){
         const equipment = equipments.find(
-            (item) => item.identificador === id
+            (item) => item.id === id
         );
 
         return equipment;

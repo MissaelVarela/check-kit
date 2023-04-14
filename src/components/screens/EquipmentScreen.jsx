@@ -2,7 +2,8 @@ import React from 'react';
 import { View, ScrollView, Image, StyleSheet } from 'react-native'
 
 import theme from '../../utils/theme';
-import equipments from '../../data/equipments';
+
+import Data from '../../data/Data';
 
 import Title from '../core/Title';
 import Subtitle from '../core/Subtitle';
@@ -11,13 +12,13 @@ import Button from '../core/Button';
 
 export default function EquipmentScreen({route, navigation}) {
 
-    const { id } = route ? route.params : { id: "MSV-1" }
-    let equipmentInfo = equipments.find((item) => item.identificador === id)
+    const { id } = route ? route.params : { id: 1 }
+    let equipmentInfo = Data.getEquipment(id);
 
     if (!equipmentInfo) equipmentInfo = {
-        tipo: "tipo",
-        nombre: "nombre",
-        imagen: "",
+        type: "tipo",
+        name: "nombre",
+        image: "",
     }
 
     React.useLayoutEffect(() => { 
@@ -29,24 +30,24 @@ export default function EquipmentScreen({route, navigation}) {
     return(
         <View style={styles.screen}>
             <View style={styles.header}>
-                <Title>{equipmentInfo.tipo}</Title>
-                <Subtitle>{equipmentInfo.nombre}</Subtitle>
+                <Title>{equipmentInfo.type}</Title>
+                <Subtitle>{equipmentInfo.name}</Subtitle>
             </View>
             <View style={styles.space}/>
             <View style={styles.body}>
                 <Image
-                    source={equipmentInfo.imagen}
+                    source={equipmentInfo.image}
                     style={styles.image}/>
                 <ScrollView style={styles.content}>
                     <View style={{marginTop: 60}}>
                         <TextDefault style={{color: theme.colors.darkLight}}>Detalles generales</TextDefault>
-                        <TextDefault>Área: Laboratorio medico</TextDefault>
+                        <TextDefault>Ubicación: {equipmentInfo.location}</TextDefault>
                         <TextDefault>Identificiador: CAM1</TextDefault>
                     </View>
                     <View style={{marginTop: 20}}>
                         <TextDefault style={{color: theme.colors.darkLight}}>Detalles de mantenimiento</TextDefault>
-                        <TextDefault>Estado del equipo: Correcto</TextDefault>
-                        <TextDefault>Ultimo mantenimiento: 24/02/2023</TextDefault>
+                        <TextDefault>Estado del equipo: {equipmentInfo.maintenance.state ? "Correcto": "Incorrecto"}</TextDefault>
+                        <TextDefault>Ultimo mantenimiento: {equipmentInfo.maintenance.lastMaintenace}</TextDefault>
                     </View>
                     <View style={styles.buttonConteiner}>
                         <Button style={{marginTop: 60, width: 240}}>Agendar</Button>
