@@ -9,6 +9,7 @@ import Notification from '../integrated/Notification.jsx';
 import MessageDialog from '../integrated/MessageDialog.jsx'
 import ConfirmDialog from '../integrated/ConfirmDialog.jsx'
 import Button from '../core/Button.jsx';
+import Section from '../integrated/Section.jsx';
 
 export default function HomeScreen() {
 
