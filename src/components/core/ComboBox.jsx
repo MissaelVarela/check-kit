@@ -6,17 +6,46 @@ import sources from "../../utils/sources.js";
 
 import IconButton from "./IconButton"
 
+function Item({value, label, index, setSelected, setShownSelector, onSelectChange}) {
+    
+    return (
+        <TouchableHighlight
+            underlayColor={theme.colors.quaternary}
+            onPress={() => {
+                setSelected({ value: value, label: label });
+                setShownSelector(false);
+                if (onSelectChange) onSelectChange(value, label);
+            }} >
+            <View
+                style={[
+                    styles.option,
+                    //index === options.length - 1 ? { borderBottomWidth: 0 } : null,
+                    index % 2 === 0 ? null : { backgroundColor: theme.colors.lightDark },
+                    //index === 0 ? {borderTopLeftRadius: 20, borderTopRightRadius: 20} : null,
+                    //index === options.length - 1 ? {borderBottomLeftRadius: 20, borderBottomRightRadius: 20} : null
+                ]} >
+                <Text>{label ? label : "Sin nombre"}</Text>
+
+            </View>
+        </TouchableHighlight>
+    )
+}
+
 export default function ComboBox(props) {
 
-    const { placeHolder, options, onSelectChange, style } = props;
+    const { placeHolder, options, onSelectChange, selected, setSelected, style } = props;
     const [shownSelector, setShownSelector] = React.useState(false);
-    const [selected, setSelected] = React.useState({ key: -1, value: placeHolder ? placeHolder : "Sin seleccionar" });
+
+    React.useEffect(() => {
+        if (setSelected) setSelected({ value: -1, label: placeHolder ? placeHolder : "<Sin seleccionar>" });
+    }, []);
+    
 
     return (
         <View>
             <View style={[styles.comboBox, style]}>
-                <Text numberOfLines={1} style={[styles.text, selected.key === -1 ? { color: theme.colors.darkLight } : { color: theme.colors.dark }]}>
-                    {selected.value}
+                <Text numberOfLines={1} style={[styles.text, selected && selected.value === -1 ? { color: theme.colors.darkLight } : { color: theme.colors.dark }]}>
+                    {selected && selected.label}
                 </Text>
                 <IconButton
                     icon={sources.icons.arrow}
@@ -34,28 +63,25 @@ export default function ComboBox(props) {
                     onPress={() => setShownSelector(false)}>
                     <View style={styles.modalContainer}>
                         <ScrollView style={styles.modal} showsVerticalScrollIndicator={false}>
+                            <Item
+                                key={-1} 
+                                value={-1} 
+                                label={placeHolder ? placeHolder : "<Sin seleccionar>"} 
+                                index={-1}
+                                setSelected={setSelected}
+                                setShownSelector={setShownSelector}
+                                onSelectChange={onSelectChange} />
+                                
                             {
                                 options && options.map((element, index) =>
-                                    <TouchableHighlight
-
-                                        key={element.key}
-                                        underlayColor={theme.colors.quaternary}
-                                        onPress={() => {
-                                            setSelected({ key: element.key, value: element.value });
-                                            setShownSelector(false);
-                                        }} >
-                                        <View
-                                            style={[
-                                                styles.option,
-                                                //index === options.length - 1 ? { borderBottomWidth: 0 } : null,
-                                                index % 2 === 0 ? null : { backgroundColor: theme.colors.lightDark },
-                                                //index === 0 ? {borderTopLeftRadius: 20, borderTopRightRadius: 20} : null,
-                                                //index === options.length - 1 ? {borderBottomLeftRadius: 20, borderBottomRightRadius: 20} : null
-                                            ]} >
-                                            <Text>{element.value ? element.value : ""}</Text>
-
-                                        </View>
-                                    </TouchableHighlight>
+                                    <Item 
+                                        key={element.value} 
+                                        value={element.value} 
+                                        label={element.label} 
+                                        index={index}
+                                        setSelected={setSelected}
+                                        setShownSelector={setShownSelector}
+                                        onSelectChange={onSelectChange} />
                                 )
                             }
                         </ScrollView>

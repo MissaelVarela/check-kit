@@ -67,14 +67,14 @@ export default function DrawerMenu(props) {
                     <DrawerMenuItem
                         text="Agenda"
                         icon={sources.icons.datebook}
-                        onPress={() => {setActive("Datebook"); navigation.navigate("Datebook")}}
-                        isActive={active === "Datebook"}
+                        onPress={() => {setActive("DatebookNavigation"); navigation.navigate("DatebookNavigation")}}
+                        isActive={active === "DatebookNavigation"}
                         setActive={setActive}/> 
                     <DrawerMenuItem
                         text="Mantenimiento"
                         icon={sources.icons.maintenance}
-                        onPress={() => {setActive("Maintenance"); navigation.navigate("Maintenance")}}
-                        isActive={active === "Maintenance"}
+                        onPress={() => {setActive("MaintenanceNavigation"); navigation.navigate("MaintenanceNavigation")}}
+                        isActive={active === "MaintenanceNavigation"}
                         setActive={setActive}/> 
                 </ScrollView> 
             </View>

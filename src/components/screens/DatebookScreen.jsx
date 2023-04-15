@@ -1,11 +1,17 @@
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 
 import Subtitle from '../core/Subtitle';
 import ReservationList from '../integrated/ReservationList';
 
-export default function DatebookScreen() {
+export default function DatebookScreen({navigation}) {
+
+    React.useLayoutEffect(() => { 
+        const navigationParent = navigation ? navigation.getParent() : null;
+        if (navigationParent) navigationParent.setOptions({headerShown: false})
+    }, [])
 
     return (
         <View style={styles.screen}>

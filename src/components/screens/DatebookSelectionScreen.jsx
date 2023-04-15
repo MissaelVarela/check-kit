@@ -1,11 +1,22 @@
-import { View, Text, StyleSheet } from 'react-native'
-import theme from '../../utils/theme'
-import ComboBox from '../core/ComboBox'
-import Subtitle from '../core/Subtitle'
-import Button from '../core/Button'
-import Section from '../integrated/Section'
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import theme from '../../utils/theme';
+import ComboBox from '../core/ComboBox';
+import Subtitle from '../core/Subtitle';
+import Button from '../core/Button';
+import Section from '../integrated/Section';
 
-export default function DatebookSelectionScreen() {
+export default function DatebookSelectionScreen({ navigation }) {
+
+    const [selectedType, setSelectedType] = React.useState();
+    const [selectedEquipment, setSelectedEquipment] = React.useState();
+
+    React.useEffect(() => {
+        const navigationParent = navigation ? navigation.getParent() : null
+        if (navigationParent) {
+            navigation.addListener('focus', () => { navigationParent.setOptions({headerShown: true}) })
+        }
+    }, [navigation]);
 
     return (
         <View style={styles.screen}>
@@ -16,20 +27,26 @@ export default function DatebookSelectionScreen() {
                     <View style={styles.comboContainer}>
                         <View style={{flex: 1, marginRight: 10}}>
                             <Subtitle style={{marginBottom: 5}}>Tipo:</Subtitle>
-                            <ComboBox placeHolder="Todos"/>
+                            <ComboBox 
+                                placeHolder="<Todos>"
+                                selected={selectedType}
+                                setSelected={setSelectedType} />
                         </View>
                         <View style={{flex: 1, marginLeft: 10}}>
                             <Subtitle style={{marginBottom: 5}}>Equipo:</Subtitle>
-                            <ComboBox placeHolder="Todos"/>
+                            <ComboBox 
+                                placeHolder="<Todos>"
+                                selected={selectedEquipment}
+                                setSelected={setSelectedEquipment} />
                         </View>
                     </View>
-                    <Button>Ir</Button>
+                    <Button onPress={() => navigation && navigation.navigate("Datebook")}>Ir</Button>
                 </View>
             </Section>
             
             <Section 
                 title="Agenda de Áreas">
-                    <Button>Ir</Button>
+                    <Button onPress={() => navigation && navigation.navigate("Datebook")}>Ir</Button>
             </Section>
 
         </View>

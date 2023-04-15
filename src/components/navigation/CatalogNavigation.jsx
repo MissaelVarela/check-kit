@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 const Stack = createNativeStackNavigator();
 
-export default function CatalogNav({navigation}) {
+export default function CatalogNavigation() {
   return (
     <Stack.Navigator
         screenOptions={{title: "Equipos medicos", headerTitleAlign: "center"}}>

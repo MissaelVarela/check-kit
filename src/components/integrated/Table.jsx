@@ -8,11 +8,11 @@ export default function Table(props){
     return(
         <View style={styles.main}>
             {
-                dataMatrix && dataMatrix.map((row) => 
-                    <View style={styles.row}>
+                dataMatrix && dataMatrix.map((row, index) => 
+                    <View style={styles.row} key={index}>
                         {
                             row.map((cell, index) =>
-                                <View style={[styles.cell, columnsWidth && columnsWidth[index] ? {width: columnsWidth[index]} : {flex: 1}]}>
+                                <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? {width: columnsWidth[index]} : {flex: 1}]}>
                                     <Text style={[index > 0 ? {fontWeight: theme.fontWeights.bold} : null]}>{cell}</Text>
                                 </View>
                             )

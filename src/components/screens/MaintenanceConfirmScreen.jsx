@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
@@ -6,24 +7,55 @@ import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 import Button from '../core/Button';
 
-export default function MaintenanceConfirmScreen(){
+export default function MaintenanceConfirmScreen({ route, navigation }){
 
-    const equipment = Data.getEquipment(7);
-    const dataEquipment = [
-        ["Tipo:", "Monitor SV"],
-        ["Nombre descriptivo:","Azul"],
-        ["Identificador:", "MSV-1"],
-        ["Marca:","Philips"],
-        ["Modelo:", "XXXXX"],
-        ["Serie:","11111"],
-        ["Ubicación:", "Laboratorio Medico"],
-    ];
+    const { selectedType, selectedEquipment } = route.params;
 
-    const dataReponsable = [
-        ["Nombre:", "Nicole Balvaneda Cruz Aguirre"],
-        ["Tipo de usuario:","Alumno"],
-        ["Autorizado por:", "David Garcia Torres"],
-    ];
+    let equipment;
+
+    if (selectedEquipment) {
+        equipment = Data.getEquipment(selectedEquipment.value);
+    }
+
+    if (equipment) {
+        var dataEquipment = [
+            ["Tipo:", equipment.type],
+            ["Nombre descriptivo:", equipment.name],
+            ["Identificador:", equipment.id],
+            ["Marca:", equipment.brand],
+            ["Modelo:", equipment.model],
+            ["Serie:", equipment.series],
+            ["Ubicación:", equipment.location],
+        ];
+    
+        var dataReponsable = [
+            ["Nombre:", "Nicole Balvaneda Cruz Aguirre"],
+            ["Tipo de usuario:","Alumno"],
+            ["Autorizado por:", "David Garcia Torres"],
+        ];
+    }
+    else {
+        var dataEquipment = [
+            ["Tipo:", "Monitor SV"],
+            ["Nombre descriptivo:","Azul"],
+            ["Identificador:", "MSV-1"],
+            ["Marca:","Philips"],
+            ["Modelo:", "XXXXX"],
+            ["Serie:","11111"],
+            ["Ubicación:", "Laboratorio Medico"],
+        ];
+    
+        var dataReponsable = [
+            ["Nombre:", "Nicole Balvaneda Cruz Aguirre"],
+            ["Tipo de usuario:","Alumno"],
+            ["Autorizado por:", "David Garcia Torres"],
+        ];
+    }
+
+    React.useLayoutEffect(() => { 
+        const navigationParent = navigation ? navigation.getParent() : null;
+        if (navigationParent) navigationParent.setOptions({headerShown: false})
+    }, [])
 
     return(
         <View style={styles.screen}>

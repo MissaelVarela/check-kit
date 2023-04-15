@@ -67,6 +67,7 @@ export default [
     {
         id: 1,
         category: "Equipos medicos",
+        typeId: 1,
         type: "Monitor SV",
         name: "213034910942",
         brand: "Zoncare",
@@ -86,6 +87,7 @@ export default [
     {
         id: 2,
         category: "Equipos medicos",
+        typeId: 2,
         type: "Maquina de anestesia",
         name: "213020411707",
         brand: "GSM",
@@ -105,6 +107,7 @@ export default [
     {
         id: 3,
         category: "Equipos medicos",
+        typeId: 3,
         type: "Entrenador de desfibrilador",
         name: "213016111705",
         brand: "AEDPLUS",
@@ -124,6 +127,7 @@ export default [
     {
         id: 4,
         category: "Equipos medicos",
+        typeId: 4,
         type: "Electrocardiograma",
         name: "",
         brand: "Mindray",
@@ -143,6 +147,7 @@ export default [
     {
         id: 5,
         category: "Equipos medicos",
+        typeId: 5,
         type: "Entrenador de Cirugia",
         name: "213024910945",
         brand: "3-DMED",
@@ -162,6 +167,7 @@ export default [
     {
         id: 6,
         category: "Modelos Anatomicos",
+        typeId: 6,
         type: "Modelo",
         name: "Cerebro",
         brand: "",
@@ -181,6 +187,7 @@ export default [
     {
         id: 7,
         category: "Modelos Anatomicos",
+        typeId: 6,
         type: "Modelo",
         name: "Corazón",
         brand: "",
@@ -200,6 +207,7 @@ export default [
     {
         id: 8,
         category: "Modelos Anatomicos",
+        typeId: 6,
         type: "Modelo",
         name: "Esqueleto",
         brand: "",
@@ -219,6 +227,7 @@ export default [
     {
         id: 9,
         category: "Modelos Anatomicos",
+        typeId: 6,
         type: "Modelo",
         name: "Anatomico",
         brand: "",

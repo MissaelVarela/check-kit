@@ -1,8 +1,8 @@
 import 'react-native-gesture-handler';
 
-import Auth from './src/components/navigation/Auth.jsx';
-import Main from './src/components/navigation/Main.jsx';
-import CatalogNav from './src/components/navigation/CatalogNav.jsx';
+import AuthNavigation from './src/components/navigation/AuthNavigation.jsx';
+import MainNavigation from './src/components/navigation/MainNavigation.jsx';
+import CatalogNavigation from './src/components/navigation/CatalogNavigation.jsx';
 
 import LoginScreen from './src/components/screens/LoginScreen.jsx'
 import HomeScreen from './src/components/screens/HomeScreen.jsx';
@@ -19,7 +19,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      <Auth/>
+      <AuthNavigation/>
     </NavigationContainer>
   );
 }

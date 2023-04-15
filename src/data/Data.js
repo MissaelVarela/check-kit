@@ -1,6 +1,7 @@
 import equipments from "./equipments";
 import users from "./users";
 import checklists from "./checklists";
+import equipmentTypes from "./equipmentTypes";
 
 export default class Data {
 
@@ -26,6 +27,15 @@ export default class Data {
         );
 
         return equipment;
+    }
+    
+    static getEquipmentsByType(typeId){
+        const result = equipments.filter((element) => element.typeId === typeId )
+        return result;
+    }
+
+    static getEquipmentTypes(){
+        return equipmentTypes;
     }
 
     static getCheckLists(){
