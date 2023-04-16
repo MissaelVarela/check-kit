@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Image, StyleSheet } from 'react-native'
+import { View, ScrollView, Image, StyleSheet, TouchableOpacity } from 'react-native'
 
 import theme from '../../utils/theme';
 
@@ -9,8 +9,12 @@ import Title from '../core/Title';
 import Subtitle from '../core/Subtitle';
 import TextDefault from '../core/TextDefault';
 import Button from '../core/Button';
+import ImageViewer from '../integrated/ImageViewer';
+import sources from '../../utils/sources';
 
 export default function EquipmentScreen({route, navigation}) {
+
+    const [shownImageViewer, setShownImageViewer] = React.useState(false);
 
     const { id } = route ? route.params : { id: 1 }
     let equipmentInfo = Data.getEquipment(id);
@@ -35,9 +39,15 @@ export default function EquipmentScreen({route, navigation}) {
             </View>
             <View style={styles.space}/>
             <View style={styles.body}>
-                <Image
-                    source={equipmentInfo.image}
-                    style={styles.image}/>
+
+                <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => setShownImageViewer(true)}>
+                    <Image
+                        source={equipmentInfo.image}
+                        style={styles.image}/>
+                </TouchableOpacity>
+                
                 <ScrollView style={styles.content}>
                     <View style={{marginTop: 60}}>
                         <TextDefault style={{color: theme.colors.darkLight}}>Detalles generales</TextDefault>
@@ -56,6 +66,10 @@ export default function EquipmentScreen({route, navigation}) {
                     </View>
                 </ScrollView>
             </View> 
+            <ImageViewer 
+                imageSource={equipmentInfo.image}
+                shown={shownImageViewer} 
+                setShown={setShownImageViewer} />
         </View>
     )
 }
@@ -88,13 +102,18 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         paddingLeft: 20,
     },
-    image: {
+    imageContainer: {
         top: -200,
         width: 244,
         height: 244,
         borderRadius: 122,
         position: "absolute",
         zIndex: 1,
+    },
+    image: {
+        width: 244,
+        height: 244,
+        borderRadius: 122,
     },
     buttonConteiner: {
         width: "100%",
