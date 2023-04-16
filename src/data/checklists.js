@@ -12,8 +12,9 @@ export default [
                         title: "¿Funciona correctamente la bateria del equipo?",
                         inputType: 1,
                         options: [
-                            "Cumple",
-                            "No cumple",
+                            "Si",
+                            "No",
+                            "N/A",
                         ],
                         observations: "",
                     },

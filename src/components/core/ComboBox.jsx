@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.light
     },
     option: {
-        marginHorizontal: 18,
+        marginHorizontal: 0,
         paddingHorizontal: 15,
         paddingVertical: 20,
     },

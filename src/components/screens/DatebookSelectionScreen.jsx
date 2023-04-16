@@ -22,7 +22,8 @@ export default function DatebookSelectionScreen({ navigation }) {
         <View style={styles.screen}>
             
             <Section
-                title="Agenda de Equipos">
+                title="Agenda de Equipos"
+                style={styles.sectionContent}>
                 <View>
                     <View style={styles.comboContainer}>
                         <View style={{flex: 1, marginRight: 10}}>
@@ -45,7 +46,8 @@ export default function DatebookSelectionScreen({ navigation }) {
             </Section>
             
             <Section 
-                title="Agenda de Áreas">
+                title="Agenda de Áreas"
+                style={styles.sectionContent}>
                     <Button onPress={() => navigation && navigation.navigate("Datebook")}>Ir</Button>
             </Section>
 
@@ -57,6 +59,7 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 35,
+        alignItems: "center",
         backgroundColor: theme.colors.light
     },
     linea: {
@@ -65,6 +68,11 @@ const styles = StyleSheet.create({
         width: "100%", 
         height: 2, 
         backgroundColor: theme.colors.lightDark
+    },
+    sectionContent: {
+        width: "100%",
+        maxWidth: 600,
+        marginHorizontal: "auto",
     },
     comboContainer: {
         flexDirection: "row",

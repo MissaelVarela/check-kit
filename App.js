@@ -14,6 +14,7 @@ import DatebookScreen from './src/components/screens/DatebookScreen.jsx';
 import DatebookSelectionScreen from './src/components/screens/DatebookSelectionScreen.jsx';
 import MaintenanceSelectionScreen from './src/components/screens/MaintenanceSelectionScreen.jsx';
 import MaintenanceConfirmScreen from './src/components/screens/MaintenanceConfirmScreen.jsx';
+import CheckListScreen from './src/components/screens/CheckListScreen.jsx';
 
 export default function App() {
   

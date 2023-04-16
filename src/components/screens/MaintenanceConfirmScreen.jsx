@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, Image, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import Data from '../../data/Data';
@@ -64,21 +64,27 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
                     source={equipment.image}
                     style={styles.image} />
             </View>
-            <View style={styles.body}>
+            <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
                 <Section
-                    title="Datos del Equipo">
+                    title="Datos del Equipo"
+                    style={styles.sectionContent}>
                         <Table 
                             dataMatrix={dataEquipment}
                             columnsWidth={[ 160 ]} />
                 </Section>
                 <Section
-                    title="Datos del Responsable">
+                    title="Datos del Responsable"
+                    style={styles.sectionContent}>
                         <Table 
                             dataMatrix={dataReponsable}
                             columnsWidth={[ 160 ]}/>
                 </Section>
-                <Button>Empezar Mantenimiento</Button>
-            </View>
+                <Button 
+                    onPress={() => navigation.navigate("CheckList")}
+                    style={{maxWidth: 300, marginHorizontal: "auto"}}
+                    >Empezar Mantenimiento
+                </Button>
+            </ScrollView>
         </View>
     )
 }
@@ -100,6 +106,12 @@ const styles = StyleSheet.create({
         borderRadius: 100,
     },
     body: {
+        flex: 1,
+        width: "100%",
         paddingHorizontal: 25,
-    }
+    },
+    sectionContent: {
+        width: "100%",
+        maxWidth: 600,
+    },
 })

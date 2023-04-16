@@ -35,7 +35,7 @@ export default function LoginScreen({navigation}) {
                 <Tittle 
                     text="Check Kit"/>
                 <TextField 
-                    placeHolder="Hola Nicole" 
+                    placeHolder="Usuario" 
                     onTextChange={setUserText}/>
                 <TextField 
                     placeHolder="Contraseña" 
