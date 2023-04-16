@@ -11,10 +11,10 @@ import Subtitle from '../core/Subtitle'
 
 export default function EquipmentCard(props) {
 
-    const { id, image, type, name, navigation } = props
+    const { id, image, type, name, style, navigation } = props
 
     return (
-        <View style={styles.card}>
+        <View style={[styles.card, style]}>
             <TouchableOpacity 
                 style={styles.imageContainer}
                 onPress={() => navigation.navigate("Equipment", { id: id })}>
@@ -38,7 +38,7 @@ export default function EquipmentCard(props) {
 
 const styles = StyleSheet.create({
     card: {
-        width: 140,
+        width: 150,
         height: 220,
         justifyContent: "flex-end",
         alignItems: "center",

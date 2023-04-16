@@ -70,7 +70,7 @@ export default function MaintenanceSelectionScreen({ navigation }) {
             <Section title="Dar Mantenimiento por Rutina" contentStyle={styles.sectionContent}> 
                 <Subtitle style={{marginBottom: 5}}>Rutina:</Subtitle>
                 <ComboBox 
-                    placeHolder="Todos" 
+                    placeHolder="<Todos>" 
                     selected={selectedRoutine}
                     setSelected={setSelectedRoutine} />
                 <Button style={styles.button}>
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
         marginHorizontal: "auto",
     },
     button: {
-        marginTop: 25,
+        maxWidth: 300,
+        marginTop: 20,
     }
 
 })

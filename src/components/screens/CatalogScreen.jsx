@@ -14,7 +14,7 @@ import Data from '../../data/Data.js';
 let equipments;
 
 export default function CatalogScreen({navigation}) {
-    
+  
     if (!equipments) equipments = Data.getEquipments();
 
     React.useEffect(() => {
@@ -24,21 +24,39 @@ export default function CatalogScreen({navigation}) {
         }
     }, [navigation]);
 
+    const [numColumns, setNumColumns] = React.useState(1);
+
+    function calculateNumColums(width) {
+        const columnResult = Math.trunc(width / 200);
+
+        if (columnResult != numColumns) {
+            if (columnResult >= 1) 
+                setNumColumns(columnResult);
+        }
+    }
+
     return (
         <View style={styles.screen}>
             <View style={styles.header}>
                 <Subtitle>Lista de Equipos Medicos</Subtitle>
                 <IconButton icon={sources.icons.catalogue} small />
             </View>
-            <FlatList style={styles.list}
+            <FlatList 
+                onLayout={(event) => {
+                    const { width } = event.nativeEvent.layout;
+                    calculateNumColums(width);
+                }}
+                key={numColumns}
+                style={styles.list}
                 data={equipments}
-                numColumns={2}
-                columnWrapperStyle={{justifyContent: "space-between"}}
+                numColumns={numColumns}
+                columnWrapperStyle={numColumns === 1 ? null : {justifyContent: "center"}}
                 keyExtractor={item => item.id}
                 ListHeaderComponent={<></>}
                 renderItem={
                     ({ item }) =>
                         <EquipmentCard
+                            style={[{marginHorizontal: 25}, numColumns === 1 ? {marginHorizontal: "auto"} : null]}
                             id={item.id}
                             image={item.image}
                             type={item.type}
@@ -54,8 +72,7 @@ export default function CatalogScreen({navigation}) {
 
 const styles = StyleSheet.create({
     screen: {
-        width: "100%",
-        height: "100%",
+        flex: 1,
         backgroundColor: theme.colors.light,
         alignItems: "center",
     },    
@@ -69,11 +86,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     list: {
-        height: "100%",
-        paddingVertical: 0,
-        paddingHorizontal: 40,
         width: "100%",
-        minWidth: 360,
-        maxWidth: 400,
+        maxWidth: 1000,
+        paddingVertical: 0,
+        paddingHorizontal: 25,
     },
 });

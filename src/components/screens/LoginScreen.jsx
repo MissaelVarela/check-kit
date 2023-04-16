@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.tertiary,
     },
     login: {
-        width: 280,
+        width: "75%",
+        maxWidth: 350,
         height: 320,
         borderRadius: 10,
         backgroundColor: theme.colors.lightDark,

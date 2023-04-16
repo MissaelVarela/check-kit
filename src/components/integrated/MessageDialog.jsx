@@ -8,9 +8,9 @@ import TextDefault from '../core/TextDefault';
 import Title from '../core/Title';
 import TextButton from '../core/TextButton'
 
-export default function Notification(props) {
+export default function MessageDialog(props) {
 
-    const { text, title, visible, setVisible, children } = props;
+    const { text, title, minWidth, visible, setVisible, children } = props;
 
     return(
         <Modal 
@@ -24,7 +24,7 @@ export default function Notification(props) {
                     <View style={styles.modal}>
                         <View style={styles.modalBody}>
                             <Title style={styles.titleStyle}>{title}</Title>
-                            <TextDefault>{children ? children : text}</TextDefault>
+                            <TextDefault style={{maxWidth: 450}}>{children ? children : text}</TextDefault>
                         </View>
                         <View style={styles.modalFooter}>
                             <TextButton onPress={() => setVisible(false)}>Ok</TextButton>
@@ -45,10 +45,9 @@ const styles = StyleSheet.create({
         backgroundColor: "rgba(52, 52, 52, 0.25)"  
     },
     modal: {
-        width: "75%",
+        width: "0%",
         minWidth: 250,
         maxWidth: 500,
-        //minHeight: 80,
         backgroundColor: theme.colors.light,
         shadowColor: "black",
         shadowOffset: {width: 0, height: 10},
@@ -66,18 +65,16 @@ const styles = StyleSheet.create({
         height: 34,
         flexDirection: "row",
         justifyContent: "center",
-        //backgroundColor: "red"
     },
     titleStyle: {
         fontSize: theme.fontSizes.text, 
         textAlign: "center",
+        maxWidth: 450,
     },
     modalBody: {
-        //flex: 1,
         paddingVertical: 20,
         paddingHorizontal: 36,
         justifyContent: "center",
-        //backgroundColor: "green"
     },
     modalFooter: {
         width: "100%",
@@ -88,6 +85,5 @@ const styles = StyleSheet.create({
         alignItems: "center",
         borderColor: theme.colors.lightDark,
         borderTopWidth: 2,
-        //backgroundColor: "red"
     },
 })

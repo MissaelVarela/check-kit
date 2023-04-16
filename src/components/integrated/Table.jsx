@@ -13,7 +13,7 @@ export default function Table(props){
                         {
                             row.map((cell, index) =>
                                 <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? {width: columnsWidth[index]} : {flex: 1}]}>
-                                    <Text style={[index > 0 ? {fontWeight: theme.fontWeights.bold} : null]}>{cell}</Text>
+                                    <Text style={[index > 0 ? {fontWeight: theme.fontWeights.bold} : null]}>{cell ? cell : "-"}</Text>
                                 </View>
                             )
                         }
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         borderBottomColor: theme.colors.darkLight,
     },
     cell: {
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         paddingVertical: 5,
     }
 })

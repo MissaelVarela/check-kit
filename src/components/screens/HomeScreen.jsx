@@ -18,8 +18,8 @@ export default function HomeScreen() {
     const [ visibleCfm, setVisibleCfm ] = React.useState(false);
 
     return (
-        <View style={styles.view}>
-            <ScrollView contentContainerStyle={styles.body}>
+        <View style={styles.screen}>
+            <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
                 <Subtitle>
                     ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
                 </Subtitle> 
@@ -30,7 +30,7 @@ export default function HomeScreen() {
             </ScrollView>
             <MessageDialog 
                 title="" 
-                text="¡Hola a todos!"
+                text="¡Hola soy un mensaje para el usuario!"
                 visible={visibleMsg} 
                 setVisible={setVisibleMsg} />
             <ConfirmDialog 
@@ -43,13 +43,17 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-    view: {
-        width: "100%",
-        height: "100%",
+    screen: {
+        flex: 1,
+        alignItems: "center",
         backgroundColor: theme.colors.light,
     },
     body: {
+        width: "100%",
+        maxWidth: 1000,
         padding: 15,
+    },
+    bodyContent: {
         alignItems: "flex-start",
     }
 });

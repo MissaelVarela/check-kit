@@ -41,14 +41,22 @@ export default function DatebookSelectionScreen({ navigation }) {
                                 setSelected={setSelectedEquipment} />
                         </View>
                     </View>
-                    <Button onPress={() => navigation && navigation.navigate("Datebook")}>Ir</Button>
+                    <Button 
+                        style={styles.button}
+                        onPress={() => navigation && navigation.navigate("Datebook")}>
+                        Ir
+                    </Button>
                 </View>
             </Section>
             
             <Section 
                 title="Agenda de Áreas"
                 style={styles.sectionContent}>
-                    <Button onPress={() => navigation && navigation.navigate("Datebook")}>Ir</Button>
+                    <Button 
+                        style={styles.button}
+                        onPress={() => navigation && navigation.navigate("Datebook")}>
+                        Ir
+                    </Button>
             </Section>
 
         </View>
@@ -62,21 +70,17 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: theme.colors.light
     },
-    linea: {
-        marginTop: 10,
-        marginBottom: 20,
-        width: "100%", 
-        height: 2, 
-        backgroundColor: theme.colors.lightDark
+    comboContainer: {
+        flexDirection: "row",
     },
     sectionContent: {
         width: "100%",
         maxWidth: 600,
         marginHorizontal: "auto",
     },
-    comboContainer: {
-        flexDirection: "row",
-        marginBottom: 20,
-    },
+    button: {
+        maxWidth: 300,
+        marginTop: 20,
+    }
 
 })

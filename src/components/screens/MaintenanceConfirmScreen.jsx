@@ -1,18 +1,20 @@
 import React from 'react';
-import { View, ScrollView, Text, Image, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 import theme from '../../utils/theme';
 import Data from '../../data/Data';
 import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 import Button from '../core/Button';
+import ImageViewer from '../integrated/ImageViewer';
 
 export default function MaintenanceConfirmScreen({ route, navigation }){
 
     const { selectedType, selectedEquipment } = route.params;
 
-    let equipment;
+    const [shownImageViewer, setShownImageViewer] = React.useState(false);
 
+    let equipment;
     if (selectedEquipment) {
         equipment = Data.getEquipment(selectedEquipment.value);
     }
@@ -59,10 +61,15 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
     return(
         <View style={styles.screen}>
-            <View style={styles.imageContainer}>
-                <Image
-                    source={equipment.image}
-                    style={styles.image} />
+            <View style={styles.header}>
+                <TouchableOpacity
+                    style={styles.imageContainer}
+                    onPress={() => setShownImageViewer(true)}>
+                    <Image
+                        source={equipment.image}
+                        style={styles.image} />
+                </TouchableOpacity>
+                
             </View>
             <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
                 <Section
@@ -85,6 +92,10 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
                     >Empezar Mantenimiento
                 </Button>
             </ScrollView>
+            <ImageViewer
+                imageSource={equipment && equipment.image}
+                shown={shownImageViewer} 
+                setShown={setShownImageViewer} />
         </View>
     )
 }
@@ -94,11 +105,16 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: theme.colors.light,
     },
-    imageContainer: {
+    header: {
         width: "100%",
         height: 200,
         justifyContent: "center",
         alignItems: "center",
+    },
+    imageContainer: {
+        width: 140,
+        height: 140,
+        borderRadius: 100,
     },
     image: {
         width: 140,

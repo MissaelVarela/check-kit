@@ -19,7 +19,7 @@ const Drawer = createDrawerNavigator();
 export default function MainNavigation() {
 
     const dimensions = useWindowDimensions();
-    const isLargeScreen = dimensions.width >= 768;
+    const isLargeScreen = dimensions.width >= 1000;
 
     return (
         <Drawer.Navigator
