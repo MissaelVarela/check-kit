@@ -23,10 +23,20 @@ export default function HomeScreen() {
                 <Subtitle>
                     ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
                 </Subtitle> 
-                <View style={{width: "100%", height: 150, paddingTop: 30, alignItems: "center", justifyContent: "space-around"}}>
-                    <Button onPress={() => setVisibleMsg(true)}>Press me!</Button>    
-                    <Button onPress={() => setVisibleCfm(true)}>Press me too!</Button>  
-                </View>
+                <Section
+                    style={[styles.section, {marginTop: 60}]}
+                    title="Accesos rapidos">
+
+                </Section>
+                <Section
+                    style={styles.section}
+                    title="Botones de prueba">
+                    <View style={{ width: "100%", height: 150, paddingTop: 30, alignItems: "center", justifyContent: "space-around" }}>
+                        <Button onPress={() => setVisibleMsg(true)}>Press me!</Button>
+                        <Button onPress={() => setVisibleCfm(true)}>Press me too!</Button>
+                    </View>
+                </Section>
+                
             </ScrollView>
             <MessageDialog 
                 title="" 
@@ -45,15 +55,17 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        alignItems: "center",
+        //alignItems: "center",
         backgroundColor: theme.colors.light,
     },
     body: {
         width: "100%",
-        maxWidth: 1000,
-        padding: 15,
+        padding: 25,
     },
     bodyContent: {
-        alignItems: "flex-start",
+        alignItems: "center",
+    },
+    section: {
+        maxWidth: "100%"
     }
 });

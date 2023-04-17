@@ -9,15 +9,17 @@ import Button from '../core/Button.jsx'
 import Tittle from '../core/Title.jsx'
 import Logo from '../core/Logo.jsx'
 import TextField from '../core/TextField.jsx'
+import MessageDialog from '../integrated/MessageDialog.jsx';
 
 export default function LoginScreen({navigation}) {
 
-    const [userText, setUserText ] = React.useState("");
-    const [passText, setPassText ] = React.useState("");
+    const [userText, setUserText] = React.useState("");
+    const [passText, setPassText] = React.useState("");
+    const [shownMessage, setShownMessage] = React.useState(false);
 
     function buttonAction() {
         if(!userText || !passText) {
-            alert("Campo vacio. Por favor ingresa tu usuario y contraseña.");
+            setShownMessage(true);
             return;
         }
         
@@ -46,6 +48,11 @@ export default function LoginScreen({navigation}) {
                     text="Iniciar sesión" 
                     onPress={buttonAction}/> 
             </View>
+            <MessageDialog
+                title="Aviso"
+                text={"Campo vacio.\nPor favor ingresa tu usuario y contraseña."}
+                visible={shownMessage}
+                setVisible={setShownMessage} />
         </LinearGradient>
     )
 }

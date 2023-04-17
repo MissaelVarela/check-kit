@@ -24,7 +24,7 @@ function Item({value, label, index, setSelected, setShownSelector, onSelectChang
                     //index === 0 ? {borderTopLeftRadius: 20, borderTopRightRadius: 20} : null,
                     //index === options.length - 1 ? {borderBottomLeftRadius: 20, borderBottomRightRadius: 20} : null
                 ]} >
-                <Text>{label ? label : "Sin nombre"}</Text>
+                <Text numberOfLines={1}>{label ? label : "Sin nombre"}</Text>
 
             </View>
         </TouchableHighlight>
@@ -58,11 +58,15 @@ export default function ComboBox(props) {
                 transparent={true}
                 statusBarTranslucent={true}
                 animationType="fade"
-                onRequestClose={() => setVisible(false)}>
+                onRequestClose={() => setShownSelector(false)}>
                 <TouchableWithoutFeedback
                     onPress={() => setShownSelector(false)}>
                     <View style={styles.modalContainer}>
-                        <ScrollView style={styles.modal} showsVerticalScrollIndicator={false}>
+                        <ScrollView 
+                            style={styles.modal} 
+                            showsVerticalScrollIndicator={true}
+                            persistentScrollbar={true}
+                            scroll >
                             <Item
                                 key={-1} 
                                 value={-1} 
@@ -118,16 +122,16 @@ const styles = StyleSheet.create({
     modal: {
         flexGrow: 0,
         width: "80%",
-        maxWidth: 350,
+        maxWidth: 500,
         minHeight: 40,
-        maxHeight: 415,
-        borderRadius: 20,
+        maxHeight: 500,
+        borderRadius: 0,
         backgroundColor: theme.colors.light
     },
     option: {
         marginHorizontal: 0,
         paddingHorizontal: 15,
-        paddingVertical: 20,
+        paddingVertical: 10,
     },
 
 });

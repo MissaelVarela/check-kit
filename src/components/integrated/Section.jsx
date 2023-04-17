@@ -21,6 +21,7 @@ export default function Section(props){
 const styles = StyleSheet.create({
     main: {
         width: "100%",
+        minWidth: 40,
         maxWidth: 600,
         marginBottom: 80,
     },

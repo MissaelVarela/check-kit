@@ -19,6 +19,7 @@ export default function CheckListScreen() {
     return (
         <View style={styles.screen}>
             <SectionList
+                style={styles.checkList}
                 sections={checklists}
                 keyExtractor={(element) => element.id }
                 renderItem={({item, index}) => (
@@ -30,7 +31,7 @@ export default function CheckListScreen() {
                         options={item.options} />
                 )} 
                 renderSectionHeader={({section: {title}}) => (
-                    <Title>{title}</Title>
+                    <Title style={{marginBottom: 15}}>{title}</Title>
                 )}/>
             
         </View>
@@ -39,7 +40,14 @@ export default function CheckListScreen() {
 
 const styles = StyleSheet.create({
     screen: {
-        marginTop: 35,
-        padding: 25,
+        flex: 1,
+        paddingVertical: 25,
+        alignItems: "center",
+        backgroundColor: theme.colors.light
     },
+    checkList: {
+        width: "100%",
+        maxWidth: 600,
+        paddingHorizontal: 20,
+    }
 })

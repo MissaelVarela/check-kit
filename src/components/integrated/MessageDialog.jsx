@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     },
     modal: {
         width: "0%",
-        minWidth: 250,
+        minWidth: 245,
         maxWidth: 500,
         backgroundColor: theme.colors.light,
         shadowColor: "black",

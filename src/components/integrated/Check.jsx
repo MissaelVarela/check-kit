@@ -28,7 +28,10 @@ export default function Check({ title, number, optionType, options, style }){
                 }
             </View>
             <View style={styles.observationContainer}>
-                <TextField placeHolder="Observaciones"/>
+                <TextField 
+                    style={{height: 70}}
+                    placeHolder="Observaciones" 
+                    multiline />
             </View>
         </View>
     )
@@ -39,8 +42,12 @@ function CheckOptions({options}){
     return (
         <View style={[{flexDirection: "row", flexWrap: "wrap"}]}>
             {
-                options.map((element) => (
-                    <CheckBox style={{marginRight: 15}}>{element}</CheckBox>
+                options.map((element, index) => (
+                    <CheckBox 
+                        style={{marginRight: 15, marginBottom: 15}}
+                        key={index}>
+                        {element}
+                    </CheckBox>
                 ))
             }
         </View>
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     optionsContainer: {
-        marginBottom: 20,
+
     },
     observationContainer: {
         marginBottom: 10,

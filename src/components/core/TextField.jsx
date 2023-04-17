@@ -3,14 +3,17 @@ import theme from '../../utils/theme.js';
 
 export default function TextField(props) {
 
-    const { placeHolder, onTextChange, password } = props;
+    const { placeHolder, onTextChange, password, multiline, style } = props;
 
     return (
         <TextInput
-            style={styles.textInput}
+            style={[styles.textInput, style]}
             placeholder={placeHolder}
-            onChange={event => onTextChange(event.nativeEvent.text)}
-            secureTextEntry={password}/>
+            onChange={event => onTextChange && onTextChange(event.nativeEvent.text)}
+            secureTextEntry={password}
+
+            multiline={multiline}
+            maxLength={255} />
     )
 
 }
@@ -21,9 +24,10 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderColor: theme.colors.darkLight,
         borderRadius: 10,
-        maxWidth: 300,
+        //maxWidth: 300,
         height: 32,
         width: "100%",
+        paddingVertical: 6,
         paddingHorizontal: 15,
         color: theme.colors.dark,
     },
