@@ -65,43 +65,46 @@ export default function EquipmentScreen({route, navigation}) {
     
     return(
         <View style={styles.screen}>
-            <View style={styles.header}>
-                <Title>{equipment && equipment.type}</Title>
-                <Subtitle>{equipment && equipment.name}</Subtitle>
-            </View>
-            <View style={styles.space}/>
-            <View style={styles.body}>
+            <ScrollView>
+                <View style={styles.header}>
+                    <Title>{equipment && equipment.type}</Title>
+                    <Subtitle>{equipment && equipment.name}</Subtitle>
+                </View>
+                <View style={styles.space}/>
+                <View style={styles.body}>
 
-                <TouchableOpacity
-                    style={styles.imageContainer}
-                    onPress={() => setShownImageViewer(true)}>
-                    <Image
-                        source={equipment && equipment.image}
-                        style={styles.image}/>
-                </TouchableOpacity>
-                
-                <ScrollView 
-                    style={styles.content}
-                    contentContainerStyle={{alignItems: "center"}}>
-                    <Section
-                        style={{marginTop: 100}}
-                        title="Datos del equipo:">
+                    <TouchableOpacity
+                        style={styles.imageContainer}
+                        onPress={() => setShownImageViewer(true)}>
+                        <Image
+                            source={equipment && equipment.image}
+                            style={styles.image} />
+                    </TouchableOpacity>
+
+                    <View
+                        style={[styles.content, {alignItems: "center"}]}>
+                        <Section
+                            style={{ marginTop: 100 }}
+                            title="Datos del equipo:">
                             <Table
                                 dataMatrix={dataEquipment}
-                                columnsWidth={[ 140 ]}/>
-                    </Section>
-                    <Section
-                        title="Datos del mantenimiento:">
+                                columnsWidth={[140]} />
+                        </Section>
+                        <Section
+                            title="Datos del mantenimiento:">
                             <Table
                                 dataMatrix={dataMaintenance}
-                                columnsWidth={[ 180 ]}/>
-                    </Section>
-                    <View style={styles.buttonConteiner}>
-                        <Button style={{marginTop: 60, width: 240}}>Agendar</Button>
-                        <Button style={{marginTop: 20, width: 240}}>Dar Mantenimiento</Button>
+                                columnsWidth={[180]} />
+                        </Section>
+                        <View style={styles.buttonConteiner}>
+                            <Button style={{ marginTop: 60, width: 240 }}>Agendar</Button>
+                            <Button style={{ marginTop: 20, width: 240 }}>Dar Mantenimiento</Button>
+                        </View>
                     </View>
-                </ScrollView>
-            </View> 
+                </View> 
+            </ScrollView>
+
+            
             <ImageViewer 
                 imageSource={equipment && equipment.image}
                 shown={shownImageViewer} 

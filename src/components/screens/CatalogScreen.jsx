@@ -24,7 +24,7 @@ export default function CatalogScreen({navigation}) {
         }
     }, [navigation]);
 
-    const [numColumns, setNumColumns] = React.useState(1);
+    const [numColumns, setNumColumns] = React.useState(2);
 
     function calculateNumColums(width) {
         const columnResult = Math.trunc(width / 200);

@@ -21,8 +21,9 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
     if (equipment) {
         var dataEquipment = [
+            ["Categoría:", equipment.category],
             ["Tipo:", equipment.type],
-            ["Nombre descriptivo:", equipment.name],
+            ["Nombre:", equipment.name],
             ["Identificador:", equipment.id],
             ["Marca:", equipment.brand],
             ["Modelo:", equipment.model],
@@ -38,19 +39,20 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
     }
     else {
         var dataEquipment = [
-            ["Tipo:", "Monitor SV"],
-            ["Nombre descriptivo:","Azul"],
-            ["Identificador:", "MSV-1"],
-            ["Marca:","Philips"],
-            ["Modelo:", "XXXXX"],
-            ["Serie:","11111"],
-            ["Ubicación:", "Laboratorio Medico"],
+            ["Categoría:", ""],
+            ["Tipo:", ""],
+            ["Nombre descriptivo:",""],
+            ["Identificador:", ""],
+            ["Marca:",""],
+            ["Modelo:", ""],
+            ["Serie:",""],
+            ["Ubicación:", ""],
         ];
     
         var dataReponsable = [
-            ["Nombre:", "Nicole Balvaneda Cruz Aguirre"],
-            ["Tipo de usuario:","Alumno"],
-            ["Autorizado por:", "David Garcia Torres"],
+            ["Nombre:", ""],
+            ["Tipo de usuario:",""],
+            ["Autorizado por:", ""],
         ];
     }
 
@@ -61,23 +63,23 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
     return(
         <View style={styles.screen}>
-            <View style={styles.header}>
-                <TouchableOpacity
-                    style={styles.imageContainer}
-                    onPress={() => setShownImageViewer(true)}>
-                    <Image
-                        source={equipment.image}
-                        style={styles.image} />
-                </TouchableOpacity>
-                
-            </View>
             <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
+                <View style={styles.header}>
+                    <TouchableOpacity
+                        style={styles.imageContainer}
+                        onPress={() => setShownImageViewer(true)}>
+                        <Image
+                            source={equipment.image}
+                            style={styles.image} />
+                    </TouchableOpacity>
+
+                </View>
                 <Section
                     title="Datos del Equipo"
                     style={styles.sectionContent}>
                         <Table 
                             dataMatrix={dataEquipment}
-                            columnsWidth={[ 160 ]} />
+                            columnsWidth={[ 140 ]} />
                 </Section>
                 <Section
                     title="Datos del Responsable"

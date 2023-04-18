@@ -21,6 +21,6 @@ export default [
     },
     {
         id: 6,
-        type: "Modelo",
+        type: "Modelo Anatómico",
     },
 ]
