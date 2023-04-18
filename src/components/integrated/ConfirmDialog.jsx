@@ -10,7 +10,16 @@ import TextButton from '../core/TextButton'
 
 export default function ConfirmDialog(props) {
 
-    const { text, title, visible, setVisible, children } = props;
+    const { text, title, children, reference } = props;
+
+    // Crear el estado de visibilidad del componente
+    const [ visible, setVisible ] = React.useState(false);
+
+    // Referenciar el estado del componente a la referencia recibida por parametros
+    if (reference) {
+        reference.visible = visible;
+        reference.setVisible = setVisible;
+    }
 
     return(
         <Modal 

@@ -15,11 +15,13 @@ export default function LoginScreen({navigation}) {
 
     const [userText, setUserText] = React.useState("");
     const [passText, setPassText] = React.useState("");
-    const [shownMessage, setShownMessage] = React.useState(false);
+
+    // Creando los objetos que tendran referencia algunos componentes hijo:
+    const messageDialog = { setVisible: () => {} };
 
     function buttonAction() {
         if(!userText || !passText) {
-            setShownMessage(true);
+            messageDialog.setVisible(true);
             return;
         }
         
@@ -51,8 +53,7 @@ export default function LoginScreen({navigation}) {
             <MessageDialog
                 title="Aviso"
                 text={"Campo vacio.\nPor favor ingresa tu usuario y contraseña."}
-                visible={shownMessage}
-                setVisible={setShownMessage} />
+                reference={messageDialog} />
         </LinearGradient>
     )
 }
