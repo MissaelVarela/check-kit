@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 
 import sources from '../../utils/sources.js';
+import Sesion from '../../utils/Sesion.js';
 
 import IconButton from '../core/IconButton';
 import DrawerMenuItem from '../core/DrawerMenuItem.jsx';
@@ -70,12 +71,20 @@ export default function DrawerMenu(props) {
                         onPress={() => {setActive("DatebookNavigation"); navigation.navigate("DatebookNavigation")}}
                         isActive={active === "DatebookNavigation"}
                         setActive={setActive}/> 
-                    <DrawerMenuItem
-                        text="Mantenimiento"
-                        icon={sources.icons.maintenance}
-                        onPress={() => {setActive("MaintenanceNavigation"); navigation.navigate("MaintenanceNavigation")}}
-                        isActive={active === "MaintenanceNavigation"}
-                        setActive={setActive}/> 
+                    
+                    {
+                        (Sesion.getUserType() === 1 || Sesion.getUserType() === 2)
+                        ? 
+                        <DrawerMenuItem
+                            text="Mantenimiento"
+                            icon={sources.icons.maintenance}
+                            onPress={() => {setActive("MaintenanceNavigation"); navigation.navigate("MaintenanceNavigation")}}
+                            isActive={active === "MaintenanceNavigation"}
+                            setActive={setActive}/> 
+                        :
+                        null
+                    }
+                    
                 </ScrollView> 
             </View>
     )

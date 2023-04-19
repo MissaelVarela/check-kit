@@ -2,8 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../../utils/theme.js';
-
-import Sesion from '../../utils/Sesion.js';
+import auth from '../../utils/auth.js';
 
 import Button from '../core/Button.jsx'
 import Tittle from '../core/Title.jsx'
@@ -25,10 +24,16 @@ export default function LoginScreen({navigation}) {
             return;
         }
         
-        Sesion.setName(userText);
-        Sesion.setPass(passText);
+        const result = auth(userText, passText);
 
-        if (navigation) navigation.navigate("Main");
+        if(result){
+            if (navigation) navigation.navigate("Main");
+        }
+        else {
+            alert("Ey tu contraseña o usuario esta incorrecta ponte pilas")
+        }
+
+        
     };
 
     return (
