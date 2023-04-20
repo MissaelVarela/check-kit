@@ -25,10 +25,13 @@ export default function CheckListScreen() {
                 renderItem={({item, index}) => (
                     <Check
                         style={{marginBottom: 30}}
-                        title={item.title} 
+                        question={item.question} 
                         number={index + 1} 
-                        optionType={item.inputType} 
-                        options={item.options} />
+                        answerType={item.answerType} 
+                        answers={item.answers}
+                        // Opcionales
+                        elements={item.elements}
+                        elementHeader={item.elementHeader} />
                 )} 
                 renderSectionHeader={({section: {title}}) => (
                     <Title style={{marginBottom: 15}}>{title}</Title>

@@ -68,9 +68,9 @@ export default [
         id: 6,
         user: "a",
         pass: "a",
-        userType: 3,
-        name: "Alumno",
-        lastName: "Alumno",
+        userType: 1,
+        name: "Admin2",
+        lastName: "Admin2",
         group: "",
     }
 ];

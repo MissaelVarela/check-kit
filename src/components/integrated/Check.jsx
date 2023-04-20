@@ -4,28 +4,47 @@ import Title from '../core/Title';
 import theme from '../../utils/theme';
 import CheckBox from '../core/CheckBox';
 import TextField from '../core/TextField';
+import Table from './Table';
 
-export default function Check({ title, number, optionType, options, style }){
+import RadioButtonAnswer from './check/checkAnswers/RadioButtonAnswer';
+import CheckBoxAnswer from './check/checkAnswers/CheckBoxAnswer';
+import TableAnswer from './check/checkAnswers/TableAnswer';
+
+
+export default function Check({ question, number, answerType, answers, elements, elementsHeader, style }){
+
+    function selectAnswerType(answerType) {
+        switch(answerType) {
+            case 0: 
+                return <></>
+            case 1:
+                return <RadioButtonAnswer answers={answers}/>
+            case 2: 
+                return <CheckBoxAnswer answers={answers}/>
+            case 3:
+                return <></>
+            case 4:
+                return <TableAnswer 
+                            answers={answers} 
+                            elements={elements} 
+                            elementsHeader={elementsHeader} />
+            default: 
+                return <></>
+        }
+    }
 
     return (
         <View style={[styles.main, style]}>
             <View style={styles.header}>
                 <Subtitle>
-                    {title}
+                    {question}
                 </Subtitle>
                 <Title style={{marginLeft: 30}}>
                     {number}
                 </Title>
-                
             </View>
-            <View style={styles.optionsContainer}>
-                {
-                    optionType === 1 
-                    ?
-                        <CheckOptions options={options}/>
-                    :
-                        null
-                }
+            <View style={styles.answersContainer}>
+                { selectAnswerType(answerType) }
             </View>
             <View style={styles.observationContainer}>
                 <TextField 
@@ -33,23 +52,6 @@ export default function Check({ title, number, optionType, options, style }){
                     placeHolder="Observaciones" 
                     multiline />
             </View>
-        </View>
-    )
-}
-
-function CheckOptions({options}){
-
-    return (
-        <View style={[{flexDirection: "row", flexWrap: "wrap"}]}>
-            {
-                options.map((element, index) => (
-                    <CheckBox 
-                        style={{marginRight: 15, marginBottom: 15}}
-                        key={index}>
-                        {element}
-                    </CheckBox>
-                ))
-            }
         </View>
     )
 }
@@ -64,10 +66,9 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: "row",
         justifyContent: "space-between",
-        marginBottom: 10,
     },
-    optionsContainer: {
-
+    answersContainer: {
+        marginTop: 15,
     },
     observationContainer: {
         marginBottom: 10,

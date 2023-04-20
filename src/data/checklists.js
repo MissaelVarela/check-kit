@@ -2,8 +2,8 @@
 /*
 
 0 => sin respuestas
-1 => respuestas check
-2 => respuestas selecionando varias
+1 => respuestas radio
+2 => respuestas check varias
 3 => combo box respuestas
 4 => respuestas tabla
 
@@ -17,13 +17,13 @@ export default [
         sections: [
             {
                 id: 1,
-                title: "",
+                question: "",
                 checkList: [
                     {
                         id: 1,
-                        title: "¿Cuenta con conexion AC?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Cuenta con conexion AC?",
+                        answerType: 1,
+                        answers: [
                             "Si",
                             "No",
                         ],
@@ -31,9 +31,9 @@ export default [
                     },
                     {
                         id: 2,
-                        title: "¿Funciona correctamente el encendido y apagado?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Funciona correctamente el encendido y apagado?",
+                        answerType: 1,
+                        answers: [
                             "Sí",
                             "No",
                         ],
@@ -41,9 +41,9 @@ export default [
                     },
                     {
                         id: 3,
-                        title: "¿Cuenta con bateria?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Cuenta con bateria?",
+                        answerType: 1,
+                        answers: [
                             "Funcionando",
                             "No carga",
                             "No cuenta con bateria",
@@ -52,9 +52,9 @@ export default [
                     },
                     {
                         id: 4,
-                        title: "¿El estado fisico actual del equipo es correcto?",
-                        inputType: 1,
-                        options: [
+                        question: "¿El estado fisico actual del equipo es correcto?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -62,9 +62,9 @@ export default [
                     },
                     {
                         id: 5,
-                        title: "¿El funcionamineto del equipo es correcto?",
-                        inputType: 1,
-                        options: [
+                        question: "¿El funcionamineto del equipo es correcto?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -72,9 +72,10 @@ export default [
                     },
                     {
                         id: 6,
-                        title: "Seleccione el estado de los cables básicos del equipo",
-                        inputType: 4,
-                        options: [
+                        question: "Seleccione el estado de los cables básicos del equipo",
+                        answerType: 4,
+                        elementHeader: "Cables",
+                        elements: [
                             "ECG",
                             "PNI",
                             "SPO2",
@@ -83,13 +84,18 @@ export default [
                             "PI",
                             "BIS",
                         ],
+                        answers: [
+                            "Correcto",
+                            "Dañado",
+                            "Faltante",
+                        ],
                         observations: "",
                     },
                     {
                         id: 7,
-                        title: "Observaciones generales del equipo",
-                        inputType: 0,
-                        options: [],
+                        question: "Observaciones generales del equipo",
+                        answerType: 0,
+                        answers: [],
                         observations: "",
                     }
                 ]
@@ -102,13 +108,13 @@ export default [
         sections: [
             {
                 id: 1,
-                title: "",
+                question: "",
                 checkList: [
                     {
                         id: 1,
-                        title: "¿Cuenta con conexion AC?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Cuenta con conexion AC?",
+                        answerType: 1,
+                        answers: [
                             "Si",
                             "No",
                         ],
@@ -116,9 +122,9 @@ export default [
                     },
                     {
                         id: 2,
-                        title: "¿Funciona correctamente el encendido y apagado?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Funciona correctamente el encendido y apagado?",
+                        answerType: 1,
+                        answers: [
                             "Sí",
                             "No",
                         ],
@@ -126,9 +132,9 @@ export default [
                     },
                     {
                         id: 3,
-                        title: "¿Cuenta con bateria?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Cuenta con bateria?",
+                        answerType: 1,
+                        answers: [
                             "Funcionando",
                             "No carga",
                             "No cuenta con bateria",
@@ -137,9 +143,9 @@ export default [
                     },
                     {
                         id: 4,
-                        title: "¿El estado fisico actual del equipo es correcto?",
-                        inputType: 1,
-                        options: [
+                        question: "¿El estado fisico actual del equipo es correcto?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -147,9 +153,9 @@ export default [
                     },
                     {
                         id: 5,
-                        title: "¿El funcionamineto del equipo es correcto?",
-                        inputType: 1,
-                        options: [
+                        question: "¿El funcionamineto del equipo es correcto?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -157,9 +163,9 @@ export default [
                     },
                     {
                         id: 6,
-                        title: "¿Funciona correctamente el TouchPad?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Funciona correctamente el TouchPad?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -167,9 +173,9 @@ export default [
                     },
                     {
                         id: 7,
-                        title: "¿Funciona correctamente el Vaporizador?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Funciona correctamente el Vaporizador?",
+                        answerType: 1,
+                        answers: [
                             "Cumple",
                             "No cumple (indique por que)",
                         ],
@@ -177,19 +183,19 @@ export default [
                     },
                     {
                         id: 8,
-                        title: "Indique el estado del Cable Sensor de oxígeno",
-                        inputType: 4,
-                        options: [
+                        question: "Indique el estado del Cable Sensor de oxígeno",
+                        answerType: 4,
+                        answers: [
                             {
-                                title: "Existe",
-                                options: [
+                                question: "Existe",
+                                answers: [
                                     "Sí",
                                     "No",
                                 ]
                             },
                             {
-                                title: "Estado",
-                                options: [
+                                question: "Estado",
+                                answers: [
                                     "Bueno",
                                     "Dañado",
                                 ]
@@ -199,9 +205,9 @@ export default [
                     },
                     {
                         id: 9,
-                        title: "¿Cuanta con alguna fuga?",
-                        inputType: 1,
-                        options: [
+                        question: "¿Cuanta con alguna fuga?",
+                        answerType: 1,
+                        answers: [
                             "Sí",
                             "No",
                         ],
@@ -209,9 +215,9 @@ export default [
                     },
                     {
                         id: 10,
-                        title: "Observaciones generales del equipo",
-                        inputType: 0,
-                        options: [],
+                        question: "Observaciones generales del equipo",
+                        answerType: 0,
+                        answers: [],
                         observations: "",
                     },
                 ]
