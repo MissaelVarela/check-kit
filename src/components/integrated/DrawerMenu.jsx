@@ -4,15 +4,20 @@ import Constants from 'expo-constants';
 
 import sources from '../../utils/sources.js';
 import Sesion from '../../utils/Sesion.js';
+import theme from '../../utils/theme.js';
 
 import IconButton from '../core/IconButton';
 import DrawerMenuItem from '../core/DrawerMenuItem.jsx';
-import theme from '../../utils/theme.js';
+
+import { DrawerContext } from '../navigation/MainNavigation.jsx';
 
 export default function DrawerMenu(props) {
 
     const { navigation, isLargeScreen } = props;
-    const [ active, setActive ] = React.useState("Home");
+
+    // Cachando el contexto del estado seccion activa del drawer
+    const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
+
     const [ expandableVisibility, setExpandableVisibility ] = React.useState(false);
 
     return (
@@ -28,15 +33,13 @@ export default function DrawerMenu(props) {
                     <DrawerMenuItem
                         text="Inicio"
                         icon={sources.icons.home}
-                        onPress={() => {setActive("Home"); navigation.navigate("Home")}}
-                        isActive={active === "Home"}
-                        setActive={setActive}/> 
+                        onPress={() => {setActiveDrawerSection("Home"); navigation.navigate("Home")}}
+                        isActive={activeDrawerSection === "Home"} /> 
                     <DrawerMenuItem
                         text="Equipos medicos"
                         icon={sources.icons.equipment}
-                        onPress={() => {setActive("CatalogNav"); navigation.navigate("CatalogNav")}}
-                        isActive={active === "CatalogNav"}
-                        setActive={setActive}
+                        onPress={() => {setActiveDrawerSection("CatalogNav"); navigation.navigate("CatalogNav")}}
+                        isActive={activeDrawerSection === "CatalogNav"}
                         expandable
                         onExpandablePress={() => setExpandableVisibility(!expandableVisibility)}/> 
                     {
@@ -44,9 +47,8 @@ export default function DrawerMenu(props) {
                         ?
                             <DrawerMenuItem
                                 text="Laboratorio Medico"
-                                onPress={() => {setActive("CatalogNav/LaboratiorioMedico"); navigation.navigate("CatalogNav", {area: "LaboratorioMedico"})}}
-                                isActive={active === "CatalogNav/LaboratiorioMedico"}
-                                setActive={setActive}
+                                onPress={() => {setActiveDrawerSection("CatalogNav/LaboratiorioMedico"); navigation.navigate("CatalogNav", {area: "LaboratorioMedico"})}}
+                                isActive={activeDrawerSection === "CatalogNav/LaboratiorioMedico"}
                                 textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
                         :
                             null
@@ -57,9 +59,8 @@ export default function DrawerMenu(props) {
                         ?
                             <DrawerMenuItem
                                 text="Laboratorio Practicas"
-                                onPress={() => {setActive("CatalogNav/LaboratiorioPracticas"); navigation.navigate("CatalogNav", {area: "LaboratorioPracticas"})}}
-                                isActive={active === "CatalogNav/LaboratiorioPracticas"}
-                                setActive={setActive}
+                                onPress={() => {setActiveDrawerSection("CatalogNav/LaboratiorioPracticas"); navigation.navigate("CatalogNav", {area: "LaboratorioPracticas"})}}
+                                isActive={activeDrawerSection === "CatalogNav/LaboratiorioPracticas"}
                                 textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
                         :
                             null
@@ -68,9 +69,8 @@ export default function DrawerMenu(props) {
                     <DrawerMenuItem
                         text="Agenda"
                         icon={sources.icons.datebook}
-                        onPress={() => {setActive("DatebookNavigation"); navigation.navigate("DatebookNavigation")}}
-                        isActive={active === "DatebookNavigation"}
-                        setActive={setActive}/> 
+                        onPress={() => {setActiveDrawerSection("DatebookNavigation"); navigation.navigate("DatebookNavigation")}}
+                        isActive={activeDrawerSection === "DatebookNavigation"} /> 
                     
                     {
                         (Sesion.getUserType() === 1 || Sesion.getUserType() === 2)
@@ -78,9 +78,8 @@ export default function DrawerMenu(props) {
                         <DrawerMenuItem
                             text="Mantenimiento"
                             icon={sources.icons.maintenance}
-                            onPress={() => {setActive("MaintenanceNavigation"); navigation.navigate("MaintenanceNavigation")}}
-                            isActive={active === "MaintenanceNavigation"}
-                            setActive={setActive}/> 
+                            onPress={() => {setActiveDrawerSection("MaintenanceNavigation"); navigation.navigate("MaintenanceNavigation")}}
+                            isActive={activeDrawerSection === "MaintenanceNavigation"} /> 
                         :
                         null
                     }

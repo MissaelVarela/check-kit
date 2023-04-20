@@ -8,16 +8,21 @@ import IconButton from '../core/IconButton'
 import Title from '../core/Title'
 import Subtitle from '../core/Subtitle'
 
+import { DrawerContext } from '../navigation/MainNavigation';
 
 export default function EquipmentCard(props) {
 
     const { id, image, type, name, style, navigation } = props
+
+    // Cachando el contexto del estado seccion activa del drawer
+    const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
 
     function navigateToMaintenance() {
         // El primer navigation es del Stack de CatalogNavigation y el segundo es de el Drawer MainNavigation.
         if (navigation) {
             const drawerNavigation = navigation.getParent();
             if (drawerNavigation) {
+                setActiveDrawerSection("MaintenanceNavigation");
                 drawerNavigation.navigate("MaintenanceNavigation", { maintenanceRequest: true, selectedEquipment: id });
             }
         }
@@ -28,6 +33,7 @@ export default function EquipmentCard(props) {
         if (navigation) {
             const drawerNavigation = navigation.getParent();
             if (drawerNavigation) {
+                setActiveDrawerSection("DatebookNavigation");
                 drawerNavigation.navigate("DatebookNavigation", { datebookRequest: true, selectedEquipment: id });
             }
         }

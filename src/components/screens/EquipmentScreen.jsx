@@ -14,10 +14,14 @@ import ImageViewer from '../integrated/ImageViewer';
 import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 
+import { DrawerContext } from '../navigation/MainNavigation';
 
 export default function EquipmentScreen({route, navigation}) {
 
     const [shownImageViewer, setShownImageViewer] = React.useState(false);
+    
+    // Cachando el contexto del estado seccion activa del drawer
+    const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
 
     const { id } = route ? route.params : { id: 1 };
 
@@ -67,7 +71,7 @@ export default function EquipmentScreen({route, navigation}) {
         if (navigation) {
             const drawerNavigation = navigation.getParent();
             if (drawerNavigation) {
-                //drawerNavigation.navigate("MaintenanceConfirm", { selectedEquipment: id })
+                setActiveDrawerSection("MaintenanceNavigation");
                 drawerNavigation.navigate("MaintenanceNavigation", { maintenanceRequest: true, selectedEquipment: id });
             }
         }
@@ -78,6 +82,7 @@ export default function EquipmentScreen({route, navigation}) {
         if (navigation) {
             const drawerNavigation = navigation.getParent();
             if (drawerNavigation) {
+                setActiveDrawerSection("DatebookNavigation");
                 drawerNavigation.navigate("DatebookNavigation", { datebookRequest: true, selectedEquipment: id });
             }
         }
