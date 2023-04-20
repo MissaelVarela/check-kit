@@ -4,10 +4,8 @@ import Sesion from "./Sesion.js"
 const users = Data.getUsers();
 
 export default function auth(userName, password) {
-    console.log(users)
-    const user = users.find(element => element.user == userName)
-
-    console.log(user)
+    
+    const user = users.find(element => element.user == userName);
     if (user) {
         if (user.pass === password)
         {

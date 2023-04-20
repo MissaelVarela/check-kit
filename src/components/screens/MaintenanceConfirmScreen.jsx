@@ -10,14 +10,11 @@ import ImageViewer from '../integrated/ImageViewer';
 
 export default function MaintenanceConfirmScreen({ route, navigation }){
 
-    const { selectedType, selectedEquipment } = route.params;
+    const { selectedEquipment } = route && route.params ? route.params : { selectedEquipment: null };
 
     const [shownImageViewer, setShownImageViewer] = React.useState(false);
 
-    let equipment;
-    if (selectedEquipment) {
-        equipment = Data.getEquipment(selectedEquipment.value);
-    }
+    let equipment = selectedEquipment ? Data.getEquipment(selectedEquipment) : Data.getEquipment(1);
 
     if (equipment) {
         var dataEquipment = [

@@ -62,6 +62,26 @@ export default function EquipmentScreen({route, navigation}) {
         if (navigationParent) navigationParent.setOptions({headerShown: false})
     }, [])
 
+    function navigateToMaintenance() {
+        // El primer navigation es del Stack de CatalogNavigation y el segundo es de el Drawer MainNavigation.
+        if (navigation) {
+            const drawerNavigation = navigation.getParent();
+            if (drawerNavigation) {
+                //drawerNavigation.navigate("MaintenanceConfirm", { selectedEquipment: id })
+                drawerNavigation.navigate("MaintenanceNavigation", { maintenanceRequest: true, selectedEquipment: id });
+            }
+        }
+    }
+
+    function navigateToDatebook() {
+        // El primer navigation es del Stack de CatalogNavigation y el segundo es de el Drawer MainNavigation.
+        if (navigation) {
+            const drawerNavigation = navigation.getParent();
+            if (drawerNavigation) {
+                drawerNavigation.navigate("DatebookNavigation", { datebookRequest: true, selectedEquipment: id });
+            }
+        }
+    }
     
     return(
         <View style={styles.screen}>
@@ -97,8 +117,16 @@ export default function EquipmentScreen({route, navigation}) {
                                 columnsWidth={[180]} />
                         </Section>
                         <View style={styles.buttonConteiner}>
-                            <Button style={{ marginTop: 60, width: 240 }}>Agendar</Button>
-                            <Button style={{ marginTop: 20, width: 240 }}>Dar Mantenimiento</Button>
+                            <Button 
+                                style={{ marginTop: 60, width: 240 }}
+                                onPress={navigateToDatebook}>
+                                Agendar
+                            </Button>
+                            <Button 
+                                style={{ marginTop: 20, width: 240 }}
+                                onPress={navigateToMaintenance}>
+                                Dar Mantenimiento
+                            </Button>
                         </View>
                     </View>
                 </View> 

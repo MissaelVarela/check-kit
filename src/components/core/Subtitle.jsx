@@ -3,11 +3,11 @@ import theme from '../../utils/theme';
 
 export default function Subtitle(props) {
 
-    const { text, style, children } = props;
+    const { text, numberOfLines, style, children } = props;
     const heightStyle = !children && !text ? { height: 0 } : {};
 
     return (
-        <Text style={[styles.text, heightStyle, style]}>
+        <Text style={[styles.text, heightStyle, style]} numberOfLines={numberOfLines}>
             { children ? children : text }
         </Text>
     )

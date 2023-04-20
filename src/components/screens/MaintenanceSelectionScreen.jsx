@@ -9,7 +9,7 @@ import Subtitle from '../core/Subtitle'
 import Button from '../core/Button'
 import Section from '../integrated/Section'
 
-export default function MaintenanceSelectionScreen({ navigation }) {
+export default function MaintenanceSelectionScreen({ navigation, route }) {
 
     const equipmentsTypes = Data.getEquipmentTypes();
 
@@ -61,7 +61,7 @@ export default function MaintenanceSelectionScreen({ navigation }) {
                     style={styles.button}
                     onPress={() => {
                         if (selectedEquipment.value != -1)
-                            navigation.navigate("MaintenanceConfirm", { selectedType: selectedType, selectedEquipment: selectedEquipment });
+                            navigation.navigate("MaintenanceConfirm", { selectedEquipment: selectedEquipment.value });
                     }}>
                     Dar Mantenimiento
                 </Button>
