@@ -58,6 +58,14 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
         if (navigationParent) navigationParent.setOptions({headerShown: false})
     }, [])
 
+    function navigateToCheckList() {
+        if (navigation) {
+            console.log("Mandando la info:", equipment)
+            const selectedEquipment = { equipmentId: equipment.id, checkListId: equipment.checkListsId[0] };
+            navigation.navigate("CheckList", selectedEquipment);
+        }
+    }
+
     return(
         <View style={styles.screen}>
             <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
@@ -86,7 +94,7 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
                             columnsWidth={[ 160 ]}/>
                 </Section>
                 <Button 
-                    onPress={() => navigation.navigate("CheckList")}
+                    onPress={navigateToCheckList}
                     style={{maxWidth: 300, marginBottom: 25, marginHorizontal: "auto"}}>
                     Empezar Mantenimiento
                 </Button>

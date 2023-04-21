@@ -24,6 +24,7 @@ export default [
             lastMaintenace: "03/04/2023",
             nextMaintenace: "",
         },
+        checkListsId: [1],
     },
     {
         id: 2,
@@ -44,6 +45,7 @@ export default [
             lastMaintenace: "03/04/2023",
             nextMaintenace: "",
         },
+        checkListsId: [2],
     },
     {
         id: 3,
@@ -64,6 +66,7 @@ export default [
             lastMaintenace: "03/04/2023",
             nextMaintenace: "",
         },
+        checkListsId: [3],
     },
     {
         id: 4,
@@ -84,6 +87,7 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [4],
     },
     {
         id: 5,
@@ -104,6 +108,7 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [5],
     },
     {
         id: 6,
@@ -124,6 +129,7 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [6],
     },
     {
         id: 7,
@@ -144,6 +150,7 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [6],
     },
     {
         id: 8,
@@ -164,6 +171,7 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [6],
     },
     {
         id: 9,
@@ -184,5 +192,6 @@ export default [
             lastMaintenace: "",
             nextMaintenace: "",
         },
+        checkListsId: [6],
     },
 ];

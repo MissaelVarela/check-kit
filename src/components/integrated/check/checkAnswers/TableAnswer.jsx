@@ -41,7 +41,7 @@ function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
                     <Text 
                         style={styles.text}
                         numberOfLines={1}>
-                        {elementsHeader}
+                        {typeof elementsHeader === "string" && elementsHeader}
                     </Text>
                 </Cell>
             }
@@ -77,7 +77,7 @@ function Row({ columnsWidth, columns, element, isLastRow }) {
                     <Text 
                         style={styles.text}
                         numberOfLines={1}>
-                        {element}
+                        {typeof element === "string" && element}
                     </Text>
                 </Cell> 
             }
@@ -101,7 +101,7 @@ function Row({ columnsWidth, columns, element, isLastRow }) {
 }
 
 function Cell({ columnWidth, children }) {
-    console.log(columnWidth)
+    
     return (
         <View 
             style={[styles.cell, columnWidth ? { width: columnWidth } : { flex: 1 }]}>

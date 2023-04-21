@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
+        marginHorizontal: 25,
         backgroundColor: theme.colors.light,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
