@@ -8,6 +8,8 @@ import theme from '../../utils/theme.js';
 
 import IconButton from '../core/IconButton';
 import DrawerMenuItem from '../core/DrawerMenuItem.jsx';
+import Logo from '../core/Logo.jsx';
+import Title from '../core/Title.jsx';
 
 import { DrawerContext } from '../navigation/MainNavigation.jsx';
 
@@ -23,11 +25,18 @@ export default function DrawerMenu(props) {
     return (
             <View style={styles.drawer}>
                 <View style={styles.drawerHeader}>
-                    { !isLargeScreen 
-                    ?   <IconButton 
-                            icon={sources.icons.menu}
-                            onPress={navigation.closeDrawer} /> 
-                    : null }
+                    <View>
+                        { !isLargeScreen 
+                        ?   <IconButton 
+                                icon={sources.icons.menu}
+                                onPress={navigation.closeDrawer} /> 
+                        : null }
+                    </View>
+                    <View style={{alignItems: "center", paddingTop: 15}}>
+                        <Logo />
+                        <Title text="Check Kit" />
+                    </View>
+                    
                 </View>
                 <ScrollView style={styles.drawerBody}>
                     <DrawerMenuItem
@@ -95,8 +104,7 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight, 
     },
     drawerHeader: {
-        height: 60,
-        paddingLeft: 12,
+        padding: 12,
         justifyContent: "center"
     },
     drawerBody: {

@@ -5,7 +5,7 @@ import theme from '../../utils/theme.js';
 import auth from '../../utils/auth.js';
 
 import Button from '../core/Button.jsx'
-import Tittle from '../core/Title.jsx'
+import Title from '../core/Title.jsx'
 import Logo from '../core/Logo.jsx'
 import TextField from '../core/TextField.jsx'
 import MessageDialog from '../integrated/MessageDialog.jsx';
@@ -41,7 +41,7 @@ export default function LoginScreen({navigation}) {
             colors={[theme.colors.light, theme.colors.tertiary, theme.colors.primary]}>
             <View style={styles.login}>
                 <Logo/>
-                <Tittle 
+                <Title 
                     text="Check Kit"/>
                 <TextField 
                     placeHolder="Usuario" 

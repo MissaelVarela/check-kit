@@ -72,7 +72,7 @@ export default function CheckListScreen({ navigation, route }) {
                     ListHeaderComponent={() => (
                         <View style={styles.checkListHeader}>
                             <Title style={{color: theme.colors.light, fontSize: theme.fontSizes.bigText}}>Check List</Title>
-                            <TextDefault style={{color: theme.colors.light}}>Responda todas las preguntas para completar el Check List.</TextDefault>
+                            <TextDefault style={{color: theme.colors.light, textAlign: "center"}}>Responda todas las preguntas para completar el Check List.</TextDefault>
                             <View style={{paddingVertical: 15, flexDirection: "row", alignItems: "center"}}>
                                 <Image
                                     style={styles.image}
@@ -107,6 +107,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.light,
     },
     checkList: {
+        paddingHorizontal: 25,
         width: "100%",
     },
     checkListContent: {
