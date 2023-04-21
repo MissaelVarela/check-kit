@@ -1,71 +1,120 @@
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import theme from '../../../../utils/theme';
 import RadioButton from '../../../core/RadioButton';
 
-export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth }){
-    console.log("Ando aqui")
+export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye }){
+    
     return (
-        <View style={[{flexDirection: "row", flexWrap: "wrap"}]}>
-            <View style={styles.main}>
-                {
-                    (elementsHeader || answers) && 
-                    <View style={styles.row}>
-                        <View style={[styles.cell, columnsWidth && columnsWidth[0] ? { width: columnsWidth[0] } : { flex: 1 }]}>
-                            <Text style={{ fontWeight: theme.fontWeights.bold }}>{elementsHeader}</Text>
-                        </View>
-                        {
-                            answers.map((answer, index) =>
-                                <View key={index+1} style={[styles.cell, columnsWidth && columnsWidth[index+1] ? {width: columnsWidth[index+1]} : {flex: 1}]}>
-                                    <Text style={{ fontWeight: theme.fontWeights.bold }}>{answer ? answer : "-"}</Text>
-                                </View>
-                            )
-                        }
-                    </View>
-                }
-                {
-                    elements && elements.map((row, index) => 
-                        <View style={styles.row} key={index}>
-                            <View style={[styles.cell, columnsWidth && columnsWidth[0] ? { width: columnsWidth[0] } : { flex: 1 }]}>
-                                <Text style={{ fontWeight: theme.fontWeights.bold }}>{row}</Text>
-                            </View>
-                            {
-                                answers.map((answer, index) =>
-                                    <View key={index+1} style={[styles.cell, columnsWidth && columnsWidth[index+1] ? {width: columnsWidth[index+1]} : {flex: 1}]}>
-                                        <RadioButton/>
-                                    </View>
-                                )
-                            }
-                        </View>
-                    ) 
-                }
-            </View>
+        <View style={[styles.main, stlye]}>
+            {
+                // Creando la row como header de la tabla
+                (elementsHeader || answers) &&
+                    <HeaderRow
+                        columnsWidth={columnsWidth}
+                        elementsHeader={elementsHeader}
+                        columns={answers} />
+            }
+            {
+                // Creando el resto de rows
+                elements && elements.map((row, index) =>
+                    <Row
+                        key={index}
+                        columnsWidth={columnsWidth}
+                        element={row}
+                        columns={answers} 
+                        isLastRow={index === elements.length - 1}/>
+                )
+            }
         </View>
     )
 }
 
-/*
+function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
 
-dataMatrix && dataMatrix.map((row, index) => 
-                        <View style={styles.row} key={index}>
-                            {
-                                row.map((cell, index) =>
-                                    <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? {width: columnsWidth[index]} : {flex: 1}]}>
-                                        <Text style={[index > 0 ? {fontWeight: theme.fontWeights.bold} : null]}>{cell ? cell : "-"}</Text>
-                                    </View>
-                                )
-                            }
-                        </View>
-                    )
+    return (
+        <View style={[styles.row, isLastRow && {borderBottomWidth: 0}]}>
+            {
+                // Creando la celda de la primer columna
+                <Cell columnWidth={(columnsWidth && columnsWidth[0]) && columnsWidth[0]}>
+                    <Text 
+                        style={styles.text}
+                        numberOfLines={1}>
+                        {elementsHeader}
+                    </Text>
+                </Cell>
+            }
+            {
+                // Creando el resto celdas en las diferentes columnas
+                columns.map((answer, index) =>
+                    <Cell
+                        key={index + 1}
+                        columnWidth={columnsWidth && columnsWidth[index + 1] && columnsWidth[index + 1] }>
+                        <Text 
+                            style={styles.text}
+                            numberOfLines={1}>
+                            {answer ? answer : "-"}
+                        </Text>
+                    </Cell>
+                )
+            }
+        </View>
+    )
+}
 
-*/
+function Row({ columnsWidth, columns, element, isLastRow }) {
+
+    // Por cada row se podra seleccionar un solo radiobutton. 
+    // En el estado selected se guardara que radiobutton esta seleccionado en la row.
+    const [ selected, setSelected ] = React.useState(null);
+
+    return (
+        <View style={[styles.row, isLastRow && {borderBottomWidth: 0}]}>
+            {
+                // Creando la celda de la primer columna
+                <Cell columnWidth={columnsWidth && columnsWidth[0] && columnsWidth[0]}>
+                    <Text 
+                        style={styles.text}
+                        numberOfLines={1}>
+                        {element}
+                    </Text>
+                </Cell> 
+            }
+
+            {
+                // Creando el resto celdas en las diferentes columnas
+                columns.map((answer, index) =>
+                    <Cell
+                        key={index + 1}
+                        columnWidth={columnsWidth && columnsWidth[index + 1] && columnsWidth[index + 1] }>
+                        <RadioButton
+                            myIndex={index + 1}
+                            selected={selected}
+                            onChecked={() => setSelected(index + 1)}
+                            onUnchecked={() => setSelected(null)} />
+                    </Cell>
+                )
+            }
+        </View>
+    )
+}
+
+function Cell({ columnWidth, children }) {
+    console.log(columnWidth)
+    return (
+        <View 
+            style={[styles.cell, columnWidth ? { width: columnWidth } : { flex: 1 }]}>
+            { children }
+        </View>
+    )
+}
 
 const styles = StyleSheet.create({
     main: {
         flex: 1,
+        borderRadius: 10,
         backgroundColor: theme.colors.light,
-        // arreglar
-        marginBottom: 15,
     },
     row: {
         flexDirection: "row",
@@ -75,6 +124,11 @@ const styles = StyleSheet.create({
     cell: {
         paddingHorizontal: 10,
         paddingVertical: 5,
+        justifyContent: "center",
         alignItems: "center",
+    },
+    text: {
+        fontWeight: theme.fontWeights.bold,
+        color: theme.colors.dark,
     }
 })

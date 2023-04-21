@@ -25,10 +25,7 @@ export default function CheckBox(props) {
     }
 
     React.useEffect(() => {
-        if (selected === myIndex) {
-
-        }
-        else {
+        if (selected !== myIndex) {
             // Si el seleccionado grupalmente no soy yo, pon mi estado de check en falso.
             setChecked(false);
         }

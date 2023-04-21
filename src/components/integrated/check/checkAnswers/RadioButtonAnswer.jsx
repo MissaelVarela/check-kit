@@ -11,7 +11,7 @@ export default function RadioButtonAnswer({ answers }){
             {
                 answers.map((element, index) => (
                     <RadioButton 
-                        style={{marginRight: 15, marginBottom: 15}}
+                        style={{marginRight: 15, marginBottom: 20}}
                         key={index}
                         myIndex={index}
                         selected={selected}

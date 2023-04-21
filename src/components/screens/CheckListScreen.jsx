@@ -4,6 +4,7 @@ import theme from '../../utils/theme';
 
 import Title from '../core/Title';
 import Check from '../integrated/Check';
+import Button from '../core/Button';
 
 export default function CheckListScreen() {
 
@@ -31,11 +32,18 @@ export default function CheckListScreen() {
                         answers={item.answers}
                         // Opcionales
                         elements={item.elements}
-                        elementHeader={item.elementHeader} />
+                        elementsHeader={item.elementsHeader} />
                 )} 
                 renderSectionHeader={({section: {title}}) => (
                     <Title style={{marginBottom: 15}}>{title}</Title>
-                )}/>
+                )}
+                ListFooterComponent={() => ( 
+                    <View style={{alignItems:"flex-end"}}>
+                        <Button>
+                            Finalizar
+                        </Button>
+                    </View>
+                )} />
             
         </View>
     )

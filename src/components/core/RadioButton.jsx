@@ -6,7 +6,7 @@ export default function RadioButton(props) {
 
     // selected es el estado grupal (opcional) para saber si grupalmente esta seleccionado.
     // myIndex es un identificador (opcional) para identificar el componente en un grupo.
-    const { text, myIndex, selected, onChecked, onUnchecked, children, style } = props;
+    const { text, myIndex, selected, onChecked, onUnchecked, dontShowBorder, children, style } = props;
 
     // checked es el estado local del componente para saber si esta checked.
     const [checked, setChecked] = React.useState(false);
@@ -25,10 +25,7 @@ export default function RadioButton(props) {
     }
 
     React.useEffect(() => {
-        if (selected === myIndex) {
-
-        }
-        else {
+        if (selected !== myIndex) {
             // Si el seleccionado grupalmente no soy yo, pon mi estado de check en falso.
             setChecked(false);
         }
@@ -41,14 +38,17 @@ export default function RadioButton(props) {
             underlayColor={theme.colors.secundary}>
 
             <View style={[styles.container, 
-                checked
+                checked && !dontShowBorder
                 ? {borderColor: theme.colors.primary}
                 : {borderColor: theme.colors.light}]}>
                 <View style={[styles.checkbox, checked ? styles.checked : styles.unchecked]}/>
 
-                <Text style={styles.text}>
-                    {children ? children : text}
-                </Text>
+                {
+                    (children || text) &&
+                    <Text style={styles.text}>
+                        {children ? children : text}
+                    </Text>
+                }
             </View>
         </TouchableOpacity>
     )

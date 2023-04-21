@@ -74,7 +74,7 @@ export default [
                         id: 6,
                         question: "Seleccione el estado de los cables básicos del equipo",
                         answerType: 4,
-                        elementHeader: "Cables",
+                        elementsHeader: "Cables",
                         elements: [
                             "ECG",
                             "PNI",
