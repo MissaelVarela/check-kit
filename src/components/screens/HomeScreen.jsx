@@ -14,10 +14,6 @@ export default function HomeScreen() {
 
     const userName = Sesion.getName()
 
-    // Creando los objetos que tendran referencia algunos componentes hijo:
-    const messageDialog = { setVisible: () => {} };
-    const confirmDialog = { setVisible: () => {} };
-
     return (
         <View style={styles.screen}>
             <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
@@ -32,20 +28,10 @@ export default function HomeScreen() {
                     style={styles.section}
                     title="Botones de prueba">
                     <View style={{ width: "100%", height: 150, paddingTop: 30, alignItems: "center", justifyContent: "space-around" }}>
-                        <Button onPress={() => messageDialog.setVisible(true)}>Press me!</Button>
-                        <Button onPress={() => confirmDialog.setVisible(true)}>Press me too!</Button>
+                        
                     </View>
-                </Section>
-                
+                </Section>    
             </ScrollView>
-            <MessageDialog 
-                title="" 
-                text="¡Hola soy un mensaje para el usuario!"
-                reference={messageDialog} />
-            <ConfirmDialog 
-                title="Aviso" 
-                text="Toca mantenimiento"
-                reference={confirmDialog} />
         </View>
     )
 }

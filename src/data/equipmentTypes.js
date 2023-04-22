@@ -17,7 +17,7 @@ export default [
     },
     {
         id: 5,
-        type: "Entrenador de Cirugia",
+        type: "Simulador de entranamiento laparascopico",
     },
     {
         id: 6,

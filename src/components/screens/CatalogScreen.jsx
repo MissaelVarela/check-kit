@@ -39,7 +39,9 @@ export default function CatalogScreen({navigation}) {
         <View style={styles.screen}>
             <View style={styles.header}>
                 <Subtitle>Lista de Equipos Medicos</Subtitle>
-                <IconButton icon={sources.icons.catalogue} small />
+                {
+                    //<IconButton icon={sources.icons.catalogue} small />
+                }
             </View>
             <FlatList 
                 onLayout={(event) => {
