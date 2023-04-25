@@ -22,7 +22,7 @@ export default function DatebookSelectionScreen({ navigation }) {
 
     function UpdateEquipmentComboBox(value, label){
         const equipments = Data.getEquipmentsByType(value);
-        const newEquipmentsOptions = equipments.map((element) => { return { value: element.id, label: element.brand + " (" + element.name + ")" }});
+        const newEquipmentsOptions = equipments.map((element) => { return { value: element.id, label: element.name }});
         setEquipmentOptions(newEquipmentsOptions);
         setSelectedEquipment({ value: -1, label: "<Todos>" });
     }

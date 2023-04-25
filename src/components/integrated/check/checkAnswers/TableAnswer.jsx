@@ -1,11 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 
 import theme from '../../../../utils/theme';
 import RadioButton from '../../../core/RadioButton';
 
 export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye }){
     
+    const dimensions = useWindowDimensions();
+    const isShortScreen = dimensions.width <= 350;
+
     return (
         <View style={[styles.main, stlye]}>
             {
@@ -14,7 +17,8 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
                     <HeaderRow
                         columnsWidth={columnsWidth}
                         elementsHeader={elementsHeader}
-                        columns={answers} />
+                        columns={answers}
+                        isShortScreen={isShortScreen} />
             }
             {
                 // Creando el resto de rows
@@ -24,14 +28,15 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
                         columnsWidth={columnsWidth}
                         element={row}
                         columns={answers} 
-                        isLastRow={index === elements.length - 1}/>
+                        isLastRow={index === elements.length - 1}
+                        isShortScreen={isShortScreen} />
                 )
             }
         </View>
     )
 }
 
-function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
+function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow, isShortScreen }) {
 
     return (
         <View style={[styles.row, isLastRow && {borderBottomWidth: 0}]}>
@@ -39,8 +44,8 @@ function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
                 // Creando la celda de la primer columna
                 <Cell columnWidth={(columnsWidth && columnsWidth[0]) && columnsWidth[0]}>
                     <Text 
-                        style={styles.text}
-                        numberOfLines={1}>
+                        style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
+                        numberOfLines={3}>
                         {typeof elementsHeader === "string" && elementsHeader}
                     </Text>
                 </Cell>
@@ -52,7 +57,7 @@ function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
                         key={index + 1}
                         columnWidth={columnsWidth && columnsWidth[index + 1] && columnsWidth[index + 1] }>
                         <Text 
-                            style={styles.text}
+                            style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
                             numberOfLines={1}>
                             {answer ? answer : "-"}
                         </Text>
@@ -63,7 +68,7 @@ function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow }) {
     )
 }
 
-function Row({ columnsWidth, columns, element, isLastRow }) {
+function Row({ columnsWidth, columns, element, isLastRow, isShortScreen }) {
 
     // Por cada row se podra seleccionar un solo radiobutton. 
     // En el estado selected se guardara que radiobutton esta seleccionado en la row.
@@ -75,8 +80,8 @@ function Row({ columnsWidth, columns, element, isLastRow }) {
                 // Creando la celda de la primer columna
                 <Cell columnWidth={columnsWidth && columnsWidth[0] && columnsWidth[0]}>
                     <Text 
-                        style={styles.text}
-                        numberOfLines={1}>
+                        style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
+                        numberOfLines={3}>
                         {typeof element === "string" && element}
                     </Text>
                 </Cell> 
@@ -130,5 +135,12 @@ const styles = StyleSheet.create({
     text: {
         fontWeight: theme.fontWeights.bold,
         color: theme.colors.dark,
+        textAlign: "center",
+    },
+    shortScreen: {
+        fontSize: theme.fontSizes.smallestText,
+    },
+    normalScreen: {
+        fontSize: theme.fontSizes.text,
     }
 })

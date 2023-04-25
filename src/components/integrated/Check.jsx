@@ -25,11 +25,11 @@ export default function Check({ question, number, answerType, answers, elements,
                 return <></>
             case 4:
                 return <TableAnswer 
-                            stlye={{marginHorizontal: 20, marginBottom: 20}}
+                            stlye={{marginHorizontal: 0, marginBottom: 20}}
                             answers={answers} 
                             elements={elements} 
                             elementsHeader={elementsHeader}
-                            columnsWidth={[70]} />
+                            columnsWidth={[]} />
             default: 
                 return <></>
         }

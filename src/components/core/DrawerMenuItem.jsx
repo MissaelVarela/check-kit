@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, Image, StyleSheet  } from 'react-native';
 import { DrawerItem } from '@react-navigation/drawer';
 
@@ -9,6 +10,9 @@ import IconButton from './IconButton';
 export default function DrawerMenuItem(props) {
     
     const { text, textStyle, icon, onPress, isActive, expandable, onExpandablePress} = props;
+
+    // Estado del icono del boton expandible.
+    const [ expanded, setExpanded ] = React.useState(false);
 
     return(
         <DrawerItem
@@ -23,7 +27,13 @@ export default function DrawerMenuItem(props) {
                                     isActive ? styles.itemTextActive : styles.itemTextInactive]}>
                             {text}
                         </Text>
-                        <IconButton icon={sources.icons.arrow_down} onPress={onExpandablePress} small/>
+                        <IconButton 
+                            small
+                            icon={expanded ? sources.icons.arrow_up : sources.icons.arrow_down} 
+                            onPress={() => {
+                                setExpanded(!expanded);
+                                onExpandablePress && onExpandablePress();
+                            }} />
                     </View>
                     : text }
 

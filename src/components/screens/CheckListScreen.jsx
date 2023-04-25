@@ -9,6 +9,7 @@ import GhostButton from '../core/GhostButton';
 import TextDefault from '../core/TextDefault';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
+import ConfirmDialog from '../integrated/ConfirmDialog';
 
 export default function CheckListScreen({ navigation, route }) {
 
@@ -20,6 +21,10 @@ export default function CheckListScreen({ navigation, route }) {
 
     // Buscamos la información del Equipo.
     const equipment = Data.getEquipment(equipmentId);
+
+    // Creando los objetos que tendran referencia algunos componentes hijo:
+    const finalizeConfirmDialog = { setVisible: () => {} };
+    const cancelConfirmDialog = { setVisible: () => {} };
 
     let checklistSections;
     if (checkListInfo) {
@@ -39,6 +44,14 @@ export default function CheckListScreen({ navigation, route }) {
             navigation.setOptions({ headerShown: false });
         }
     }, []);
+
+    function finalize() {
+        navigation && navigation.goBack();
+    }
+
+    function cancel() {
+        navigation && navigation.goBack();
+    }
 
     return (
         <LinearGradient 
@@ -87,15 +100,25 @@ export default function CheckListScreen({ navigation, route }) {
                     ListFooterComponent={() => (
                         <View style={styles.checkListFooter}>
                             <GhostButton
-                                onPress={() => navigation && navigation.goBack()}>
+                                onPress={() => cancelConfirmDialog.setVisible(true)}>
                                 Cancelar
                             </GhostButton>
                             <Button
-                                onPress={() => navigation && navigation.goBack()}>
+                                onPress={() => finalizeConfirmDialog.setVisible(true)}>
                                 Finalizar
                             </Button>
                         </View>
                     )} />
+                    <ConfirmDialog
+                        title="Avertencia"
+                        text="¿Deseas finalizar el Check List?"
+                        reference={finalizeConfirmDialog}
+                        onConfirm={finalize} />
+                    <ConfirmDialog
+                        title="Avertencia"
+                        text="Si cancelas el Check List ahora se perderá el progreso."
+                        reference={cancelConfirmDialog}
+                        onConfirm={cancel} />
         </LinearGradient>
     )
 }

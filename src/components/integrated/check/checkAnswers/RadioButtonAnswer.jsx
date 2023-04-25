@@ -7,7 +7,7 @@ export default function RadioButtonAnswer({ answers }){
     const [ selected, setSelected ] = React.useState(null);
 
     return (
-        <View style={[{flexDirection: "row", flexWrap: "wrap"}]}>
+        <View style={styles.main}>
             {
                 answers.map((element, index) => (
                     <RadioButton 
@@ -26,5 +26,9 @@ export default function RadioButtonAnswer({ answers }){
 }
 
 const styles = StyleSheet.create({
-    
+    main: {
+        flex: 1,
+        flexDirection: "row", 
+        flexWrap: "wrap",
+    }
 })

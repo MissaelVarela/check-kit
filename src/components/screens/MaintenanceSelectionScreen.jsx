@@ -17,8 +17,8 @@ export default function MaintenanceSelectionScreen({ navigation, route }) {
 
     const [equipmentOptions, setEquipmentOptions] = React.useState([]);
 
-    const [selectedType, setSelectedType] = React.useState();
-    const [selectedEquipment, setSelectedEquipment] = React.useState();
+    const [selectedType, setSelectedType] = React.useState({ value: -1, label: "<Tipo de equipo>" });
+    const [selectedEquipment, setSelectedEquipment] = React.useState({ value: -1, label: "<Equipo en especifico>" });
     const [selectedRoutine, setSelectedRoutine] = React.useState();
 
     function UpdateEquipmentComboBox(value, label){
@@ -59,10 +59,8 @@ export default function MaintenanceSelectionScreen({ navigation, route }) {
                 </View>
                 <Button 
                     style={styles.button}
-                    onPress={() => {
-                        if (selectedEquipment.value != -1)
-                            navigation.navigate("MaintenanceConfirm", { selectedEquipment: selectedEquipment.value });
-                    }}>
+                    noEnable={selectedType.value === -1 || selectedEquipment.value === -1}
+                    onPress={() => { navigation && navigation.navigate("MaintenanceConfirm", { selectedEquipment: selectedEquipment.value }) }}>
                     Dar Mantenimiento
                 </Button>
             </Section>
@@ -73,7 +71,9 @@ export default function MaintenanceSelectionScreen({ navigation, route }) {
                     placeHolder="<Todos>" 
                     selected={selectedRoutine}
                     setSelected={setSelectedRoutine} />
-                <Button style={styles.button}>
+                <Button 
+                    style={styles.button}
+                    noEnable={true} >
                     Dar Mantenimiento
                 </Button>
             </Section>

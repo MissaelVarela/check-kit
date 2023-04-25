@@ -33,7 +33,7 @@ export default function RadioButton(props) {
 
     return(
         <TouchableOpacity
-            style={style}
+            style={[{maxWidth: "100%"}, style]}
             onPress={onPress}
             underlayColor={theme.colors.secundary}>
 

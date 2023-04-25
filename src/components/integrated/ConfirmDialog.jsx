@@ -10,7 +10,7 @@ import TextButton from '../core/TextButton'
 
 export default function ConfirmDialog(props) {
 
-    const { text, title, children, reference } = props;
+    const { text, title, children, reference, onConfirm, onCancel } = props;
 
     // Crear el estado de visibilidad del componente
     const [ visible, setVisible ] = React.useState(false);
@@ -36,8 +36,8 @@ export default function ConfirmDialog(props) {
                             <TextDefault style={{maxWidth: 450}}>{ children ? children : text }</TextDefault>
                         </View>
                         <View style={styles.modalFooter}>
-                            <TextButton onPress={()=> setVisible(false)}>Cancel</TextButton>
-                            <TextButton onPress={()=> setVisible(false)}>Ok</TextButton>
+                            <TextButton onPress={()=> {setVisible(false); onCancel && onCancel();}}>Cancel</TextButton>
+                            <TextButton onPress={()=> {setVisible(false); onConfirm && onConfirm();}}>Confirmar</TextButton>
                         </View>
                     </View>
                 </View>
