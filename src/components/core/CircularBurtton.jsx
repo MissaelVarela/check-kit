@@ -3,11 +3,11 @@ import theme from '../../utils/theme.js';
 
 export default function CircularButton(props) {
 
-    const { icon, small, onPress, style } = props;
+    const { icon, small, color, onPress, style, imageStyle } = props;
 
     return(
         <TouchableOpacity
-            style={ [small ? styles.smallButton : styles.button, style] }
+            style={ [small ? styles.smallButton : styles.button, color && {backgroundColor: color}, style] }
             onPress={onPress}
             underlayColor={theme.colors.secundary}>
             <Image

@@ -3,13 +3,26 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import Data from '../../data/Data';
+import sources from '../../utils/sources';
 
 import Subtitle from '../core/Subtitle';
 import ReservationList from '../integrated/ReservationList';
+import CircularButton from '../core/CircularBurtton';
 
 export default function DatebookScreen({navigation, route}) {
 
     const { selectedEquipment } = route && route.params ? route.params : { selectedEquipment: null };
+
+    const [ dateObj, setObj ] = React.useState(new Date());
+    
+    const [ date, setDate ] = React.useState({ 
+        year: dateObj.getFullYear(), 
+        month: dateObj.getMonth(),
+        weekday: dateObj.getDay(),
+        day: dateObj.getDate(),
+    });
+    
+    
 
     React.useLayoutEffect(() => { 
         const navigationParent = navigation ? navigation.getParent() : null;
@@ -17,15 +30,48 @@ export default function DatebookScreen({navigation, route}) {
     }, [])
 
     // Temporal: solo para mostrar que esta llegando la informacion
-    let equipment = selectedEquipment ? Data.getEquipment(selectedEquipment) : Data.getEquipment(1);
+    let equipment = selectedEquipment && Data.getEquipment(selectedEquipment);
 
-    return (
+    if (!equipment) equipment = Data.getEquipment(1);
+
+    function UpdateDate(days) {
+        dateObj.setDate(dateObj.getDate() + days);
+        const newDate = { 
+            year: dateObj.getFullYear(), 
+            month: dateObj.getMonth(),
+            weekday: dateObj.getDay(),
+            day: dateObj.getDate(),
+        }
+        setDate(newDate);
+    }
+
+    React.useEffect(() => {
+        
+    }, [dateObj])
+
+    return (    
         <View style={styles.screen}>
             <View style={styles.header}>
                 <Subtitle>Reservacion del equipo: {equipment.type}, {equipment.name}</Subtitle>
             </View>
             <View style={styles.body}>
-                <ReservationList style={{marginHorizontal: "auto"}}/>
+                <ReservationList 
+                    style={{marginHorizontal: "auto"}}
+                    year={date.year}
+                    month={date.month}
+                    weekday={date.weekday}
+                    day={date.day} />
+                
+                <CircularButton 
+                    style={styles.rightButton}
+                    color="rgba(200, 200, 200, 0.25)"
+                    icon={sources.icons.arrow_right} 
+                    onPress={() => { UpdateDate(1) }} />
+                <CircularButton 
+                    style={styles.leftButton}
+                    color="rgba(200, 200, 200, 0.25)"
+                    icon={sources.icons.arrow_left}
+                    onPress={() => { UpdateDate(-1) }} />  
             </View>
         </View>
     )
@@ -47,8 +93,17 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 25,
         alignItems: "center",
+        justifyContent: "center",
     },
     reservationList: {
         
+    },
+    rightButton: {
+        position: "absolute",
+        right: 10,
+    },
+    leftButton: {
+        position: "absolute",
+        left: 10,
     },
 })

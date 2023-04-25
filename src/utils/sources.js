@@ -16,7 +16,10 @@ const sources = {
             maintenance: trySearch('./maintenance.png'),
             add: trySearch('./add.png'),
             catalogue: trySearch('./catalogue.png'),
-            arrow: trySearch('./arrow.png'),
+            arrow_down: trySearch('./arrow_down.png'),
+            arrow_up: trySearch('./arrow_up.png'),
+            arrow_right: trySearch('./arrow_right.png'),
+            arrow_left: trySearch('./arrow_left.png'),
         }  
     }
 

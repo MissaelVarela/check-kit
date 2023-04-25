@@ -6,10 +6,31 @@ import Subtitle from '../core/Subtitle';
 import Button from '../core/Button';
 import Section from '../integrated/Section';
 
+import Data from '../../data/Data';
+
 export default function DatebookSelectionScreen({ navigation }) {
+
+    // 
+    const equipmentsTypes = Data.getEquipmentTypes();
+
+    const typeOptions = equipmentsTypes.map((element) => { return { value: element.id, label: element.type }});
+
+    const [equipmentOptions, setEquipmentOptions] = React.useState([]);
 
     const [selectedType, setSelectedType] = React.useState();
     const [selectedEquipment, setSelectedEquipment] = React.useState();
+
+    function UpdateEquipmentComboBox(value, label){
+        const equipments = Data.getEquipmentsByType(value);
+        const newEquipmentsOptions = equipments.map((element) => { return { value: element.id, label: element.brand + " (" + element.name + ")" }});
+        setEquipmentOptions(newEquipmentsOptions);
+        setSelectedEquipment({ value: -1, label: "<Todos>" });
+    }
+
+    function navigateToDatebook() {
+
+        navigation && navigation.navigate("Datebook", { selectedEquipment: selectedEquipment.value });
+    }
 
     React.useEffect(() => {
         const navigationParent = navigation ? navigation.getParent() : null
@@ -29,6 +50,8 @@ export default function DatebookSelectionScreen({ navigation }) {
                         <View style={{flex: 1, marginRight: 10}}>
                             <Subtitle style={{marginBottom: 5}}>Tipo:</Subtitle>
                             <ComboBox 
+                                options={typeOptions}
+                                onSelectChange={UpdateEquipmentComboBox}
                                 placeHolder="<Todos>"
                                 selected={selectedType}
                                 setSelected={setSelectedType} />
@@ -36,6 +59,7 @@ export default function DatebookSelectionScreen({ navigation }) {
                         <View style={{flex: 1, marginLeft: 10}}>
                             <Subtitle style={{marginBottom: 5}}>Equipo:</Subtitle>
                             <ComboBox 
+                                options={equipmentOptions}
                                 placeHolder="<Todos>"
                                 selected={selectedEquipment}
                                 setSelected={setSelectedEquipment} />
@@ -43,7 +67,7 @@ export default function DatebookSelectionScreen({ navigation }) {
                     </View>
                     <Button 
                         style={styles.button}
-                        onPress={() => navigation && navigation.navigate("Datebook")}>
+                        onPress={navigateToDatebook}>
                         Ir
                     </Button>
                 </View>

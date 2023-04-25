@@ -20,10 +20,10 @@ export default [
                 checkList: [
                     {
                         id: 1,
-                        question: "¿Cuenta con conexion AC?",
+                        question: "¿Cuenta con conexión AC?",
                         answerType: 1,
                         answers: [
-                            "Si",
+                            "Sí",
                             "No",
                         ],
                         observations: "",
@@ -40,7 +40,7 @@ export default [
                     },
                     {
                         id: 3,
-                        question: "Estado de la bateria",
+                        question: "Estado de la batería",
                         answerType: 1,
                         answers: [
                             "Cargada",
@@ -51,7 +51,7 @@ export default [
                     },
                     {
                         id: 4,
-                        question: "¿El estado fisico actual del equipo es correcto?",
+                        question: "¿El estado físico actual del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -111,10 +111,10 @@ export default [
                 checkList: [
                     {
                         id: 1,
-                        question: "¿Cuenta con conexion AC?",
+                        question: "¿Cuenta con conexión AC?",
                         answerType: 1,
                         answers: [
-                            "Si",
+                            "Sí",
                             "No",
                         ],
                         observations: "",
@@ -131,7 +131,7 @@ export default [
                     },
                     {
                         id: 3,
-                        question: "Estado de la bateria",
+                        question: "Estado de la batería",
                         answerType: 1,
                         answers: [
                             "Cargada",
@@ -142,7 +142,7 @@ export default [
                     },
                     {
                         id: 4,
-                        question: "¿El estado fisico actual del equipo es correcto?",
+                        question: "¿El estado físico actual del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -234,10 +234,10 @@ export default [
                 checkList: [
                     {
                         id: 1,
-                        question: "¿Cuenta con conexion AC?",
+                        question: "¿Cuenta con conexión AC?",
                         answerType: 1,
                         answers: [
-                            "Si",
+                            "Sí",
                             "No",
                         ],
                         observations: "",
@@ -254,7 +254,7 @@ export default [
                     },
                     {
                         id: 3,
-                        question: "Estado de la bateria",
+                        question: "Estado de la batería",
                         answerType: 1,
                         answers: [
                             "Cargada",
@@ -265,7 +265,7 @@ export default [
                     },
                     {
                         id: 4,
-                        question: "¿El estado fisico actual del equipo es correcto?",
+                        question: "¿El estado físico actual del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",

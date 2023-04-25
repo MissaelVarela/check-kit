@@ -48,7 +48,7 @@ export default function ComboBox(props) {
                     {selected && selected.label}
                 </Text>
                 <IconButton
-                    icon={sources.icons.arrow}
+                    icon={sources.icons.arrow_down}
                     //small
                     onPress={() => setShownSelector(!shownSelector)} />
             </View>

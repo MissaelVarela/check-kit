@@ -40,7 +40,7 @@ export default [
     {
         id: 4,
         user: "MtroAntonio",
-        pass: "patito",
+        pass: "12345",
         userType: 3,
         name: "Antonio Rafael",
         lastName: "Hernandez Paniagua",

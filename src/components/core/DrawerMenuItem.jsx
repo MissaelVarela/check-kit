@@ -23,7 +23,7 @@ export default function DrawerMenuItem(props) {
                                     isActive ? styles.itemTextActive : styles.itemTextInactive]}>
                             {text}
                         </Text>
-                        <IconButton icon={sources.icons.arrow} onPress={onExpandablePress} small/>
+                        <IconButton icon={sources.icons.arrow_down} onPress={onExpandablePress} small/>
                     </View>
                     : text }
 

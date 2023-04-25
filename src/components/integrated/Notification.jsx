@@ -25,7 +25,7 @@ export default function Notification(props) {
                             <Title style={styles.titleStyle}>{title}</Title>
                             <IconButton 
                                 small 
-                                icon={sources.icons.arrow} 
+                                icon={sources.icons.arrow_down} 
                                 onPress={() => setVisible(false)} />
                         </View>
                         <View style={styles.modalBody}>
