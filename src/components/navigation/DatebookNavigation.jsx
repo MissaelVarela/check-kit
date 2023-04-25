@@ -4,6 +4,7 @@ import DatebookScreen from '../screens/DatebookScreen';
 import DatebookSelectionScreen from '../screens/DatebookSelectionScreen'
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CreateReservationScreen from '../screens/CreateReservationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function DatebookNavigation({ navigation, route }) {
         screenOptions={{title: "Agenda", headerTitleAlign: "center"}}>
         <Stack.Screen name="DatebookSelection" component={DatebookSelectionScreen} options={{headerShown: false}}/>
         <Stack.Screen name="Datebook" component={DatebookScreen}/>
+        <Stack.Screen name="CreateReservation" component={CreateReservationScreen}/>
     </Stack.Navigator>  
   )
 }

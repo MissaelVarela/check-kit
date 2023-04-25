@@ -11,10 +11,10 @@ import CircularButton from '../core/CircularBurtton';
 
 export default function DatebookScreen({navigation, route}) {
 
-    const { selectedEquipment } = route && route.params ? route.params : { selectedEquipment: null };
+    const { selectedEquipment, selectedType } = route && route.params ? route.params : { selectedEquipment: -1, selectedType: -1 };
 
     const [ dateObj, setObj ] = React.useState(new Date());
-    
+
     const [ date, setDate ] = React.useState({ 
         year: dateObj.getFullYear(), 
         month: dateObj.getMonth(),
@@ -22,8 +22,6 @@ export default function DatebookScreen({navigation, route}) {
         day: dateObj.getDate(),
     });
     
-    
-
     React.useLayoutEffect(() => { 
         const navigationParent = navigation ? navigation.getParent() : null;
         if (navigationParent) navigationParent.setOptions({headerShown: false})
@@ -45,10 +43,6 @@ export default function DatebookScreen({navigation, route}) {
         setDate(newDate);
     }
 
-    React.useEffect(() => {
-        
-    }, [dateObj])
-
     return (    
         <View style={styles.screen}>
             <View style={styles.header}>
@@ -57,10 +51,10 @@ export default function DatebookScreen({navigation, route}) {
             <View style={styles.body}>
                 <ReservationList 
                     style={{marginHorizontal: "auto"}}
-                    year={date.year}
-                    month={date.month}
-                    weekday={date.weekday}
-                    day={date.day} />
+                    date={date}
+                    onPressPlusButton={() => navigation && navigation.navigate("CreateReservation")}
+                    selectedType={selectedType}
+                    selectedEquipment={selectedEquipment} />
                 
                 <CircularButton 
                     style={styles.rightButton}

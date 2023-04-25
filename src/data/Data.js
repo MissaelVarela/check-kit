@@ -2,6 +2,7 @@ import equipments from "./equipments";
 import users from "./users";
 import checklists from "./checklists";
 import equipmentTypes from "./equipmentTypes";
+import reservations from "./reservations";
 
 export default class Data {
 
@@ -48,6 +49,24 @@ export default class Data {
         );
 
         return checklist;
+    }
+
+    static getReservations(type, equipment, year, month, date){
+        const reservationsResult = reservations.find(
+            (item) => {
+                const isCorrectDate = item.year === year && item.month - 1 === month && item.date === date;
+                
+                if (isCorrectDate) {
+                    const isValid = (type === -1 || item.equipment.typeId === type) && (equipment === -1 || item.equipment.id === equipment);
+                    
+                    if (isValid) {
+                        return item;
+                    }
+                }
+                
+            });
+
+        return reservationsResult;
     }
 
 }

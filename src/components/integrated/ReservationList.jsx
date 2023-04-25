@@ -2,26 +2,32 @@ import { View, FlatList, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import sources from '../../utils/sources';
+import Data from '../../data/Data';
 
 import TextDefault from '../core/TextDefault';
 import Title from '../core/Title';
 import ReservationElement from './ReservationElement';
 import CircularButton from '../core/CircularBurtton';
+import Subtitle from '../core/Subtitle';
+import React from 'react';
 
+export default function ReservationList({ date, onPressPlusButton, selectedType, selectedEquipment }) {
 
-export default function ReservationList({ year, month, weekday, day }) {
+    //const data = [{id: 1}, {id: 2},{id: 3}, {id: 4},{id: 5}, {id: 6},{id: 7}, {id: 8}]
 
-    const data = [{id: 1}, {id: 2},{id: 3}, {id: 4},{id: 5}, {id: 6},{id: 7}, {id: 8}]
+    const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.day);
+    const [ reservations, setReservations ] = React.useState(reservationsResult);
 
-    const myYear = year ? year : "-";
-    const myMonth = month ? getTextMonth(month) : "-";
-    const myNumberDay = day ? day : "-";
-    const myTextDay = weekday !== false ? getTextDay(weekday) : "-";
+    const data = null;
+
+    const myYear = date.year ? date.year : "-";
+    const myMonth = date.month ? getTextMonth(date.month) : "-";
+    const myNumberDay = date.day ? date.day : "-";
+    const myTextDay = date.weekday !== false ? getTextDay(date.weekday) : "-";
 
     function getTextDay (numberDay) {
-        console.log("llegue aqui: ", numberDay)
         switch(numberDay) {
-            case 0: console.log("entre al 0"); return "Domingo";
+            case 0: return "Domingo";
             case 1: return "Lunes";
             case 2: return "Martes";
             case 3: return "Miercoles";
@@ -64,20 +70,57 @@ export default function ReservationList({ year, month, weekday, day }) {
                 </View>
             </View>
             <View style={styles.body}>
+                     {
+                        // Corregir la forma de actualizar las reservaciones por fecha
+                    }
                 <FlatList
-                    style={styles.list}
-                    data={data}
+                    style={styles.list} 
+                    data={[]}
                     ListFooterComponent={ () => <View style={{height: 50}}/> }
                     renderItem={
-                        ({ item }) =>
-                            <ReservationElement
-                                style={{marginBottom: 20}} />
+                        ({ item }) => {
+
+                            if (item.startHour.hour > 12) {
+                                var startHour = (item.startHour.hour - 12) + ":" +item.startHour.minute + " PM";
+                            } else if (item.startHour.hour === 12) {
+                                var startHour = item.startHour.hour + ":" +item.startHour.minute + " PM";
+                            } else {
+                                var startHour = item.startHour.hour + ":" +item.startHour.minute + " AM";
+                            }
+
+                            if (item.endHour.hour > 12) {
+                                var endHour = (item.endHour.hour - 12) + ":" +item.endHour.minute + " PM";
+                            } else if (item.endHour.hour === 12) {
+                                var endHour = item.endHour.hour + ":" +item.endHour.minute + " PM";
+                            } else {
+                                var endHour = item.endHour.hour + ":" +item.endHour.minute + " AM";
+                            }
+
+                            return (
+                                <ReservationElement
+                                    style={{marginBottom: 20}}
+                                    startHour={startHour}
+                                    endHour={endHour}
+                                    equipmentType={item.equipment.type}
+                                    equipmentName={item.equipment.name}
+                                    responsibleName={item.responsible} />
+                            )
+
+                        }
+                            
+                    } 
+                    ListEmptyComponent={() => 
+                        <View style={{flex: 1}}>
+                            <Subtitle>No hay reservaciones para mostrar...</Subtitle>
+                        </View>
+                        
                     } />
             </View>
             <CircularButton 
                     style={styles.plusButton}
                     color={"rgba(0, 102, 255, 0.5)"}
-                    icon={sources.icons.add} />     
+                    icon={sources.icons.add} 
+                    onPress={onPressPlusButton} />     
         </View>
     )
 }

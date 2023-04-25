@@ -29,7 +29,7 @@ export default function DatebookSelectionScreen({ navigation }) {
 
     function navigateToDatebook() {
 
-        navigation && navigation.navigate("Datebook", { selectedEquipment: selectedEquipment.value });
+        navigation && navigation.navigate("Datebook", { selectedEquipment: selectedEquipment.value, selectedType: selectedType.value });
     }
 
     React.useEffect(() => {
