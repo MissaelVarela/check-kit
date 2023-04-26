@@ -20,6 +20,7 @@ const theme = {
         smallText: 12,
         smallestText: 10,
         bigText: 32,
+        
     },
     fontWeights: {
         regular: "400",

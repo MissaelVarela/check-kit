@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, StyleSheet } from 'react-native';
+import { View, ScrollView, Text, ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
 
 import theme from '../../utils/theme.js';
 import Sesion from '../../utils/Sesion.js';
@@ -9,30 +9,44 @@ import MessageDialog from '../integrated/MessageDialog.jsx'
 import ConfirmDialog from '../integrated/ConfirmDialog.jsx'
 import Button from '../core/Button.jsx';
 import Section from '../integrated/Section.jsx';
+import sources from '../../utils/sources.js';
+import Title from '../core/Title.jsx';
+import TextDefault from '../core/TextDefault.jsx';
+import Logo from '../core/Logo.jsx';
 
 export default function HomeScreen() {
 
-    const userName = Sesion.getName()
+    const dimensions = useWindowDimensions();
+    const isShortScreen = dimensions.width <= 350;
+
+    const userName = Sesion.getName();
 
     return (
-        <View style={styles.screen}>
+        <ImageBackground 
+            style={styles.screen}
+            source={sources.images.backgroundHome} >
+
             <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
-                <Subtitle>
-                    ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
-                </Subtitle> 
+                <View style={styles.blurContainer}>
+                    <Subtitle>
+                        ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
+                    </Subtitle> 
+                </View>
+                <View style={[styles.blurContainer, styles.logoContainer]}>
+                    <View style={{flex: 1, minWidth: 200}}>
+                        <Title style={{fontSize: 64, textAlignVertical: "center"}}>Check kit</Title>
+                        <TextDefault style={{fontWeight: theme.fontWeights.semiBold}}>Control de Mantenimiento de equipos médicos.</TextDefault>
+                    </View>
+                    <Logo size={144}/>
+                    
+                </View>
                 <Section
                     style={[styles.section, {marginTop: 60}]}
                     title="Accesos rapidos">
-                </Section>
-                <Section
-                    style={styles.section}
-                    title="Botones de prueba">
-                    <View style={{ width: "100%", height: 150, paddingTop: 30, alignItems: "center", justifyContent: "space-around" }}>
-                        
-                    </View>
-                </Section>    
+                </Section> 
             </ScrollView>
-        </View>
+            
+        </ImageBackground>
     )
 }
 
@@ -47,9 +61,23 @@ const styles = StyleSheet.create({
         padding: 25,
     },
     bodyContent: {
-        alignItems: "center",
+        alignItems: "flex-start",
     },
     section: {
         maxWidth: "100%"
-    }
+    },
+    logoContainer: {
+        //width: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        marginTop: 100,
+        paddingVertical: 30,
+    },
+    blurContainer: {
+        paddingHorizontal: 25,
+        paddingVertical: 15,
+        borderRadius: 10,
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
+    },
 });
