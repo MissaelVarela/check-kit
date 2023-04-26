@@ -14,17 +14,16 @@ import DatebookNavigation from './DatebookNavigation';
 
 import DrawerMenu from '../integrated/DrawerMenu';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import DrawerContext from '../../context/DrawerContext';
 
-// Creamos el Drawer y creamos el contexto de Drawer para saber que Sección del drawer esta activa.
+// Creamos el Drawer.
 const Drawer = createDrawerNavigator();
-export const DrawerContext = React.createContext();
 
 export default function MainNavigation() {
 
     const dimensions = useWindowDimensions();
     const isLargeScreen = dimensions.width >= 1000;
 
-    // Relacionar el estado de Sección del drawer activa al contexto del drawer.
     const [ activeDrawerSection, setActiveDrawerSection ] = React.useState("Home");
 
     return (

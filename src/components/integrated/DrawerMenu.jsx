@@ -11,7 +11,7 @@ import DrawerMenuItem from '../core/DrawerMenuItem.jsx';
 import Logo from '../core/Logo.jsx';
 import Title from '../core/Title.jsx';
 
-import { DrawerContext } from '../navigation/MainNavigation.jsx';
+import DrawerContext from '../../context/DrawerContext'
 
 export default function DrawerMenu(props) {
 

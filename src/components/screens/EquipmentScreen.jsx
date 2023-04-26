@@ -14,7 +14,7 @@ import ImageViewer from '../integrated/ImageViewer';
 import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 
-import { DrawerContext } from '../navigation/MainNavigation';
+import DrawerContext from '../../context/DrawerContext'
 
 export default function EquipmentScreen({route, navigation}) {
 

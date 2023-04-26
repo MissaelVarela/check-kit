@@ -88,6 +88,7 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                     ListFooterComponent={ () => <View style={{height: 50}}/> }
                     renderItem={
                         ({ item }) => {
+                            // Implementar una forma mas organizada para darle el formato al texto:
                             if (item.startHour) {
                                 const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
                                 if (item.startHour.hour > 12) {

@@ -8,7 +8,7 @@ import IconButton from '../core/IconButton'
 import Title from '../core/Title'
 import Subtitle from '../core/Subtitle'
 
-import { DrawerContext } from '../navigation/MainNavigation';
+import DrawerContext from '../../context/DrawerContext'
 
 export default function EquipmentCard(props) {
 
