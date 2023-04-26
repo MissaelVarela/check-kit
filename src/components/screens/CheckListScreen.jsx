@@ -5,7 +5,7 @@ import theme from '../../utils/theme';
 import Title from '../core/Title';
 import Check from '../integrated/Check';
 import Button from '../core/Button';
-import GhostButton from '../core/GhostButton';
+import SecundaryButton from '../core/SecundaryButton';
 import TextDefault from '../core/TextDefault';
 import { LinearGradient } from 'expo-linear-gradient';
 import React from 'react';
@@ -99,10 +99,10 @@ export default function CheckListScreen({ navigation, route }) {
                     )}
                     ListFooterComponent={() => (
                         <View style={styles.checkListFooter}>
-                            <GhostButton
+                            <SecundaryButton
                                 onPress={() => cancelConfirmDialog.setVisible(true)}>
                                 Cancelar
-                            </GhostButton>
+                            </SecundaryButton>
                             <Button
                                 onPress={() => finalizeConfirmDialog.setVisible(true)}>
                                 Finalizar

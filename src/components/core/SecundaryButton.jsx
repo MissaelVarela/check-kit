@@ -2,17 +2,18 @@ import { Text, TouchableHighlight, StyleSheet } from 'react-native';
 import theme from '../../utils/theme';
 import React from 'react';
 
-export default function Button(props) {
+export default function SecundaryButton(props) {
 
     const { text, onPress, children, style, noEnable, setNoEnable } = props;
-
+ 
     return(
         <TouchableHighlight
             style={[styles.button, noEnable ? styles.noEnable : styles.enable, style]}
             onPress={() => !noEnable && onPress && onPress()}
-            underlayColor={theme.colors.secundary}>
+            
+            underlayColor={theme.colors.darkLight}>
 
-            <Text style={[styles.text, noEnable ? {color: theme.colors.darkLight} : {color: theme.colors.light}]}>
+            <Text style={[styles.text, noEnable ? {color: theme.colors.lightDark} : {color: theme.colors.dark}]}>
                 { children ? children : text }
             </Text>
        
@@ -28,10 +29,10 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     enable: {
-        backgroundColor: theme.colors.primary,
+        backgroundColor: theme.colors.lightDark,
     },
     noEnable: {
-        backgroundColor: theme.colors.lightDark,
+        backgroundColor: theme.colors.darkLight,
     },
     text: {
         fontSize: theme.fontSizes.buttonText,
