@@ -38,10 +38,10 @@ export default function Check({ question, number, answerType, answers, elements,
     return (
         <View style={[styles.main, style]}>
             <View style={styles.header}>
-                <Subtitle>
+                <Subtitle style={{flex: 1, textAlignVertical: "center"}}>
                     {question}
                 </Subtitle>
-                <Title style={{marginLeft: 30}}>
+                <Title style={{marginLeft: 10}}>
                     {number}
                 </Title>
             </View>
@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.lightDark,
     },
     header: {
+        flex: 1,
         flexDirection: "row",
         justifyContent: "space-between",
     },

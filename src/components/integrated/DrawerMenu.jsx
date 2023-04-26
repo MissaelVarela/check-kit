@@ -12,6 +12,7 @@ import Logo from '../core/Logo.jsx';
 import Title from '../core/Title.jsx';
 
 import DrawerContext from '../../context/DrawerContext'
+import Subtitle from '../core/Subtitle.jsx';
 
 export default function DrawerMenu(props) {
 
@@ -94,6 +95,15 @@ export default function DrawerMenu(props) {
                     }
                     
                 </ScrollView> 
+                <View style={styles.drawerFooter}>
+                    <IconButton 
+                        icon={sources.icons.arrow_left}
+                        onPress={() => {
+                            // Cerrar sesion aqui...
+                            navigation && navigation.navigate("Login");
+                        }}/>
+                    <Subtitle style={{marginLeft: 15}}>Cerrar sesión</Subtitle>
+                </View>
             </View>
     )
 
@@ -101,6 +111,7 @@ export default function DrawerMenu(props) {
 
 const styles = StyleSheet.create({
     drawer: {
+        flex: 1,
         marginTop: Constants.statusBarHeight, 
     },
     drawerHeader: {
@@ -111,4 +122,10 @@ const styles = StyleSheet.create({
         marginTop: 40,
         paddingLeft: 0,
     },
+    drawerFooter: {
+        flexDirection: "row",
+        alignItems: "center",
+        paddingLeft: 25,
+        height: 100,
+    }
 })

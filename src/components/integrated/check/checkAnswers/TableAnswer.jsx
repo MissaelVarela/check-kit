@@ -7,7 +7,7 @@ import RadioButton from '../../../core/RadioButton';
 export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye }){
     
     const dimensions = useWindowDimensions();
-    const isShortScreen = dimensions.width <= 350;
+    const isShortScreen = dimensions.width <= 400;
 
     return (
         <View style={[styles.main, stlye]}>

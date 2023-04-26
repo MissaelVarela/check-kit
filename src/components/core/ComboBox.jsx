@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, Text, Modal, TouchableWithoutFeedback, TouchableHighlight, StyleSheet } from "react-native";
+import { View, ScrollView, Text, Modal, TouchableOpacity, TouchableWithoutFeedback, TouchableHighlight, StyleSheet } from "react-native";
 
 import theme from "../../utils/theme.js";
 import sources from "../../utils/sources.js";
@@ -20,7 +20,7 @@ function Item({value, label, index, setSelected, setShownSelector, onSelectChang
                 style={[
                     styles.option,
                     //index === options.length - 1 ? { borderBottomWidth: 0 } : null,
-                    index % 2 === 0 ? null : { backgroundColor: theme.colors.lightDark },
+                    //index % 2 === 0 ? null : { backgroundColor: theme.colors.lightDark },
                     //index === 0 ? {borderTopLeftRadius: 20, borderTopRightRadius: 20} : null,
                     //index === options.length - 1 ? {borderBottomLeftRadius: 20, borderBottomRightRadius: 20} : null
                 ]} >
@@ -42,16 +42,21 @@ export default function ComboBox(props) {
     
 
     return (
-        <View>
-            <View style={[styles.comboBox, style]}>
-                <Text numberOfLines={1} style={[styles.text, selected && selected.value === -1 ? { color: theme.colors.darkLight } : { color: theme.colors.dark }]}>
-                    {selected && selected.label}
-                </Text>
-                <IconButton
-                    icon={sources.icons.arrow_down}
-                    //small
-                    onPress={() => setShownSelector(!shownSelector)} />
-            </View>
+        <View style={style}>
+            <TouchableHighlight 
+                onPress={() => setShownSelector(!shownSelector)}
+                style={styles.comboBox}
+                underlayColor={"rgba(200, 200, 200, 0.25)"}>
+                    <>
+                        <Text numberOfLines={1} style={[styles.text, selected && selected.value === -1 ? { color: theme.colors.darkLight } : { color: theme.colors.dark }]}>
+                            {selected && selected.label}
+                        </Text>
+                        <IconButton
+                            icon={sources.icons.arrow_down}
+                            small
+                            onPress={() => setShownSelector(!shownSelector)} /> 
+                    </>        
+            </TouchableHighlight>
 
             <Modal
                 visible={shownSelector}
@@ -102,16 +107,18 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-        height: 50,
+        
         backgroundColor: theme.colors.light,
         borderColor: theme.colors.darkLight,
-        borderWidth: 1,
+        borderWidth: 2,
+        //height: 32,
         borderRadius: 10,
+        paddingVertical: 6,
         paddingHorizontal: 15,
     },
     text: {
         flex: 1,
-        marginRight: 15,
+        marginRight: 5,
     },
     modalContainer: {
         flex: 1,
@@ -125,13 +132,14 @@ const styles = StyleSheet.create({
         maxWidth: 500,
         minHeight: 40,
         maxHeight: 500,
-        borderRadius: 0,
+        borderRadius: 20,
+        //paddingVertical: 5,
         backgroundColor: theme.colors.light
     },
     option: {
         marginHorizontal: 0,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
+        paddingHorizontal: 25,
+        paddingVertical: 15,
     },
 
 });

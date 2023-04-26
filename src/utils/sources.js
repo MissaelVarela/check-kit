@@ -6,6 +6,7 @@ const imgDirectory = require.context('../assets/img');
 const sources = {
         images: {
             logo: trySearch('./logo.png'),
+            logo_text: trySearch('./logo-text.png'),
             backgroundHome: trySearch('./background-home.png'),
         },
         icons: {

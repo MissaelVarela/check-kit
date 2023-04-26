@@ -50,6 +50,7 @@ export default function CatalogScreen({navigation}) {
                 }}
                 key={numColumns}
                 style={styles.list}
+                contentContainerStyle={{alignItems: "center"}}
                 data={equipments}
                 numColumns={numColumns}
                 columnWrapperStyle={numColumns === 1 ? null : {justifyContent: "center"}}
@@ -58,7 +59,7 @@ export default function CatalogScreen({navigation}) {
                 renderItem={
                     ({ item }) =>
                         <EquipmentCard
-                            style={[{marginHorizontal: 25}, numColumns === 1 ? {marginHorizontal: "auto"} : null]}
+                            style={{marginHorizontal: 25}}
                             id={item.id}
                             image={item.image}
                             type={item.type}

@@ -523,7 +523,7 @@ export default [
                     {
                         id: 9,
                         question: "¿Funciona correctamente el display?",
-                        answerType: 4,
+                        answerType: 1,
                         answers: [
                             "Cumple",
                             "No cumple (indique por que)",

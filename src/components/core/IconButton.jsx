@@ -3,11 +3,11 @@ import theme from '../../utils/theme.js';
 
 export default function IconButton(props) {
 
-    const { icon, small, onPress } = props;
+    const { icon, small, onPress, style } = props;
 
     return(
         <TouchableOpacity
-            style={ small ? styles.smallButton : styles.button }
+            style={[small ? styles.smallButton : styles.button, style]}
             onPress={onPress}
             underlayColor={theme.colors.secundary}>
             <Image

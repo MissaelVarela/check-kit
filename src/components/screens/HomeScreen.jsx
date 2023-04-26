@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, Text, ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, ScrollView, Text, Image, ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
 
 import theme from '../../utils/theme.js';
 import Sesion from '../../utils/Sesion.js';
@@ -27,12 +27,24 @@ export default function HomeScreen() {
             source={sources.images.backgroundHome} >
 
             <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
-                <View style={styles.blurContainer}>
-                    <Subtitle>
-                        ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
-                    </Subtitle> 
+                <View style={{ width: "100%", alignItems: "center"}}>
+                    <View style={styles.blurContainer}>
+                        <Subtitle>
+                            ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
+                        </Subtitle> 
+                    </View>
                 </View>
-                <View style={[styles.blurContainer, styles.logoContainer]}>
+                
+                <View style={styles.imagaBlurContainer}>
+                    <Image 
+                        source={sources.images.logo_text} 
+                        style={styles.logoImage}
+                        resizeMode='contain'/>
+                </View>
+                
+                {
+                    /*
+                    <View style={[styles.blurContainer, styles.logoContainer]}>
                     <View style={{flex: 1, minWidth: 200}}>
                         <Title style={{fontSize: 64, textAlignVertical: "center"}}>Check kit</Title>
                         <TextDefault style={{fontWeight: theme.fontWeights.semiBold}}>Control de Mantenimiento de equipos médicos.</TextDefault>
@@ -40,9 +52,12 @@ export default function HomeScreen() {
                     <Logo size={144}/>
                     
                 </View>
+                    */
+                }
+                
                 <Section
                     style={[styles.section, {marginTop: 60}]}
-                    title="Accesos rapidos">
+                    title="Accesos rápidos">
                 </Section> 
             </ScrollView>
             
@@ -79,5 +94,17 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderRadius: 10,
         backgroundColor: "rgba(255, 255, 255, 0.75)",
+    },
+    imagaBlurContainer: {
+        maxWidth: "100%",
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        marginTop: 100,
+        backgroundColor: "rgba(255, 255, 255, 0.75)",
+    },
+    logoImage: {
+        width: 400,
+        maxWidth: "100%",
+        height: 160,
     },
 });

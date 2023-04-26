@@ -134,7 +134,7 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
             </View>
             <CircularButton 
                     style={styles.plusButton}
-                    color={"rgba(0, 102, 255, 0.5)"}
+                    color={theme.colors.primary}
                     icon={sources.icons.add} 
                     onPress={onPressPlusButton} />     
         </View>

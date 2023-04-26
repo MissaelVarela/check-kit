@@ -51,7 +51,7 @@ export default function EquipmentCard(props) {
             <View style={styles.contentBackground}>
                 <View style={styles.textContainer}>
                     <Title 
-                        style={{ fontSize: 12, textAlign: "center", marginBottom: 5 }} 
+                        style={{ fontSize: 12, textAlign: "center", marginBottom: 0 }} 
                         numberOfLines={2}>
                         {type}
                     </Title>
@@ -79,7 +79,7 @@ export default function EquipmentCard(props) {
 const styles = StyleSheet.create({
     card: {
         width: 150,
-        height: 220,
+        height: 240,
         justifyContent: "flex-end",
         alignItems: "center",
         marginVertical: 15,
@@ -108,7 +108,9 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         width: "100%",
-        height: 50,
+        flex: 1,
+        // el margen superior es para descontar el tamaño que ocupa la imagen.
+        marginTop: 100,
         paddingHorizontal: 10,
         justifyContent: "center",
     },
