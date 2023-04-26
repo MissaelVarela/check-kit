@@ -7,24 +7,16 @@ export default function ReservationElement( props ) {
 
     const { startHour, endHour, equipmentType, equipmentName, responsibleName, style } = props;
 
-    //const startHour = "10:00 AM";
-    //const endHour = "11:00 AM";
-    //const equipmentType = "Monitor S.V.";
-    //const equipmentName = "Azul";
-    //const responsibleName = "Por Nicole Cruz";
-
     return(
         <View style={[styles.main, style]}>
-            <View style={styles.textContainer}>
-                <TextDefault style={styles.startHourText}>{startHour ? startHour : "-"}</TextDefault>
-                <TextDefault style={styles.endHourText}>a {endHour ? endHour : "-"}</TextDefault>
+            <View>
+                <TextDefault style={styles.startHourText}>{startHour ? startHour : "sin hora"}</TextDefault>
+                <TextDefault style={styles.endHourText}>a {endHour ? endHour : "sin hora"}</TextDefault>
             </View>
             <View style={[styles.textContainer, {alignItems: "flex-end"}]}>
-                <TextDefault>
-                    <TextDefault style={styles.equipmentTypeText}>{equipmentType ? equipmentType : "-"}</TextDefault>
-                     {equipmentName ? equipmentName : "Sin nombre"}
-                </TextDefault> 
-                <TextDefault style={styles.responsibleNameText}>{responsibleName ? responsibleName : "-"}</TextDefault>
+                <TextDefault numberOfLines={1} style={styles.equipmentTypeText}>{equipmentType ? equipmentType : "sin tipo"}</TextDefault>
+                <TextDefault numberOfLines={1}>{equipmentName ? equipmentName : "sin nombre"}</TextDefault> 
+                <TextDefault numberOfLines={1} style={styles.responsibleNameText}>{responsibleName ? "por " + responsibleName : "sin responsable"}</TextDefault>
             </View>
         </View>
     )
@@ -39,6 +31,13 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         alignItems: "center",
         backgroundColor: theme.colors.light,
+    },
+    textContainer: {
+        flex: 1,
+        marginLeft: 15,
+    },
+    text: {
+        flex: 1 
     },
     startHourText: {
         fontWeight: theme.fontWeights.bold,

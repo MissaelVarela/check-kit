@@ -4,11 +4,11 @@ import theme from '../../utils/theme'
 
 export default function TextDefault(props) {
     
-    const { text, children, style } = props;
+    const { text, numberOfLines, children, style } = props;
     const heightStyle = !children && !text ? { height: 0 } : {};
 
     return(
-        <Text style={[styles.text, heightStyle, style]}>
+        <Text style={[styles.text, heightStyle, style]} numberOfLines={numberOfLines}>
             { children ? children : text }
         </Text>
     ) 

@@ -52,7 +52,7 @@ export default class Data {
     }
 
     static getReservations(type, equipment, year, month, date){
-        const reservationsResult = reservations.find(
+        const reservationsResult = reservations.filter(
             (item) => {
                 const isCorrectDate = item.year === year && item.month - 1 === month && item.date === date;
                 

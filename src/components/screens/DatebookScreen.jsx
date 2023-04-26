@@ -12,20 +12,20 @@ import CircularButton from '../core/CircularBurtton';
 export default function DatebookScreen({navigation, route}) {
 
     const { selectedEquipment, selectedType } = route && route.params ? route.params : { selectedEquipment: -1, selectedType: -1 };
-
+    
     const [ dateObj, setObj ] = React.useState(new Date());
 
     const [ date, setDate ] = React.useState({ 
         year: dateObj.getFullYear(), 
         month: dateObj.getMonth(),
         weekday: dateObj.getDay(),
-        day: dateObj.getDate(),
+        date: dateObj.getDate(),
     });
     
     React.useLayoutEffect(() => { 
         const navigationParent = navigation ? navigation.getParent() : null;
         if (navigationParent) navigationParent.setOptions({headerShown: false})
-    }, [])
+    }, []);
 
     // Temporal: solo para mostrar que esta llegando la informacion
     let equipment = selectedEquipment && Data.getEquipment(selectedEquipment);
@@ -38,7 +38,7 @@ export default function DatebookScreen({navigation, route}) {
             year: dateObj.getFullYear(), 
             month: dateObj.getMonth(),
             weekday: dateObj.getDay(),
-            day: dateObj.getDate(),
+            date: dateObj.getDate(),
         }
         setDate(newDate);
     }
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        padding: 25,
+        padding: 35,
         alignItems: "center",
         justifyContent: "center",
     },

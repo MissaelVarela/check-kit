@@ -13,16 +13,25 @@ import React from 'react';
 
 export default function ReservationList({ date, onPressPlusButton, selectedType, selectedEquipment }) {
 
-    //const data = [{id: 1}, {id: 2},{id: 3}, {id: 4},{id: 5}, {id: 6},{id: 7}, {id: 8}]
+    const [ today ] = React.useState(new Date());
+    const [ highlight, setHighlight ] = React.useState(false);
+    const [ reservations, setReservations ] = React.useState([]);
 
-    const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.day);
-    const [ reservations, setReservations ] = React.useState(reservationsResult);
+    React.useEffect(() => {
+        const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.date);
+        setReservations(reservationsResult);
 
-    const data = null;
+        if (date.date === today.getDate() 
+        && date.month === today.getMonth() 
+        && date.year === today.getFullYear()) 
+            setHighlight(true);
+        else 
+            setHighlight(false);
+    }, [date]);
 
     const myYear = date.year ? date.year : "-";
     const myMonth = date.month ? getTextMonth(date.month) : "-";
-    const myNumberDay = date.day ? date.day : "-";
+    const myNumberDate = date.date ? date.date : "-";
     const myTextDay = date.weekday !== false ? getTextDay(date.weekday) : "-";
 
     function getTextDay (numberDay) {
@@ -65,7 +74,7 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                     <Title>{myMonth}</Title>
                 </View>
                 <View style={[styles.headerElement, {alignItems: "flex-end"}]}>
-                    <Title style={{fontSize: 32}}>{myNumberDay}</Title>
+                    <Title style={[{fontSize: 32}, highlight && {color: theme.colors.primary} ]}>{myNumberDate}</Title>
                     <TextDefault>{myTextDay}</TextDefault>
                 </View>
             </View>
@@ -75,34 +84,40 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                     }
                 <FlatList
                     style={styles.list} 
-                    data={[]}
+                    data={reservations}
                     ListFooterComponent={ () => <View style={{height: 50}}/> }
                     renderItem={
                         ({ item }) => {
-
-                            if (item.startHour.hour > 12) {
-                                var startHour = (item.startHour.hour - 12) + ":" +item.startHour.minute + " PM";
-                            } else if (item.startHour.hour === 12) {
-                                var startHour = item.startHour.hour + ":" +item.startHour.minute + " PM";
-                            } else {
-                                var startHour = item.startHour.hour + ":" +item.startHour.minute + " AM";
+                            if (item.startHour) {
+                                const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
+                                if (item.startHour.hour > 12) {
+                                    var startHour = (item.startHour.hour - 12) + ":" + minutes + " PM";
+                                } else if (item.startHour.hour === 12) {
+                                    var startHour = item.startHour.hour + ":" + minutes + " PM";
+                                } else {
+                                    var startHour = item.startHour.hour + ":" + minutes + " AM";
+                                }
                             }
-
-                            if (item.endHour.hour > 12) {
-                                var endHour = (item.endHour.hour - 12) + ":" +item.endHour.minute + " PM";
-                            } else if (item.endHour.hour === 12) {
-                                var endHour = item.endHour.hour + ":" +item.endHour.minute + " PM";
-                            } else {
-                                var endHour = item.endHour.hour + ":" +item.endHour.minute + " AM";
+                            
+                            if (item.endHour) {
+                                const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
+                                if (item.endHour.hour > 12) {
+                                    var endHour = (item.endHour.hour - 12) + ":" + minutes + " PM";
+                                } else if (item.endHour.hour === 12) {
+                                    var endHour = item.endHour.hour + ":" + minutes + " PM";
+                                } else {
+                                    var endHour = item.endHour.hour + ":" + minutes + " AM";
+                                }
                             }
+                            
 
                             return (
                                 <ReservationElement
                                     style={{marginBottom: 20}}
                                     startHour={startHour}
                                     endHour={endHour}
-                                    equipmentType={item.equipment.type}
-                                    equipmentName={item.equipment.name}
+                                    equipmentType={item.equipment && item.equipment.type}
+                                    equipmentName={item.equipment && item.equipment.name}
                                     responsibleName={item.responsible} />
                             )
 
@@ -151,9 +166,9 @@ const styles = StyleSheet.create({
     list: {
         flex: 1,
         width: "100%",
-        maxWidth: 500,
+        //maxWidth: 500,
         paddingTop: 15,
-        paddingHorizontal: 15,
+        paddingHorizontal: 10,
     },
     plusButton: {
         position: "absolute",
