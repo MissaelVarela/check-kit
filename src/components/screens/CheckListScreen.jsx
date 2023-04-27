@@ -13,6 +13,8 @@ import ConfirmDialog from '../integrated/ConfirmDialog';
 
 export default function CheckListScreen({ navigation, route }) {
 
+    const [ checkListLog, setCheckListLog ] = React.useState({ sections: [] });
+
     // Obtenemos el Id del CheckList.
     const { equipmentId, checkListId } = route && route.params ? route.params : { equipmentId: 1, checkListId: 1 };
 
@@ -28,10 +30,20 @@ export default function CheckListScreen({ navigation, route }) {
 
     let checklistSections;
     if (checkListInfo) {
-        checklistSections  = checkListInfo.sections.map((element) => { 
+        checklistSections  = checkListInfo.sections.map((element, index) => {
+            
+            // Creando la seccion en el checklist log.
+            if (checkListLog) {
+                checkListLog.sections[index] = { 
+                    sectionTitle: element.sectionTitle, 
+                    checkList: [] 
+                };
+            }  
+            
             return { 
                 title: element.sectionTitle,
                 data: element.checkList,
+                index: index,
             }
         });
     }
@@ -46,6 +58,7 @@ export default function CheckListScreen({ navigation, route }) {
     }, []);
 
     function finalize() {
+        console.log(checkListLog)
         navigation && navigation.goBack();
     }
 
@@ -62,17 +75,19 @@ export default function CheckListScreen({ navigation, route }) {
                     contentContainerStyle={styles.checkListContent}
                     sections={checklistSections}
                     keyExtractor={(element) => element.id}
-                    renderItem={({ item, index }) => (
-                        <Check
-                            style={{ marginBottom: 30 }}
-                            question={item.question}
-                            number={index + 1}
-                            answerType={item.answerType}
-                            answers={item.answers}
-                            // Opcionales
-                            elements={item.elements}
-                            elementsHeader={item.elementsHeader} />
-                    )}
+                    renderItem={({ item, index, section }) => (
+                            <Check
+                                style={{ marginBottom: 30 }}
+                                question={item.question}
+                                index={index}
+                                sectionIndex = {section.index}
+                                answerType={item.answerType}
+                                answers={item.answers}
+                                checkListLog={checkListLog}
+                                // Opcionales
+                                elements={item.elements}
+                                elementsHeader={item.elementsHeader} />
+                        )}
                     renderSectionHeader={({ section: { title } }) => (
                         <View style={styles.sectionContainer}>
                             <Title>{title}</Title>

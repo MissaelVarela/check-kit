@@ -10,9 +10,10 @@ import IconButton from '../core/IconButton';
 import DrawerMenuItem from '../core/DrawerMenuItem.jsx';
 import Logo from '../core/Logo.jsx';
 import Title from '../core/Title.jsx';
+import Subtitle from '../core/Subtitle.jsx';
+import ConfirmDialog from './ConfirmDialog.jsx';
 
 import DrawerContext from '../../context/DrawerContext'
-import Subtitle from '../core/Subtitle.jsx';
 
 export default function DrawerMenu(props) {
 
@@ -22,6 +23,13 @@ export default function DrawerMenu(props) {
     const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
 
     const [ expandableVisibility, setExpandableVisibility ] = React.useState(false);
+
+    const logoutConfirmDialog = { setVisible: () => {} };
+
+    function logout() {
+        // Cerrar sesión aqui.
+        navigation && navigation.navigate("Login");
+    }
 
     return (
             <View style={styles.drawer}>
@@ -99,11 +107,16 @@ export default function DrawerMenu(props) {
                     <IconButton 
                         icon={sources.icons.arrow_left}
                         onPress={() => {
-                            // Cerrar sesion aqui...
-                            navigation && navigation.navigate("Login");
-                        }}/>
+                            // Llamando al confirmDialog para confirmar la operación.
+                            logoutConfirmDialog.setVisible(true);
+                        }} />
                     <Subtitle style={{marginLeft: 15}}>Cerrar sesión</Subtitle>
                 </View>
+                <ConfirmDialog
+                        title="Confirmación"
+                        text="Se cerrará la sesión."
+                        reference={logoutConfirmDialog}
+                        onConfirm={logout} />
             </View>
     )
 

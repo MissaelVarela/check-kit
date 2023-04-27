@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import RadioButton from '../../../core/RadioButton';
 
-export default function RadioButtonAnswer({ answers }){
+export default function RadioButtonAnswer({ answers, checkListLog, radioButtonAnswerIndex }){
     
     const [ selected, setSelected ] = React.useState(null);
 
@@ -15,7 +15,12 @@ export default function RadioButtonAnswer({ answers }){
                         key={index}
                         myIndex={index}
                         selected={selected}
-                        onChecked={() => setSelected(index)}
+                        onChecked={() => { 
+                            setSelected(index);
+                            if (checkListLog) {
+                                checkListLog.sections[0].checkList[radioButtonAnswerIndex].answers = element;
+                            }
+                        }}
                         onUnchecked={() => setSelected(null)}>
                         {element}
                     </RadioButton>

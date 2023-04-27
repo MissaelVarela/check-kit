@@ -11,14 +11,24 @@ import CheckBoxAnswer from './check/checkAnswers/CheckBoxAnswer';
 import TableAnswer from './check/checkAnswers/TableAnswer';
 
 
-export default function Check({ question, number, answerType, answers, elements, elementsHeader, style }){
+export default function Check({ question, index, sectionIndex, answerType, answers, elements, elementsHeader, checkListLog, style }){
+
+    // Guardando la pregunta
+    if (checkListLog) {
+        if (!checkListLog.sections[sectionIndex].checkList[index]) {
+            checkListLog.sections[sectionIndex].checkList[index] = { };
+        }
+
+        // Se actualiza dos veces... corregir
+        checkListLog.sections[sectionIndex].checkList[index].question = question;    
+    }
 
     function selectAnswerType(answerType) {
         switch(answerType) {
             case 0: 
                 return <></>
             case 1:
-                return <RadioButtonAnswer answers={answers}/>
+                return <RadioButtonAnswer answers={answers} checkListLog={checkListLog} radioButtonAnswerIndex={index}/>
             case 2: 
                 return <CheckBoxAnswer answers={answers}/>
             case 3:
@@ -29,7 +39,9 @@ export default function Check({ question, number, answerType, answers, elements,
                             answers={answers} 
                             elements={elements} 
                             elementsHeader={elementsHeader}
-                            columnsWidth={[]} />
+                            columnsWidth={[]}
+                            checkListLog={checkListLog} 
+                            tableAnswerIndex={index} />
             default: 
                 return <></>
         }
@@ -42,7 +54,7 @@ export default function Check({ question, number, answerType, answers, elements,
                     {question}
                 </Subtitle>
                 <Title style={{marginLeft: 10}}>
-                    {number}
+                    {index + 1}
                 </Title>
             </View>
             <View style={styles.answersContainer}>

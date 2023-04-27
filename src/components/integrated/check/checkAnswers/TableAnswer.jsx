@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import theme from '../../../../utils/theme';
 import RadioButton from '../../../core/RadioButton';
 
-export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye }){
+export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye, checkListLog, tableAnswerIndex }){
     
     const dimensions = useWindowDimensions();
     const isShortScreen = dimensions.width <= 400;
@@ -29,7 +29,10 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
                         element={row}
                         columns={answers} 
                         isLastRow={index === elements.length - 1}
-                        isShortScreen={isShortScreen} />
+                        isShortScreen={isShortScreen} 
+                        checkListLog={checkListLog}
+                        tableAnswerIndex={tableAnswerIndex}
+                        rowIndex={index} />
                 )
             }
         </View>
@@ -68,11 +71,25 @@ function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow, isShortSc
     )
 }
 
-function Row({ columnsWidth, columns, element, isLastRow, isShortScreen }) {
+function Row({ columnsWidth, columns, element, isLastRow, isShortScreen, checkListLog, tableAnswerIndex, rowIndex }) {
 
     // Por cada row se podra seleccionar un solo radiobutton. 
     // En el estado selected se guardara que radiobutton esta seleccionado en la row.
     const [ selected, setSelected ] = React.useState(null);
+
+    // Guardando la sub-pregunta
+    if (checkListLog) {
+        if (!checkListLog.sections[0].checkList[tableAnswerIndex].answers) {
+            checkListLog.sections[0].checkList[tableAnswerIndex].answers = [];
+        }
+
+        if (!checkListLog.sections[0].checkList[tableAnswerIndex].answers[rowIndex]) {
+            checkListLog.sections[0].checkList[tableAnswerIndex].answers[rowIndex] = {};
+        }
+
+        checkListLog.sections[0].checkList[tableAnswerIndex].answers[rowIndex].question = element;    
+    }
+    
 
     return (
         <View style={[styles.row, isLastRow && {borderBottomWidth: 0}]}>
@@ -96,7 +113,12 @@ function Row({ columnsWidth, columns, element, isLastRow, isShortScreen }) {
                         <RadioButton
                             myIndex={index + 1}
                             selected={selected}
-                            onChecked={() => setSelected(index + 1)}
+                            onChecked={() => {
+                                setSelected(index + 1);
+                                if (checkListLog) {
+                                    checkListLog.sections[0].checkList[tableAnswerIndex].answers[rowIndex].answer = answer;    
+                                }
+                            }}
                             onUnchecked={() => setSelected(null)} />
                     </Cell>
                 )
