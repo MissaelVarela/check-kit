@@ -21,7 +21,7 @@ export default function EquipmentScreen({route, navigation}) {
     const [shownImageViewer, setShownImageViewer] = React.useState(false);
     
     // Cachando el contexto del estado seccion activa del drawer
-    const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
+    const { setActiveDrawerSection } = React.useContext(DrawerContext);
 
     const { id } = route ? route.params : { id: 1 };
 
@@ -67,24 +67,26 @@ export default function EquipmentScreen({route, navigation}) {
     }, [])
 
     function navigateToMaintenance() {
-        // El primer navigation es del Stack de CatalogNavigation y el segundo es de el Drawer MainNavigation.
-        if (navigation) {
-            const drawerNavigation = navigation.getParent();
-            if (drawerNavigation) {
-                setActiveDrawerSection("MaintenanceNavigation");
-                drawerNavigation.navigate("MaintenanceNavigation", { maintenanceRequest: true, selectedEquipment: id });
-            }
+        // Si el DrawerNavigation existe:
+        if (navigation && navigation.getParent()) {
+            // Actualizamos la seccion del drawer activa.
+            setActiveDrawerSection("MaintenanceNavigation");
+            // Y navegamos hacia la seccion del drawer con la pantalla target.
+            navigation.getParent().navigate("MaintenanceNavigation", { 
+                targetScreen: "MaintenanceConfirm", data: { equipmentId: id } 
+            });
         }
     }
 
     function navigateToDatebook() {
-        // El primer navigation es del Stack de CatalogNavigation y el segundo es de el Drawer MainNavigation.
-        if (navigation) {
-            const drawerNavigation = navigation.getParent();
-            if (drawerNavigation) {
-                setActiveDrawerSection("DatebookNavigation");
-                drawerNavigation.navigate("DatebookNavigation", { datebookRequest: true, selectedEquipment: id });
-            }
+        // Si el DrawerNavigation existe:
+        if (navigation && navigation.getParent()) {
+            // Actualizamos la seccion del drawer activa.
+            setActiveDrawerSection("DatebookNavigation");
+            // Y navegamos hacia la seccion del drawer con la pantalla target.
+            navigation.getParent().navigate("DatebookNavigation", { 
+                targetScreen: "Datebook", data: { equipmentId: id } 
+            });
         }
     }
     

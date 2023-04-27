@@ -10,27 +10,16 @@ const Stack = createNativeStackNavigator();
 
 export default function DatebookNavigation({ navigation, route }) {
 
-  const [ equipmentId, setEquipmentId ] = React.useState(null);
-
-  // Se ejecuta cuando se navega al MaintenanceNavigation con parametros.
-  React.useEffect(() => {
-    if (route && route.params) {
-      const { datebookRequest, selectedEquipment } = route.params;
-      if (datebookRequest) {
-        console.log("Se actualizo el valor", selectedEquipment)
-        setEquipmentId(selectedEquipment);
-      }
-    }
-  }, [route.params])
-
-  // Se ejecuta cuando cambia el valor de equimentId.
-  React.useEffect(() => {
-    console.log("intentando navegar")
-    if (equipmentId) {
-        setEquipmentId(null);
-        navigation.navigate("Datebook", { selectedEquipment: equipmentId });
-    }
-  }, [equipmentId])
+// Se ejecuta cuando se navega al MaintenanceNavigation con parametros.
+React.useEffect(() => {
+  if (route.params) {
+    const { targetScreen, data } = route.params;
+    // Enrutando a la pantalla target
+    if (targetScreen === "Datebook") 
+      if (navigation) 
+        navigation.navigate("Datebook", { selectedEquipment: data.equipmentId });
+  }
+}, [route.params]);
 
   return (
     <Stack.Navigator

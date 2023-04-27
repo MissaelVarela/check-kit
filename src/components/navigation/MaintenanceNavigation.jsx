@@ -10,27 +10,17 @@ const Stack = createNativeStackNavigator();
 
 export default function MaintenanceNavigation({ navigation, route }) {
 
-const [ equipmentId, setEquipmentId ] = React.useState(null);
-
 // Se ejecuta cuando se navega al MaintenanceNavigation con parametros.
 React.useEffect(() => {
-  if (route && route.params) {
-    const { maintenanceRequest, selectedEquipment } = route.params;
-    if (maintenanceRequest) {
-      console.log("Se actualizo el valor", selectedEquipment)
-      setEquipmentId(selectedEquipment);
-    }
+  if (route.params) {
+    const { targetScreen, data } = route.params;
+    // Enrutando a la pantalla target
+    if (targetScreen === "MaintenanceConfirm") 
+      if (navigation) 
+        navigation.navigate("MaintenanceConfirm", { selectedEquipment: data.equipmentId });
   }
-}, [route.params])
+}, [route.params]);
 
-// Se ejecuta cuando cambia el valor de equimentId.
-React.useEffect(() => {
-  console.log("intentando navegar")
-  if (equipmentId) {
-      setEquipmentId(null);
-      navigation.navigate("MaintenanceConfirm", { selectedEquipment: equipmentId });
-  }
-}, [equipmentId])
 
   return (
     <Stack.Navigator
