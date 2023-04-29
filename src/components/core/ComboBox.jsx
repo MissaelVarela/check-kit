@@ -12,8 +12,8 @@ function Item({value, label, index, setSelected, setShownSelector, onSelectChang
         <TouchableHighlight
             underlayColor={theme.colors.quaternary}
             onPress={() => {
-                setSelected({ value: value, label: label });
-                setShownSelector(false);
+                setSelected && setSelected({ value: value, label: label });
+                setShownSelector && setShownSelector(false);
                 if (onSelectChange) onSelectChange(value, label);
             }} >
             <View

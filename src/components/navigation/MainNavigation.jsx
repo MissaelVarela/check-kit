@@ -15,6 +15,7 @@ import DatebookNavigation from './DatebookNavigation';
 import DrawerMenu from '../integrated/DrawerMenu';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContext from '../../context/DrawerContext';
+import CheckListLogScreen from '../screens/CheckListLogScreen';
 
 // Creamos el Drawer.
 const Drawer = createDrawerNavigator();
@@ -45,6 +46,7 @@ export default function MainNavigation() {
                 <Drawer.Screen name="CatalogNav" component={CatalogNavigation} options={{ title: "Equipos medicos" }} />
                 <Drawer.Screen name="DatebookNavigation" component={DatebookNavigation} options={{ title: "Agenda" }} />
                 <Drawer.Screen name="MaintenanceNavigation" component={MaintenanceNavigation} options={{ title: "Mantenimiento" }} />
+                <Drawer.Screen name="CheckListLog" component={CheckListLogScreen} options={{ title: "Registros" }} />
             </Drawer.Navigator>
         </DrawerContext.Provider>
         

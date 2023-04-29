@@ -101,6 +101,17 @@ export default function DrawerMenu(props) {
                         :
                         null
                     }
+                    {
+                        (Sesion.getUserType() === 1 || Sesion.getUserType() === 2)
+                        ? 
+                        <DrawerMenuItem
+                            text="Registros"
+                            icon={sources.icons.checklist}
+                            onPress={() => {setActiveDrawerSection("CheckListLog"); navigation.navigate("CheckListLog")}}
+                            isActive={activeDrawerSection === "CheckListLog"} /> 
+                        :
+                        null
+                    }
                     
                 </ScrollView> 
                 <View style={styles.drawerFooter}>
