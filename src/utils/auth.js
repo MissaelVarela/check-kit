@@ -1,21 +1,21 @@
-import Data from '../data/Data.js';
 import Sesion from "./Sesion.js"
+import { auth } from '../api/auth.js';
 
-const users = Data.getUsers();
-
-export default function auth(userName, password) {
+export async function login(user, password) {
     
-    const user = users.find(element => element.user == userName);
-    if (user) {
-        if (user.pass === password)
-        {
-            Sesion.setName(user.user);
-            Sesion.setPass(user.pass);
-            Sesion.setUserType(user.userType);
-            return true;
-        }
-    }
+    const authenticatedUser = await auth(user, password);
 
-    return false;
+    if (authenticatedUser &&  authenticatedUser[0]) {
+        Sesion.setName(authenticatedUser[0].name + " " + authenticatedUser[0].lastName);
+        Sesion.setUserType(authenticatedUser[0].userType);
+        return true;
+    }
+    else {
+        throw new Error("No se encontró ningun usuario con los datos proporcionados.");
+    }  
 }
 
+export function logout() {
+    Sesion.setName(null);
+    Sesion.setUserType(null);
+}

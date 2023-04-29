@@ -2,7 +2,6 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../../utils/theme.js';
-import auth from '../../utils/auth.js';
 
 import Button from '../core/Button.jsx'
 import Title from '../core/Title.jsx'
@@ -10,29 +9,35 @@ import Logo from '../core/Logo.jsx'
 import TextField from '../core/TextField.jsx'
 import MessageDialog from '../integrated/MessageDialog.jsx';
 
+import { login } from '../../utils/auth.js';
+
 export default function LoginScreen({navigation}) {
 
     const [userText, setUserText] = React.useState("");
     const [passText, setPassText] = React.useState("");
+    const [messageText, setMessageText] = React.useState("");
 
     // Creando los objetos que tendran referencia algunos componentes hijo:
     const messageDialog = { setVisible: () => {} };
 
-    function buttonAction() {
+    async function buttonAction() {
         if(!userText || !passText) {
+            setMessageText("Campo vacio.\nPor favor ingresa tu usuario y contraseña.");
             messageDialog.setVisible(true);
             return;
         }
         
-        const result = auth(userText, passText);
+        try {
+            let authenticated = await login(userText, passText);
 
-        if(result){
-            if (navigation) navigation.navigate("Main");
+            if(authenticated){
+                if (navigation) navigation.navigate("Main");
+            }
         }
-        else {
-            alert("Ey tu contraseña o usuario esta incorrecta ponte pilas")
+        catch(error) {
+            setMessageText("No se pudo iniciar sesión.\n" + error.message);
+            messageDialog.setVisible(true);
         }
-
         
     };
 
@@ -57,7 +62,7 @@ export default function LoginScreen({navigation}) {
             </View>
             <MessageDialog
                 title="Aviso"
-                text={"Campo vacio.\nPor favor ingresa tu usuario y contraseña."}
+                text={messageText}
                 reference={messageDialog} />
         </LinearGradient>
     )
