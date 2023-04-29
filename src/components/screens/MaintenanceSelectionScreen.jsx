@@ -65,18 +65,22 @@ export default function MaintenanceSelectionScreen({ navigation, route }) {
                 </Button>
             </Section>
             
-            <Section title="Dar Mantenimiento por Rutina" contentStyle={styles.sectionContent}> 
-                <Subtitle style={{marginBottom: 5}}>Rutina:</Subtitle>
-                <ComboBox 
-                    placeHolder="<Sin seleccionar>" 
-                    selected={selectedRoutine}
-                    setSelected={setSelectedRoutine} />
-                <Button 
-                    style={styles.button}
-                    noEnable={true} >
-                    Dar Mantenimiento
-                </Button>
-            </Section>
+            {/*
+                IMPLEMENTAR: Mantenimiento por rutina
+                <Section title="Dar Mantenimiento por Rutina" contentStyle={styles.sectionContent}>
+                    <Subtitle style={{ marginBottom: 5 }}>Rutina:</Subtitle>
+                    <ComboBox
+                        placeHolder="<Sin seleccionar>"
+                        selected={selectedRoutine}
+                        setSelected={setSelectedRoutine} />
+                    <Button
+                        style={styles.button}
+                        noEnable={true} >
+                        Dar Mantenimiento
+                    </Button>
+                </Section>
+            */}
+            
 
         </View>
     )

@@ -23,6 +23,7 @@ const sources = {
             arrow_right: trySearch('./arrow_right.png'),
             arrow_left: trySearch('./arrow_left.png'),
             checklist: trySearch('./checklist.png'),
+            check: trySearch('./check.png'),
         }  
     }
 

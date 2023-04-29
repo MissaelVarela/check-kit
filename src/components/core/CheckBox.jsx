@@ -1,6 +1,7 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import theme from '../../utils/theme';
 import React from 'react';
+import sources from '../../utils/sources';
 
 export default function CheckBox(props) {
 
@@ -41,7 +42,13 @@ export default function CheckBox(props) {
                 checked 
                 ? {borderColor: theme.colors.primary}
                 : {borderColor: theme.colors.light}]}>
-                <View style={[styles.checkbox, checked ? styles.checked : styles.unchecked]}/>
+                <View style={[styles.checkbox, checked ? styles.checked : styles.unchecked]}>
+                    <Image
+                        style={{width: 16, height: 16, borderRadius: 100}}
+                        source={sources.icons.check}>
+
+                    </Image>
+                </View>
                 
                 <Text style={styles.text}>
                     {children ? children : text}

@@ -1,6 +1,7 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import theme from '../../utils/theme';
 import React from 'react';
+import sources from '../../utils/sources';
 
 export default function RadioButton(props) {
 
@@ -41,7 +42,12 @@ export default function RadioButton(props) {
                 checked && !dontShowBorder
                 ? {borderColor: theme.colors.primary}
                 : {borderColor: theme.colors.light}]}>
-                <View style={[styles.checkbox, checked ? styles.checked : styles.unchecked]}/>
+                <View style={[styles.checkbox, checked ? styles.checked : styles.unchecked]}>
+                    <Image
+                        style={{width: 12, height: 12, borderRadius: 100, marginLeft: 1}}
+                        source={sources.icons.check}>
+                    </Image>
+                </View>
 
                 {
                     (children || text) &&
@@ -77,6 +83,8 @@ const styles = StyleSheet.create({
         borderColor: theme.colors.darkLight,
         borderRadius: 100,
         borderWidth: 1,
+        alignContent: "center",
+        justifyContent: "center",
     },
     unchecked: {
         backgroundColor: theme.colors.light,

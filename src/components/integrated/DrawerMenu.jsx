@@ -64,21 +64,9 @@ export default function DrawerMenu(props) {
                         expandableVisibility 
                         ?
                             <DrawerMenuItem
-                                text="Laboratorio Medico"
-                                onPress={() => {setActiveDrawerSection("CatalogNav/LaboratiorioMedico"); navigation.navigate("CatalogNav", {area: "LaboratorioMedico"})}}
-                                isActive={activeDrawerSection === "CatalogNav/LaboratiorioMedico"}
-                                textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
-                        :
-                            null
-                    }
-                    
-                    {
-                        expandableVisibility
-                        ?
-                            <DrawerMenuItem
-                                text="Laboratorio Practicas"
-                                onPress={() => {setActiveDrawerSection("CatalogNav/LaboratiorioPracticas"); navigation.navigate("CatalogNav", {area: "LaboratorioPracticas"})}}
-                                isActive={activeDrawerSection === "CatalogNav/LaboratiorioPracticas"}
+                                text="Laboratorio ing. biomédica"
+                                onPress={() => {setActiveDrawerSection("CatalogNav/LabBio"); navigation.navigate("CatalogNav", {area: "LabBio"})}}
+                                isActive={activeDrawerSection === "CatalogNav/LabBio"}
                                 textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
                         :
                             null

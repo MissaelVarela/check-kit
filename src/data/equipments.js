@@ -15,7 +15,7 @@ export default [
         model: "PM-7000D",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./monitor-sv.jpg"),
         group: [],
         maintenance: {
@@ -36,7 +36,7 @@ export default [
         model: "GSM-11",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./maquina-de-anestesia.jpg"),
         group: [],
         maintenance: {
@@ -57,7 +57,7 @@ export default [
         model: "trainer 2",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./entrenador-de-desfibrilador.jpg"),
         group: [],
         maintenance: {
@@ -78,7 +78,7 @@ export default [
         model: "ZQ-1212",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./ecg.jpg"),
         group: [],
         maintenance: {
@@ -99,7 +99,7 @@ export default [
         model: "T5-HD MITS",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./entrenador-de-cirugia.jpg"),
         group: [],
         maintenance: {
@@ -120,7 +120,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./cerebro.jpg"),
         group: [],
         maintenance: {
@@ -141,7 +141,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./corazon.jpg"),
         group: [],
         maintenance: {
@@ -162,7 +162,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./esqueleto.jpg"),
         group: [],
         maintenance: {
@@ -183,7 +183,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./modelo-anatomico.jpg"),
         group: [],
         maintenance: {
@@ -204,7 +204,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./smart-baby.jpg"),
         group: [],
         maintenance: {
@@ -225,7 +225,7 @@ export default [
         model: "",
         series: "",
         description: "",
-        location: "Laboratorio ing. biomedica",
+        location: "Laboratorio ing. biomédica",
         image: equipmentsDirectory("./simulador-histeroscopia.jpg"),
         group: [],
         maintenance: {
