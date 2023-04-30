@@ -43,7 +43,7 @@ export default function MainNavigation() {
                     },
                 }}>
                 <Drawer.Screen name="Home" component={HomeScreen} options={{ title: "Inicio" }} />
-                <Drawer.Screen name="CatalogNav" component={CatalogNavigation} options={{ title: "Equipos medicos" }} />
+                <Drawer.Screen name="CatalogNavigation" component={CatalogNavigation} options={{ title: "Equipos medicos" }} />
                 <Drawer.Screen name="DatebookNavigation" component={DatebookNavigation} options={{ title: "Agenda" }} />
                 <Drawer.Screen name="MaintenanceNavigation" component={MaintenanceNavigation} options={{ title: "Mantenimiento" }} />
                 <Drawer.Screen name="CheckListLog" component={CheckListLogScreen} options={{ title: "Registros" }} />

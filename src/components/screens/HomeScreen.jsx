@@ -1,25 +1,22 @@
 import React from 'react';
-import { View, ScrollView, Text, Image, ImageBackground, StyleSheet, useWindowDimensions } from 'react-native';
+import { View, ScrollView, Text, Image, ImageBackground, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme.js';
 import Sesion from '../../utils/Sesion.js';
 
 import Subtitle from '../core/Subtitle.jsx';
-import MessageDialog from '../integrated/MessageDialog.jsx'
-import ConfirmDialog from '../integrated/ConfirmDialog.jsx'
-import Button from '../core/Button.jsx';
 import Section from '../integrated/Section.jsx';
 import sources from '../../utils/sources.js';
-import Title from '../core/Title.jsx';
-import TextDefault from '../core/TextDefault.jsx';
-import Logo from '../core/Logo.jsx';
 
-export default function HomeScreen() {
-
-    const dimensions = useWindowDimensions();
-    const isShortScreen = dimensions.width <= 350;
+export default function HomeScreen({ navigation }) {
 
     const userName = Sesion.getName();
+
+    // Esconder el Header del Drawer Navigation.
+    React.useLayoutEffect(() => { 
+        if (navigation) 
+            navigation.setOptions({headerShown: false});
+    }, [])
 
     return (
         <ImageBackground 
@@ -41,19 +38,6 @@ export default function HomeScreen() {
                         style={styles.logoImage}
                         resizeMode='contain'/>
                 </View>
-                
-                {
-                    /*
-                    <View style={[styles.blurContainer, styles.logoContainer]}>
-                    <View style={{flex: 1, minWidth: 200}}>
-                        <Title style={{fontSize: 64, textAlignVertical: "center"}}>Check kit</Title>
-                        <TextDefault style={{fontWeight: theme.fontWeights.semiBold}}>Control de Mantenimiento de equipos médicos.</TextDefault>
-                    </View>
-                    <Logo size={144}/>
-                    
-                </View>
-                    */
-                }
                 
                 <Section
                     style={[styles.section, {marginTop: 60}]}
@@ -80,14 +64,6 @@ const styles = StyleSheet.create({
     },
     section: {
         maxWidth: "100%"
-    },
-    logoContainer: {
-        //width: "100%",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        alignItems: "center",
-        marginTop: 100,
-        paddingVertical: 30,
     },
     blurContainer: {
         paddingHorizontal: 25,

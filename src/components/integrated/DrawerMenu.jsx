@@ -56,8 +56,8 @@ export default function DrawerMenu(props) {
                     <DrawerMenuItem
                         text="Equipos medicos"
                         icon={sources.icons.equipment}
-                        onPress={() => {setActiveDrawerSection("CatalogNav"); navigation.navigate("CatalogNav")}}
-                        isActive={activeDrawerSection === "CatalogNav"}
+                        onPress={() => {setActiveDrawerSection("CatalogNavigation"); navigation.navigate("CatalogNavigation")}}
+                        isActive={activeDrawerSection === "CatalogNavigation"}
                         expandable
                         onExpandablePress={() => setExpandableVisibility(!expandableVisibility)}/> 
                     {
@@ -65,8 +65,8 @@ export default function DrawerMenu(props) {
                         ?
                             <DrawerMenuItem
                                 text="Laboratorio ing. biomédica"
-                                onPress={() => {setActiveDrawerSection("CatalogNav/LabBio"); navigation.navigate("CatalogNav", {area: "LabBio"})}}
-                                isActive={activeDrawerSection === "CatalogNav/LabBio"}
+                                onPress={() => {setActiveDrawerSection("CatalogNavigation/LabBio"); navigation.navigate("CatalogNavigation", {area: "LabBio"})}}
+                                isActive={activeDrawerSection === "CatalogNavigation/LabBio"}
                                 textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
                         :
                             null
