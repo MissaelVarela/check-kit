@@ -41,6 +41,16 @@ export default function LoginScreen({navigation}) {
         
     };
 
+    // Cuando se le hace focus al LoginScreen.
+    React.useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setUserText("");
+            setPassText("");
+        });
+    
+        return unsubscribe;
+      }, [navigation]);;
+
     return (
         <LinearGradient style={styles.screen}
             colors={[theme.colors.light, theme.colors.tertiary, theme.colors.primary]}>
@@ -49,9 +59,11 @@ export default function LoginScreen({navigation}) {
                 <Title 
                     text="Check Kit"/>
                 <TextField 
+                    value={userText}
                     placeHolder="Usuario" 
                     onTextChange={setUserText}/>
                 <TextField 
+                    value={passText}
                     placeHolder="Contraseña" 
                     onTextChange={setPassText} 
                     password/>

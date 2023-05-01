@@ -31,4 +31,12 @@ export default class Sesion {
     static getPass() {
         return this.pass
     }
+
+    static setUser(value){
+        this.user = value
+    }
+
+    static getUser(){
+        return this.user
+    }
 }

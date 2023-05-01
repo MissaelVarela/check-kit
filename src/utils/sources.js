@@ -24,6 +24,7 @@ const sources = {
             arrow_left: trySearch('./arrow_left.png'),
             checklist: trySearch('./checklist.png'),
             check: trySearch('./check.png'),
+            logout: trySearch('./logout.png'),
             empty: trySearch('./empty.png'),
         }  
     }

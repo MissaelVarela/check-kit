@@ -14,6 +14,7 @@ import Subtitle from '../core/Subtitle.jsx';
 import ConfirmDialog from './ConfirmDialog.jsx';
 
 import DrawerContext from '../../context/DrawerContext'
+import TextDefault from '../core/TextDefault.jsx';
 
 export default function DrawerMenu(props) {
 
@@ -61,7 +62,7 @@ export default function DrawerMenu(props) {
                         onPress={() => {setActiveDrawerSection("Home"); navigation.navigate("Home")}}
                         isActive={activeDrawerSection === "Home"} /> 
                     <DrawerMenuItem
-                        text="Equipos medicos"
+                        text="Equipos médicos"
                         icon={sources.icons.equipment}
                         onPress={() => {setActiveDrawerSection("CatalogNavigation"); navigation.navigate("CatalogNavigation")}}
                         isActive={activeDrawerSection === "CatalogNavigation"}
@@ -110,13 +111,22 @@ export default function DrawerMenu(props) {
                     
                 </ScrollView> 
                 <View style={styles.drawerFooter}>
-                    <IconButton 
-                        icon={sources.icons.arrow_left}
-                        onPress={() => {
-                            // Llamando al confirmDialog para confirmar la operación.
-                            logoutConfirmDialog.setVisible(true);
-                        }} />
-                    <Subtitle style={{marginLeft: 15}}>Cerrar sesión</Subtitle>
+                <View style={styles.drawerFooterItem}>
+                        <IconButton
+                            icon={sources.icons.logout}
+                            onPress={() => {
+                                // Llamando al confirmDialog para confirmar la operación.
+                                logoutConfirmDialog.setVisible(true);
+                            }} />
+                        <View style={{paddingLeft: 25,}}>
+                        <TextDefault numberOfLines={1} style={{fontWeight: theme.fontWeights.bold}}>{Sesion.getName()}</TextDefault>
+                        <TextDefault numberOfLines={1}>{Sesion.getUser()}</TextDefault>
+                    </View>
+                    </View>
+                    
+                    
+                    
+                    
                 </View>
                 <ConfirmDialog
                         title="Confirmación"
@@ -142,9 +152,12 @@ const styles = StyleSheet.create({
         paddingLeft: 0,
     },
     drawerFooter: {
+
+    },
+    drawerFooterItem: {
         flexDirection: "row",
         alignItems: "center",
         paddingLeft: 25,
-        height: 100,
+        height: 75,
     }
 })

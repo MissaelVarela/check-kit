@@ -46,7 +46,7 @@ export default function HeaderBar(props) {
 
     return(
         <>
-            <View style={{height: Constants.statusBarHeight}}/>
+            <View style={[{height: Constants.statusBarHeight}, !transparent &&  { backgroundColor: theme.colors.light }]}/>
             <View style={[styles.header, !transparent && { backgroundColor: theme.colors.light, borderBottomWidth: 2 }, style]}>
                 
                 <View style={styles.bar}>

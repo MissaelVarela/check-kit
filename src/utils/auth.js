@@ -8,6 +8,7 @@ export async function login(user, password) {
     if (authenticatedUser &&  authenticatedUser[0]) {
         Sesion.setName(authenticatedUser[0].name + " " + authenticatedUser[0].lastName);
         Sesion.setUserType(authenticatedUser[0].userType);
+        Sesion.setUser(authenticatedUser[0].userName);
         return true;
     }
     else {

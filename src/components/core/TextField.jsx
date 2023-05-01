@@ -3,14 +3,15 @@ import theme from '../../utils/theme.js';
 
 export default function TextField(props) {
 
-    const { placeHolder, onTextChange, password, multiline, shownBorder, style } = props;
+    const { placeHolder, onTextChange, password, multiline, value, shownBorder, style } = props;
 
     return (
         <TextInput
             style={[styles.textInput, shownBorder && {borderWidth: 2}, style]}
             placeholder={placeHolder}
-            onChange={event => onTextChange && onTextChange(event.nativeEvent.text)}
+            onChange={event => {console.log();onTextChange && onTextChange(event.nativeEvent.text)}}
             secureTextEntry={password}
+            value={value}
 
             multiline={multiline}
             maxLength={255} />
