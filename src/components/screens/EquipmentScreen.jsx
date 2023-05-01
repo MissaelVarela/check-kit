@@ -15,6 +15,7 @@ import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 
 import DrawerContext from '../../context/DrawerContext'
+import HeaderBar from '../integrated/HeaderBar';
 
 export default function EquipmentScreen({route, navigation}) {
 
@@ -61,11 +62,6 @@ export default function EquipmentScreen({route, navigation}) {
         ];
     }
 
-    React.useLayoutEffect(() => { 
-        const navigationParent = navigation ? navigation.getParent() : null;
-        if (navigationParent) navigationParent.setOptions({headerShown: false})
-    }, [])
-
     function navigateToMaintenance() {
         // Si el DrawerNavigation existe:
         if (navigation && navigation.getParent()) {
@@ -73,7 +69,7 @@ export default function EquipmentScreen({route, navigation}) {
             setActiveDrawerSection("MaintenanceNavigation");
             // Y navegamos hacia la seccion del drawer con la pantalla target.
             navigation.getParent().navigate("MaintenanceNavigation", { 
-                targetScreen: "MaintenanceConfirm", data: { equipmentId: id } 
+                targetScreen: "MaintenanceConfirm", origin: "CatalogNavigation", data: { equipmentId: id } 
             });
         }
     }
@@ -85,13 +81,14 @@ export default function EquipmentScreen({route, navigation}) {
             setActiveDrawerSection("DatebookNavigation");
             // Y navegamos hacia la seccion del drawer con la pantalla target.
             navigation.getParent().navigate("DatebookNavigation", { 
-                targetScreen: "Datebook", data: { equipmentId: id } 
+                targetScreen: "Datebook", origin: "CatalogNavigation", data: { equipmentId: id } 
             });
         }
     }
     
     return(
         <View style={styles.screen}>
+            <HeaderBar buttonType="back">Equipos médicos</HeaderBar>
             <ScrollView>
                 <View style={styles.header}>
                     <Title>{equipment && equipment.type}</Title>

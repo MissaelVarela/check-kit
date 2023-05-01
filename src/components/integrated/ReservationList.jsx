@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, FlatList, Image, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import sources from '../../utils/sources';
@@ -128,6 +128,11 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                     ListEmptyComponent={() => 
                         <View style={{flex: 1}}>
                             <Subtitle>No hay reservaciones para mostrar...</Subtitle>
+                            <View style={{flex: 1, paddingVertical: 100}}>
+                                <Image 
+                                    source={sources.icons.empty}
+                                    style={{height: 256, width: 256, alignSelf: "center"}}/>
+                            </View>
                         </View>
                         
                     } />

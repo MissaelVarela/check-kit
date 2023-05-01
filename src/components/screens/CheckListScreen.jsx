@@ -1,4 +1,7 @@
+import React from 'react';
 import { View, Text, SectionList, Image, StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+
 import Data from '../../data/Data';
 import theme from '../../utils/theme';
 
@@ -7,9 +10,8 @@ import Check from '../integrated/Check';
 import Button from '../core/Button';
 import SecundaryButton from '../core/SecundaryButton';
 import TextDefault from '../core/TextDefault';
-import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
 import ConfirmDialog from '../integrated/ConfirmDialog';
+import HeaderBar from '../integrated/HeaderBar';
 
 export default function CheckListScreen({ navigation, route }) {
 
@@ -50,12 +52,6 @@ export default function CheckListScreen({ navigation, route }) {
     else {
         checklistSections = [];
     }
-
-    React.useEffect(() => {
-        if (navigation) {
-            navigation.setOptions({ headerShown: false });
-        }
-    }, []);
 
     function finalize() {
         console.log(checkListLog)
@@ -125,12 +121,12 @@ export default function CheckListScreen({ navigation, route }) {
                         </View>
                     )} />
                     <ConfirmDialog
-                        title="Avertencia"
+                        title="Finalizar"
                         text="¿Deseas finalizar el Check List?"
                         reference={finalizeConfirmDialog}
                         onConfirm={finalize} />
                     <ConfirmDialog
-                        title="Avertencia"
+                        title="Cancelar"
                         text="Si cancelas el Check List ahora se perderá el progreso."
                         reference={cancelConfirmDialog}
                         onConfirm={cancel} />

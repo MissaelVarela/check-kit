@@ -8,10 +8,11 @@ import sources from '../../utils/sources';
 import Subtitle from '../core/Subtitle';
 import ReservationList from '../integrated/ReservationList';
 import CircularButton from '../core/CircularBurtton';
+import HeaderBar from '../integrated/HeaderBar';
 
 export default function DatebookScreen({navigation, route}) {
 
-    const { selectedEquipment, selectedType } = route && route.params ? route.params : { selectedEquipment: -1, selectedType: -1 };
+    const { selectedEquipment, needGoBackToOrigin, selectedType } = route && route.params ? route.params : { selectedEquipment: -1, selectedType: -1 };
     
     const [ dateObj, setObj ] = React.useState(new Date());
 
@@ -21,11 +22,6 @@ export default function DatebookScreen({navigation, route}) {
         weekday: dateObj.getDay(),
         date: dateObj.getDate(),
     });
-    
-    React.useLayoutEffect(() => { 
-        const navigationParent = navigation ? navigation.getParent() : null;
-        if (navigationParent) navigationParent.setOptions({headerShown: false})
-    }, []);
 
     // Temporal: solo para mostrar que esta llegando la informacion
     let equipment = selectedEquipment && Data.getEquipment(selectedEquipment);
@@ -45,6 +41,7 @@ export default function DatebookScreen({navigation, route}) {
 
     return (    
         <View style={styles.screen}>
+            <HeaderBar buttonType="back" needGoBackToOrigin={needGoBackToOrigin} stackNavigation={navigation}>Agenda</HeaderBar>
             <View style={styles.header}>
                 <Subtitle>Reservacion del equipo: {equipment.type}, {equipment.name}</Subtitle>
             </View>

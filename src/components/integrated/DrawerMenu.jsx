@@ -17,10 +17,17 @@ import DrawerContext from '../../context/DrawerContext'
 
 export default function DrawerMenu(props) {
 
-    const { navigation, isLargeScreen } = props;
+    const { navigation } = props;
 
-    // Cachando el contexto del estado seccion activa del drawer
-    const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
+    // Cachando los estados del contexto del Drawer.
+    const { activeDrawerSection, setActiveDrawerSection, setOpenDrawer, isLargeScreen } = React.useContext(DrawerContext);
+    
+    // Agregando el metodo openDrawer para que se pueda utilizar en el contexto del Drawer.
+    React.useEffect(() => {
+        if (setOpenDrawer && navigation) {
+            setOpenDrawer({ method: () => navigation.openDrawer() });
+        }
+    }, []);
 
     const [ expandableVisibility, setExpandableVisibility ] = React.useState(false);
 

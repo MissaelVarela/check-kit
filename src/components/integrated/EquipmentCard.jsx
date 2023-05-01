@@ -24,7 +24,7 @@ export default function EquipmentCard(props) {
             setActiveDrawerSection("MaintenanceNavigation");
             // Y navegamos hacia la seccion del drawer con la pantalla target.
             navigation.getParent().navigate("MaintenanceNavigation", { 
-                targetScreen: "MaintenanceConfirm", data: { equipmentId: id } 
+                targetScreen: "MaintenanceConfirm", origin: "CatalogNavigation", data: { equipmentId: id } 
             });
         }
     }
@@ -36,7 +36,7 @@ export default function EquipmentCard(props) {
             setActiveDrawerSection("DatebookNavigation");
             // Y navegamos hacia la seccion del drawer con la pantalla target.
             navigation.getParent().navigate("DatebookNavigation", { 
-                targetScreen: "Datebook", data: { equipmentId: id } 
+                targetScreen: "Datebook", origin: "CatalogNavigation", data: { equipmentId: id } 
             });
         }
     }

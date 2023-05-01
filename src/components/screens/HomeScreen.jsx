@@ -7,22 +7,17 @@ import Sesion from '../../utils/Sesion.js';
 import Subtitle from '../core/Subtitle.jsx';
 import Section from '../integrated/Section.jsx';
 import sources from '../../utils/sources.js';
+import HeaderBar from '../integrated/HeaderBar.jsx';
 
 export default function HomeScreen({ navigation }) {
 
     const userName = Sesion.getName();
 
-    // Esconder el Header del Drawer Navigation.
-    React.useLayoutEffect(() => { 
-        if (navigation) 
-            navigation.setOptions({headerShown: false});
-    }, [])
-
     return (
         <ImageBackground 
             style={styles.screen}
             source={sources.images.backgroundHome} >
-
+            <HeaderBar buttonType="menu" transparent>Inicio</HeaderBar>
             <ScrollView style={styles.body} contentContainerStyle={styles.bodyContent}>
                 <View style={{ width: "100%", alignItems: "center"}}>
                     <View style={styles.blurContainer}>

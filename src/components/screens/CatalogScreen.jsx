@@ -1,28 +1,22 @@
 import React from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 
-import IconButton from '../core/IconButton.jsx';
+import theme from '../../utils/theme.js';
+import Data from '../../data/Data.js';
+
 import Subtitle from '../core/Subtitle.jsx';
 import EquipmentCard from '../integrated/EquipmentCard.jsx';
+import HeaderBar from '../integrated/HeaderBar.jsx';
 
-import theme from '../../utils/theme.js';
-import sources from '../../utils/sources.js';
-//import equipments from '../../data/equipments.js';
-
-import Data from '../../data/Data.js';
+import StackContext from '../../context/StackContext.js';
 
 let equipments;
 
 export default function CatalogScreen({navigation}) {
   
-    if (!equipments) equipments = Data.getEquipments();
+    const { setGoBack } = React.useContext(StackContext);
 
-    React.useEffect(() => {
-        const navigationParent = navigation ? navigation.getParent() : null
-        if (navigationParent) {
-            navigation.addListener('focus', () => { navigationParent.setOptions({headerShown: true}) })
-        }
-    }, [navigation]);
+    if (!equipments) equipments = Data.getEquipments();
 
     const [numColumns, setNumColumns] = React.useState(2);
 
@@ -35,8 +29,17 @@ export default function CatalogScreen({navigation}) {
         }
     }
 
+    // Cuando CatalogScreen se cargue por primera vez.
+    React.useEffect(() => {
+        // Se agrega el metodo goBack para que se pueda utilizar en el contexto del Stack.
+        if (navigation && setGoBack) {
+            setGoBack({ method: () => navigation.goBack() });
+        } 
+    }, []);
+
     return (
         <View style={styles.screen}>
+            <HeaderBar buttonType="menu">Equipos médicos</HeaderBar>
             <View style={styles.header}>
                 <Subtitle>Lista de Equipos Medicos</Subtitle>
                 {

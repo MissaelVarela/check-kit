@@ -4,6 +4,8 @@ import { createContext } from "react";
 const DrawerContext = createContext({ 
     activeDrawerSection: null, 
     setActiveDrawerSection: null,
+    openDrawer: null, 
+    setOpenDrawer: null,
 });
 
 export default DrawerContext;

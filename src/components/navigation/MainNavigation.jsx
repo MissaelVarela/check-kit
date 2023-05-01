@@ -7,6 +7,7 @@ import HomeScreen from '../screens/HomeScreen';
 import CatalogScreen from '../screens/CatalogScreen';
 import DatebookScreen from '../screens/DatebookScreen';
 import MaintenanceScreen from '../screens/MaintenanceScreen';
+import CheckListLogScreen from '../screens/CheckListLogScreen';
 
 import CatalogNavigation from './CatalogNavigation';
 import MaintenanceNavigation from './MaintenanceNavigation';
@@ -15,7 +16,6 @@ import DatebookNavigation from './DatebookNavigation';
 import DrawerMenu from '../integrated/DrawerMenu';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import DrawerContext from '../../context/DrawerContext';
-import CheckListLogScreen from '../screens/CheckListLogScreen';
 
 // Creamos el Drawer.
 const Drawer = createDrawerNavigator();
@@ -23,21 +23,28 @@ const Drawer = createDrawerNavigator();
 export default function MainNavigation() {
 
     const dimensions = useWindowDimensions();
-    const isLargeScreen = dimensions.width >= 1000;
 
+    // Creando los estado del Drawer que se compartiran en el DrawerContext.
+    const [ openDrawer, setOpenDrawer ] = React.useState({ method: null });
     const [ activeDrawerSection, setActiveDrawerSection ] = React.useState("Home");
+    const isLargeScreen = dimensions.width >= 1000;
 
     return (
         <DrawerContext.Provider 
-            value={{ activeDrawerSection: activeDrawerSection, setActiveDrawerSection: setActiveDrawerSection }}>
+            value={{ 
+                    activeDrawerSection: activeDrawerSection, 
+                    setActiveDrawerSection: setActiveDrawerSection,
+                    openDrawer: openDrawer,
+                    setOpenDrawer: setOpenDrawer,
+                    isLargeScreen: isLargeScreen,
+                    }}>
             <Drawer.Navigator
-                drawerContent={(props) => <DrawerMenu {...props} isLargeScreen={isLargeScreen} />}
+                initialRouteName='Home'
+                drawerContent={(props) => <DrawerMenu {...props}/>}
                 screenOptions={{
+                    headerShown: false,
                     drawerActiveTintColor: theme.colors.primary,
-                    drawerType: isLargeScreen ? 'permanent' : 'front',
-                    headerLeft: isLargeScreen ? () => <></> : null,
-                    //headerRight: null, // Agregar el boton de perfil... 
-                    headerTitleAlign: 'center',
+                    drawerType: isLargeScreen ? 'permanent' : 'front', 
                     drawerStyle: {
                         width: 340,
                     },

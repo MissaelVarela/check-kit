@@ -7,10 +7,11 @@ import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 import Button from '../core/Button';
 import ImageViewer from '../integrated/ImageViewer';
+import HeaderBar from '../integrated/HeaderBar';
 
 export default function MaintenanceConfirmScreen({ route, navigation }){
 
-    const { selectedEquipment } = route && route.params ? route.params : { selectedEquipment: null };
+    const { selectedEquipment, needGoBackToOrigin } = route && route.params ? route.params : { selectedEquipment: null };
 
     const [shownImageViewer, setShownImageViewer] = React.useState(false);
 
@@ -53,11 +54,6 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
         ];
     }
 
-    React.useLayoutEffect(() => { 
-        const navigationParent = navigation ? navigation.getParent() : null;
-        if (navigationParent) navigationParent.setOptions({headerShown: false})
-    }, [])
-
     function navigateToCheckList() {
         if (navigation) {
             console.log("Mandando la info:", equipment)
@@ -68,6 +64,7 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
     return(
         <View style={styles.screen}>
+            <HeaderBar buttonType="back" needGoBackToOrigin={needGoBackToOrigin} stackNavigation={navigation}>Mantenimiento</HeaderBar>
             <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
                 <View style={styles.header}>
                     <TouchableOpacity
