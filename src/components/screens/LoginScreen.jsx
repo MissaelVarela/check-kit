@@ -22,7 +22,7 @@ export default function LoginScreen({navigation}) {
 
     async function buttonAction() {
         if(!userText || !passText) {
-            setMessageText("Campo vacio.\nPor favor ingresa tu usuario y contraseña.");
+            setMessageText("Campo vacío.\nPor favor ingresa tu usuario y contraseña.");
             messageDialog.setVisible(true);
             return;
         }

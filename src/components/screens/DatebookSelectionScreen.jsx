@@ -78,8 +78,10 @@ export default function DatebookSelectionScreen({ navigation }) {
                         </Button>
                     </View>
                 </Section>
-
-                <Section
+                {
+                    // IMPLEMENTAR: Agenda de Areas
+                    /*
+                    <Section
                     title="Agenda de Áreas"
                     style={styles.sectionContent}>
                     <Button
@@ -88,6 +90,9 @@ export default function DatebookSelectionScreen({ navigation }) {
                         Ir
                     </Button>
                 </Section>
+                    */
+                }
+                
             </View>
         </View>
     )

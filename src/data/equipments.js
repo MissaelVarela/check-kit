@@ -7,7 +7,7 @@ const equipmentsDirectory = require.context('./img/equipments');
 export default [
     {
         id: 1,
-        category: "Equipos medicos",
+        category: "Equipos médicos",
         typeId: 1,
         type: "Monitor SV",
         name: "Zonecare (213034910942)",
@@ -28,9 +28,9 @@ export default [
     },
     {
         id: 2,
-        category: "Equipos medicos",
+        category: "Equipos médicos",
         typeId: 2,
-        type: "Maquina de anestesia",
+        type: "Máquina de anestesia",
         name: "GSM (213020411707)",
         brand: "GSM",
         model: "GSM-11",
@@ -49,7 +49,7 @@ export default [
     },
     {
         id: 3,
-        category: "Equipos medicos",
+        category: "Equipos médicos",
         typeId: 3,
         type: "Entrenador de desfibrilador",
         name: "AEDPLUS (213016111705)",
@@ -70,7 +70,7 @@ export default [
     },
     {
         id: 4,
-        category: "Equipos medicos",
+        category: "Equipos médicos",
         typeId: 4,
         type: "Electrocardiograma",
         name: "Zoncare (213021210944)",
@@ -91,7 +91,7 @@ export default [
     },
     {
         id: 5,
-        category: "Equipos medicos",
+        category: "Equipos médicos",
         typeId: 5,
         type: "Simulador de entranamiento laparascopico",
         name: "3-DMED (213024910945)",

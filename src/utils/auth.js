@@ -12,7 +12,7 @@ export async function login(user, password) {
         return true;
     }
     else {
-        throw new Error("No se encontró ningun usuario con los datos proporcionados.");
+        throw new Error("Ningún usuario corresponde con los datos proporcionados.");
     }  
 }
 
