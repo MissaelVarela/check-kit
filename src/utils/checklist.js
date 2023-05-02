@@ -3,15 +3,14 @@ import { insertCheckListLog } from '../api/checklist.js';
 
 export async function insertLog(checklistId, equipmentId, responsableId, dataTime, authorizedById, log) {
     
-    const result = await insertCheckListLog(checklistId, equipmentId, responsableId, dataTime, authorizedById, log);
+    const response = await insertCheckListLog(checklistId, equipmentId, responsableId, dataTime, authorizedById, log);
 
-    console.log(result)
-    if (result) {
-        console.log(result)
+    if (response) {
+        console.log("Respuesta del servidor:", response)
         return true;
     }
     else {
-        throw new Error("Ningún usuario corresponde con los datos proporcionados.");
+        throw new Error("No hubo respuesta del servidor.");
     }  
 }
 

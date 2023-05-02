@@ -16,11 +16,11 @@ import ConfirmDialog from '../integrated/ConfirmDialog';
 import HeaderBar from '../integrated/HeaderBar';
 
 import LogContext from '../../context/LogContext';
+import MessageDialog from '../integrated/MessageDialog';
 
 export default function CheckListScreen({ navigation, route }) {
 
-    const [ checkListLog, setCheckListLog ] = React.useState({ sections: [] });
-
+    // log es el objeto que guarda el estado de las respuestas seleccionadas del actual checklist.
     const [ log ] = React.useState({ sections: [] });
 
     // Obtenemos el Id del CheckList.
@@ -35,6 +35,8 @@ export default function CheckListScreen({ navigation, route }) {
     // Creando los objetos que tendran referencia algunos componentes hijo:
     const finalizeConfirmDialog = { setVisible: () => {} };
     const cancelConfirmDialog = { setVisible: () => {} };
+    const messageDialog = { setVisible: () => {} };
+    const [ messageDialogText, setMessageDialogText ] = React.useState("");
 
     let checklistSections;
     if (checkListInfo) {
@@ -61,9 +63,30 @@ export default function CheckListScreen({ navigation, route }) {
     }
 
     function finalize() {
-        console.log(log)
-        insertLog(checkListInfo.id, equipmentId, Sesion.getUserId(), new Date().toDateString(), Sesion.getUserId(), log);
-        navigation && navigation.goBack();
+        
+        try {
+            const result = insertLog(
+                checkListInfo.id, 
+                equipmentId, 
+                // Por pruebas se esta poniendo el id del admin
+                Sesion.getUserId() ? Sesion.getUserId() : 1, 
+                new Date().toDateString(), 
+                Sesion.getUserId() ? Sesion.getUserId() : 1, 
+                log
+            );
+            
+            if (result) {
+                setMessageDialogText("Se guardó correctamente el Check List.");
+                messageDialog.setVisible(true);
+
+                navigation && navigation.goBack();
+            } 
+            
+        }
+        catch (error) {
+            setMessageDialogText("No se pudo guardar el Check List. " + error.message);
+            messageDialog.setVisible(true);
+        } 
     }
 
     function cancel() {
@@ -141,6 +164,10 @@ export default function CheckListScreen({ navigation, route }) {
                     text="Si cancelas el Check List ahora se perderá el progreso."
                     reference={cancelConfirmDialog}
                     onConfirm={cancel} />
+                <MessageDialog
+                    title="Información"
+                    text={messageDialogText}
+                    reference={messageDialog} />
         </LinearGradient>
     )
 }
