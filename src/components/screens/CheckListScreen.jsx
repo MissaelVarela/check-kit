@@ -4,6 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import Data from '../../data/Data';
 import theme from '../../utils/theme';
+import { insertLog } from '../../utils/checklist'
+import Sesion from '../../utils/Sesion';
 
 import Title from '../core/Title';
 import Check from '../integrated/Check';
@@ -13,9 +15,13 @@ import TextDefault from '../core/TextDefault';
 import ConfirmDialog from '../integrated/ConfirmDialog';
 import HeaderBar from '../integrated/HeaderBar';
 
+import LogContext from '../../context/LogContext';
+
 export default function CheckListScreen({ navigation, route }) {
 
     const [ checkListLog, setCheckListLog ] = React.useState({ sections: [] });
+
+    const [ log ] = React.useState({ sections: [] });
 
     // Obtenemos el Id del CheckList.
     const { equipmentId, checkListId } = route && route.params ? route.params : { equipmentId: 1, checkListId: 1 };
@@ -34,11 +40,12 @@ export default function CheckListScreen({ navigation, route }) {
     if (checkListInfo) {
         checklistSections  = checkListInfo.sections.map((element, index) => {
             
-            // Creando la seccion en el checklist log.
-            if (checkListLog) {
-                checkListLog.sections[index] = { 
+            if (log.sections) {
+                // Creando las secciones en el checklist log.
+                log.sections[index] = {
+                    number: index + 1, 
                     sectionTitle: element.sectionTitle, 
-                    checkList: [] 
+                    checks: [], 
                 };
             }  
             
@@ -54,7 +61,8 @@ export default function CheckListScreen({ navigation, route }) {
     }
 
     function finalize() {
-        console.log(checkListLog)
+        console.log(log)
+        insertLog(checkListInfo.id, equipmentId, Sesion.getUserId(), new Date().toDateString(), Sesion.getUserId(), log);
         navigation && navigation.goBack();
     }
 
@@ -66,70 +74,73 @@ export default function CheckListScreen({ navigation, route }) {
         <LinearGradient 
             style={styles.screen}
             colors={[theme.colors.secundary, theme.colors.tertiary, theme.colors.quaternary]}>
-                <SectionList
-                    style={styles.checkList}
-                    contentContainerStyle={styles.checkListContent}
-                    sections={checklistSections}
-                    keyExtractor={(element) => element.id}
-                    renderItem={({ item, index, section }) => (
+                <LogContext.Provider
+                    value={{ log: log }}>
+                    <SectionList
+                        style={styles.checkList}
+                        contentContainerStyle={styles.checkListContent}
+                        sections={checklistSections}
+                        keyExtractor={(element) => element.id}
+                        renderItem={({ item, index, section }) => (
                             <Check
                                 style={{ marginBottom: 30 }}
                                 question={item.question}
-                                index={index}
-                                sectionIndex = {section.index}
+                                checkIndex={index}
+                                sectionIndex={section.index}
                                 answerType={item.answerType}
                                 answers={item.answers}
-                                checkListLog={checkListLog}
                                 // Opcionales
                                 elements={item.elements}
                                 elementsHeader={item.elementsHeader} />
                         )}
-                    renderSectionHeader={({ section: { title } }) => (
-                        <View style={styles.sectionContainer}>
-                            <Title>{title}</Title>
-                        </View>
-                        
-                    )}
-                    ListEmptyComponent={() => (
-                        <Text>No hay elementos que revisar en este checklist...</Text>
-                    )}
-                    ListHeaderComponent={() => (
-                        <View style={styles.checkListHeader}>
-                            <Title style={{color: theme.colors.light, fontSize: theme.fontSizes.bigText}}>Check List</Title>
-                            <TextDefault style={{color: theme.colors.light, textAlign: "center"}}>Responda todas las preguntas para completar el Check List.</TextDefault>
-                            <View style={{paddingVertical: 15, flexDirection: "row", alignItems: "center"}}>
-                                <Image
-                                    style={styles.image}
-                                    source={equipment.image}/>
-                                <View>
-                                <TextDefault style={{color: theme.colors.light, fontWeight: theme.fontWeights.bold}}>{equipment.type}</TextDefault>
-                                <TextDefault style={{color: theme.colors.light}}>{equipment.name}</TextDefault>
+                        renderSectionHeader={({ section: { title } }) => (
+                            <View style={styles.sectionContainer}>
+                                <Title>{title}</Title>
+                            </View>
+
+                        )}
+                        ListEmptyComponent={() => (
+                            <Text>No hay elementos que revisar en este checklist...</Text>
+                        )}
+                        ListHeaderComponent={() => (
+                            <View style={styles.checkListHeader}>
+                                <Title style={{ color: theme.colors.light, fontSize: theme.fontSizes.bigText }}>Check List</Title>
+                                <TextDefault style={{ color: theme.colors.light, textAlign: "center" }}>Responda todas las preguntas para completar el Check List.</TextDefault>
+                                <View style={{ paddingVertical: 15, flexDirection: "row", alignItems: "center" }}>
+                                    <Image
+                                        style={styles.image}
+                                        source={equipment.image} />
+                                    <View>
+                                        <TextDefault style={{ color: theme.colors.light, fontWeight: theme.fontWeights.bold }}>{equipment.type}</TextDefault>
+                                        <TextDefault style={{ color: theme.colors.light }}>{equipment.name}</TextDefault>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    )}
-                    ListFooterComponent={() => (
-                        <View style={styles.checkListFooter}>
-                            <SecundaryButton
-                                onPress={() => cancelConfirmDialog.setVisible(true)}>
-                                Cancelar
-                            </SecundaryButton>
-                            <Button
-                                onPress={() => finalizeConfirmDialog.setVisible(true)}>
-                                Finalizar
-                            </Button>
-                        </View>
-                    )} />
-                    <ConfirmDialog
-                        title="Finalizar"
-                        text="¿Deseas finalizar el Check List?"
-                        reference={finalizeConfirmDialog}
-                        onConfirm={finalize} />
-                    <ConfirmDialog
-                        title="Cancelar"
-                        text="Si cancelas el Check List ahora se perderá el progreso."
-                        reference={cancelConfirmDialog}
-                        onConfirm={cancel} />
+                        )}
+                        ListFooterComponent={() => (
+                            <View style={styles.checkListFooter}>
+                                <SecundaryButton
+                                    onPress={() => cancelConfirmDialog.setVisible(true)}>
+                                    Cancelar
+                                </SecundaryButton>
+                                <Button
+                                    onPress={() => finalizeConfirmDialog.setVisible(true)}>
+                                    Finalizar
+                                </Button>
+                            </View>
+                        )} />
+                </LogContext.Provider>
+                
+                <ConfirmDialog
+                    title="Finalizar"
+                    text="¿Deseas finalizar el Check List?"
+                    reference={finalizeConfirmDialog}
+                    onConfirm={finalize} />
+                <ConfirmDialog
+                    title="Cancelar"
+                    text="Si cancelas el Check List ahora se perderá el progreso."
+                    reference={cancelConfirmDialog}
+                    onConfirm={cancel} />
         </LinearGradient>
     )
 }

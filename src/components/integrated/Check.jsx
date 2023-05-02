@@ -1,3 +1,4 @@
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Subtitle from '../core/Subtitle';
 import Title from '../core/Title';
@@ -10,17 +11,20 @@ import RadioButtonAnswer from './check/checkAnswers/RadioButtonAnswer';
 import CheckBoxAnswer from './check/checkAnswers/CheckBoxAnswer';
 import TableAnswer from './check/checkAnswers/TableAnswer';
 
+import LogContext from '../../context/LogContext';
 
-export default function Check({ question, index, sectionIndex, answerType, answers, elements, elementsHeader, checkListLog, style }){
+export default function Check({ question, checkIndex, sectionIndex, answerType, answers, elements, elementsHeader, style }){
 
-    // Guardando la pregunta
-    if (checkListLog) {
-        if (!checkListLog.sections[sectionIndex].checkList[index]) {
-            checkListLog.sections[sectionIndex].checkList[index] = { };
-        }
-
-        // Se actualiza dos veces... corregir
-        checkListLog.sections[sectionIndex].checkList[index].question = question;    
+    const { log } = React.useContext(LogContext);
+    
+    // Creando el Check en el log.
+    if (log && log.sections) { 
+        console.log(sectionIndex, checkIndex)
+        log.sections[sectionIndex].checks[checkIndex] = { 
+            number: checkIndex + 1,
+            question: question,
+            // crear el arreglo de answers. 
+        };  
     }
 
     function selectAnswerType(answerType) {
@@ -28,9 +32,15 @@ export default function Check({ question, index, sectionIndex, answerType, answe
             case 0: 
                 return <></>
             case 1:
-                return <RadioButtonAnswer answers={answers} checkListLog={checkListLog} radioButtonAnswerIndex={index}/>
+                return <RadioButtonAnswer 
+                        answers={answers} 
+                        sectionIndex={sectionIndex} 
+                        checkIndex={checkIndex} />
             case 2: 
-                return <CheckBoxAnswer answers={answers}/>
+                return <CheckBoxAnswer 
+                        answers={answers}
+                        sectionIndex={sectionIndex}
+                        checkIndex={checkIndex} />
             case 3:
                 return <></>
             case 4:
@@ -40,8 +50,8 @@ export default function Check({ question, index, sectionIndex, answerType, answe
                             elements={elements} 
                             elementsHeader={elementsHeader}
                             columnsWidth={[]}
-                            checkListLog={checkListLog} 
-                            tableAnswerIndex={index} />
+                            sectionIndex={sectionIndex} 
+                            checkIndex={checkIndex} />
             default: 
                 return <></>
         }
@@ -54,7 +64,7 @@ export default function Check({ question, index, sectionIndex, answerType, answe
                     {question}
                 </Subtitle>
                 <Title style={{marginLeft: 10}}>
-                    {index + 1}
+                    {checkIndex + 1}
                 </Title>
             </View>
             <View style={styles.answersContainer}>

@@ -35,14 +35,13 @@ export async function getCheckListLog(id) {
 }
 
 export async function insertCheckListLog(checklistId, equipmentId, responsableId, dataTime, authorizedById, data) {
-    const response = await fetch(API_URL + `log/insert?
-        checklist=${checklistId}&
-        equipment=${equipmentId}&
-        responsableUser=${responsableId}&
-        dateTime=${dataTime}&
-        authorizedBy=${authorizedById}&
-        data=${data}
-        `)
+    
+    // NO ACEPTA ESPACIOS: Soliona usando el metodo Post...
+    const command = API_URL + `log/insert?checklist=${checklistId}&equipment=${equipmentId}&responsableUser=${responsableId}&dateTime=${dataTime}&authorizedBy=${authorizedById}&data=${JSON.stringify(data)}`;
+
+    console.log(command)
+
+    const response = await fetch(command)
     .then(res => {
         try {
             return res.json();

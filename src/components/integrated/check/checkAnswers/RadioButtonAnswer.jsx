@@ -2,8 +2,12 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import RadioButton from '../../../core/RadioButton';
 
-export default function RadioButtonAnswer({ answers, checkListLog, radioButtonAnswerIndex }){
+import LogContext from '../../../../context/LogContext';
+
+export default function RadioButtonAnswer({ answers, sectionIndex, checkIndex }){
     
+    const { log } = React.useContext(LogContext); 
+
     const [ selected, setSelected ] = React.useState(null);
 
     return (
@@ -17,11 +21,16 @@ export default function RadioButtonAnswer({ answers, checkListLog, radioButtonAn
                         selected={selected}
                         onChecked={() => { 
                             setSelected(index);
-                            if (checkListLog) {
-                                checkListLog.sections[0].checkList[radioButtonAnswerIndex].answers = element;
+                            if (log && log.sections) {
+                                log.sections[sectionIndex].checks[checkIndex].answers = element;
                             }
                         }}
-                        onUnchecked={() => setSelected(null)}>
+                        onUnchecked={() => {
+                            setSelected(null);
+                            if (log && log.sections) {
+                                log.sections[sectionIndex].checks[checkIndex].answers = undefined;
+                            }
+                        }}>
                         {element}
                     </RadioButton>
                 ))

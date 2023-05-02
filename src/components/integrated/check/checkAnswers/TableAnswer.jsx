@@ -4,8 +4,17 @@ import { View, Text, StyleSheet, useWindowDimensions } from 'react-native';
 import theme from '../../../../utils/theme';
 import RadioButton from '../../../core/RadioButton';
 
-export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye, checkListLog, tableAnswerIndex }){
-    
+import LogContext from '../../../../context/LogContext';
+
+export default function TableAnswer({ answers, elements, elementsHeader, columnsWidth, stlye, tableAnswer, Index, sectionIndex, checkIndex }){
+
+    const { log } = React.useContext(LogContext); 
+
+    // Creando el Group en el log.
+    if (log && log.sections) {
+        log.sections[sectionIndex].checks[checkIndex].groups = [];
+    }
+
     const dimensions = useWindowDimensions();
     const isShortScreen = dimensions.width <= 400;
 
@@ -30,13 +39,116 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
                         columns={answers} 
                         isLastRow={index === elements.length - 1}
                         isShortScreen={isShortScreen} 
-                        checkListLog={checkListLog}
-                        tableAnswerIndex={tableAnswerIndex}
                         rowIndex={index} />
                 )
             }
         </View>
     )
+
+    function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow, isShortScreen }) {
+
+        return (
+            <View style={[styles.row, isLastRow && { borderBottomWidth: 0 }]}>
+                {
+                    // Creando la celda de la primer columna
+                    <Cell columnWidth={(columnsWidth && columnsWidth[0]) && columnsWidth[0]}>
+                        <Text
+                            style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
+                            numberOfLines={3}>
+                            {typeof elementsHeader === "string" && elementsHeader}
+                        </Text>
+                    </Cell>
+                }
+                {
+                    // Creando el resto celdas en las diferentes columnas
+                    columns.map((answer, index) =>
+                        <Cell
+                            key={index + 1}
+                            columnWidth={columnsWidth && columnsWidth[index + 1] && columnsWidth[index + 1]}>
+                            <Text
+                                style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
+                                numberOfLines={1}>
+                                {answer ? answer : "-"}
+                            </Text>
+                        </Cell>
+                    )
+                }
+            </View>
+        )
+    }
+
+    function Row({ columnsWidth, columns, element, isLastRow, isShortScreen, tableAnswerIndex, rowIndex }) {
+
+        // Por cada row se podra seleccionar un solo radiobutton. 
+        // En el estado selected se guardara que radiobutton esta seleccionado en la row.
+        const [selected, setSelected] = React.useState(null);
+
+        // Creando la sub-pregunta en el log.
+        if (log && log.sections) {
+            if (!log.sections[sectionIndex].checks[checkIndex].groups[rowIndex]) {
+                log.sections[sectionIndex].checks[checkIndex].groups[rowIndex] = {
+                    number: rowIndex + 1,
+                    subQuestion: element,
+                    // Aqui iria la creacion del arreglo anwers...
+                };
+            }
+            
+        }
+
+        return (
+            <View style={[styles.row, isLastRow && { borderBottomWidth: 0 }]}>
+                {
+                    // Creando la celda de la primer columna
+                    <Cell columnWidth={columnsWidth && columnsWidth[0] && columnsWidth[0]}>
+                        <Text
+                            style={[styles.text, isShortScreen ? styles.shortScreen : styles.normalScreen]}
+                            numberOfLines={3}>
+                            {typeof element === "string" && element}
+                        </Text>
+                    </Cell>
+                }
+
+                {
+                    // Creando el resto celdas en las diferentes columnas
+                    columns.map((answer, index) =>
+                        <Cell
+                            key={index + 1}
+                            columnWidth={columnsWidth && columnsWidth[index + 1] && columnsWidth[index + 1]}>
+                            <RadioButton
+                                myIndex={index + 1}
+                                selected={selected}
+                                onChecked={() => { 
+                                    setSelected(index + 1);
+                                    if (log && log.sections) {
+                                        console.log("llegue..", answer, "sec:",sectionIndex, "che:", checkIndex, "gro:", rowIndex)
+                                        log.sections[sectionIndex].checks[checkIndex].groups[rowIndex].answers = answer;
+                                    }
+                                }}
+                                onUnchecked={() => {
+                                    setSelected(null);
+                                    if (log && log.sections) {
+                                        log.sections[sectionIndex].checks[checkIndex].groups[rowIndex].answers = undefined;
+                                    }
+                                }} />
+                        </Cell>
+                    )
+                }
+            </View>
+        )
+    }
+
+    function Cell({ columnWidth, children }) {
+
+        return (
+            <View
+                style={[styles.cell, columnWidth ? { width: columnWidth } : { flex: 1 }]}>
+                {children}
+            </View>
+        )
+    }
+
+
+    
 }
 
 function HeaderRow({ columnsWidth, columns, elementsHeader, isLastRow, isShortScreen }) {

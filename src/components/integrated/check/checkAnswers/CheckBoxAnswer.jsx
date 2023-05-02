@@ -2,7 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import CheckBox from '../../../core/CheckBox';
 
-export default function CheckBoxAnswer({ answers }){
+import LogContext from '../../../../context/LogContext';
+
+export default function CheckBoxAnswer({ answers, sectionIndex, checkIndex }){
+
+    const { log } = React.useContext(LogContext); 
 
     const [ selected, setSelected ] = React.useState(null);
 
@@ -15,8 +19,18 @@ export default function CheckBoxAnswer({ answers }){
                         key={index}
                         myIndex={index}
                         selected={selected}
-                        onChecked={() => setSelected(index)}
-                        onUnchecked={() => setSelected(null)}>
+                        onChecked={() => { 
+                            setSelected(index);
+                            if (log && log.sections) {
+                                log.sections[sectionIndex].checks[checkIndex].answers = element;
+                            }
+                        }}
+                        onUnchecked={() => {
+                            setSelected(null);
+                            if (log && log.sections) {
+                                log.sections[sectionIndex].checks[checkIndex].answers = undefined;
+                            }
+                        }}>
                         {element}
                     </CheckBox>
                 ))

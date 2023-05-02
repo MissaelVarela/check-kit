@@ -39,4 +39,12 @@ export default class Sesion {
     static getUser(){
         return this.user
     }
+
+    static setUserId(value){
+        this.userId = value
+    }
+
+    static getUserId(){
+        return this.userId
+    }
 }
