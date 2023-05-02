@@ -10,7 +10,7 @@ import TextButton from '../core/TextButton'
 
 export default function MessageDialog(props) {
 
-    const { text, title, minWidth, children, reference } = props;
+    const { text, title, minWidth, onConfirm, children, reference } = props;
 
     // Crear el estado de visibilidad del componente
     const [ visible, setVisible ] = React.useState(false);
@@ -27,7 +27,7 @@ export default function MessageDialog(props) {
             transparent={true} 
             statusBarTranslucent={true}
             animationType="fade" 
-            nRequestClose={()=> setVisible(false)}
+            RequestClose={()=> setVisible(false)}
             style={styles.main}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modal}>
@@ -36,7 +36,7 @@ export default function MessageDialog(props) {
                             <TextDefault style={{maxWidth: 450}}>{children ? children : text}</TextDefault>
                         </View>
                         <View style={styles.modalFooter}>
-                            <TextButton onPress={() => setVisible(false)}>Ok</TextButton>
+                            <TextButton onPress={() => {setVisible(false); onConfirm && onConfirm()}}>Ok</TextButton>
                         </View>
                     </View>
                 </View>

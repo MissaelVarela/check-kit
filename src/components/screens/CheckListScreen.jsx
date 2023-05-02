@@ -35,8 +35,8 @@ export default function CheckListScreen({ navigation, route }) {
     // Creando los objetos que tendran referencia algunos componentes hijo:
     const finalizeConfirmDialog = { setVisible: () => {} };
     const cancelConfirmDialog = { setVisible: () => {} };
-    const messageDialog = { setVisible: () => {} };
-    const [ messageDialogText, setMessageDialogText ] = React.useState("");
+    const successfulMessageDialog = { setVisible: () => {} };
+    const errorMessageDialog = { setVisible: () => {} };
 
     let checklistSections;
     if (checkListInfo) {
@@ -70,22 +70,20 @@ export default function CheckListScreen({ navigation, route }) {
                 equipmentId, 
                 // Por pruebas se esta poniendo el id del admin
                 Sesion.getUserId() ? Sesion.getUserId() : 1, 
-                new Date().toDateString(), 
+                null,
                 Sesion.getUserId() ? Sesion.getUserId() : 1, 
-                log
+                log,
             );
             
             if (result) {
-                setMessageDialogText("Se guardó correctamente el Check List.");
-                messageDialog.setVisible(true);
-
-                navigation && navigation.goBack();
-            } 
+                successfulMessageDialog.setVisible(true);
+            }else {
+                errorMessageDialog.setVisible(true);
+            }
             
         }
         catch (error) {
-            setMessageDialogText("No se pudo guardar el Check List. " + error.message);
-            messageDialog.setVisible(true);
+            errorMessageDialog.setVisible(true);
         } 
     }
 
@@ -166,8 +164,13 @@ export default function CheckListScreen({ navigation, route }) {
                     onConfirm={cancel} />
                 <MessageDialog
                     title="Información"
-                    text={messageDialogText}
-                    reference={messageDialog} />
+                    text="Se guardó correctamente el Check List."
+                    reference={successfulMessageDialog}
+                    onConfirm={() => navigation && navigation.goBack() } />
+                <MessageDialog
+                    title="Información"
+                    text="No se pudo guardar el Check List."
+                    reference={errorMessageDialog} />
         </LinearGradient>
     )
 }
