@@ -114,12 +114,19 @@ export default function EquipmentScreen({route, navigation}) {
                                 dataMatrix={dataEquipment}
                                 columnsWidth={[140]} />
                         </Section>
-                        <Section
-                            title="Datos del mantenimiento:">
-                            <Table
-                                dataMatrix={dataMaintenance}
-                                columnsWidth={[180]} />
-                        </Section>
+
+                        {
+                            // IMPLEMENTAR Datos del mantenimiento
+                            /*
+                            <Section
+                                title="Datos del mantenimiento:">
+                                <Table
+                                    dataMatrix={dataMaintenance}
+                                    columnsWidth={[180]} />
+                            </Section>
+                            */
+                        }
+                        
                         <View style={styles.buttonConteiner}>
                             <Button 
                                 style={{ marginTop: 60, width: 240 }}

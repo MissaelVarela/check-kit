@@ -2,7 +2,7 @@
 // SIMULACIÓN de los datos provenientes de una base de datos.
 
 const imgDirectory = require.context('./img');
-const equipmentsDirectory = require.context('./img/equipments');
+const equipmentsDirectory = require.context('./img/equipments_low');
 
 export default [
     {

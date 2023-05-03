@@ -3,6 +3,8 @@ import { View, ScrollView, Text, Image, StyleSheet, TouchableOpacity } from 'rea
 
 import theme from '../../utils/theme';
 import Data from '../../data/Data';
+import Sesion from '../../utils/Sesion';
+
 import Section from '../integrated/Section';
 import Table from '../integrated/Table';
 import Button from '../core/Button';
@@ -28,11 +30,18 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
             ["Serie:", equipment.series],
             ["Ubicación:", equipment.location],
         ];
+
+        switch(Sesion.getUserType()) {
+            case 1: var tipo = "Administrador"; break;
+            case 1: var tipo = "Maestro"; break;
+            case 1: var tipo = "Alumno"; break;
+            default: var tipo = "Usuario"; break;
+        }
     
         var dataReponsable = [
-            ["Nombre:", "Nicole Balvaneda Cruz Aguirre"],
-            ["Tipo de usuario:","Alumno"],
-            ["Autorizado por:", "David Garcia Torres"],
+            ["Nombre:", Sesion.getName()],
+            ["Tipo de usuario:", tipo],
+            ["Autorizado por:", Sesion.getName()],
         ];
     }
     else {

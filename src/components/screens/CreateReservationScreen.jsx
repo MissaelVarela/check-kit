@@ -9,6 +9,7 @@ import Data from '../../data/Data';
 import TextField from '../core/TextField';
 import SecundaryButton from '../core/SecundaryButton';
 import HeaderBar from '../integrated/HeaderBar';
+import ConfirmDialog from '../integrated/ConfirmDialog';
 
 export default function CreateReservationScreen({navigation}) {
 
@@ -21,11 +22,23 @@ export default function CreateReservationScreen({navigation}) {
     const [selectedType, setSelectedType] = React.useState();
     const [selectedEquipment, setSelectedEquipment] = React.useState();
 
+    // Creando los objetos que tendran referencia algunos componentes hijo:
+    const finalizeConfirmDialog = { setVisible: () => {} };
+    const cancelConfirmDialog = { setVisible: () => {} };
+
     function UpdateEquipmentComboBox(value, label){
         const equipments = Data.getEquipmentsByType(value);
         const newEquipmentsOptions = equipments.map((element) => { return { value: element.id, label: element.name }});
         setEquipmentOptions(newEquipmentsOptions);
         setSelectedEquipment({ value: -1, label: "<Todos>" });
+    }
+
+    function finalize() {
+        navigation && navigation.goBack();
+    }
+
+    function cancel() {
+        navigation && navigation.goBack();
     }
 
     return (
@@ -54,7 +67,9 @@ export default function CreateReservationScreen({navigation}) {
                             setSelected={setSelectedEquipment} />
                     </View>
                 </View>
-                <View>
+                {
+                    /*
+<View>
                     <Subtitle style={{ paddingTop: 18, marginBottom: 5 }}  > Reservar para alguien más</Subtitle>
                 </View>
                 <View>
@@ -64,6 +79,9 @@ export default function CreateReservationScreen({navigation}) {
                         selected={selectedEquipment}
                         setSelected={setSelectedEquipment} />
                 </View>
+                    */
+                }
+                
                 <View>
                     <Subtitle style={{ paddingTop: 18, marginBottom: 5 }} > Fecha</Subtitle>
                 </View>
@@ -75,27 +93,41 @@ export default function CreateReservationScreen({navigation}) {
                 <View style={styles.comboContainer}>
                     <View style={{ flex: 1, marginRight: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5, }}> Hora inicio:</Subtitle>
-                        <ComboBox
-                            placeHolder="" />
+                        <TextField
+                            placeHolder=""
+                            shownBorder />
                     </View>
                     <View style={{ flex: 1, marginLeft: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5 }}> Hora final:</Subtitle>
-                        <ComboBox
-                            placeHolder="" />
+                        <TextField
+                            placeHolder=""
+                            shownBorder />
                     </View>
                 </View>
                 <View style={styles.comboContainer}>
                     <View style={{ flex: 1, marginRight: 10, paddingTop: 50 }}>
                         <SecundaryButton
                             style={{ marginTop: 15 }}
-                            text="Cancelar" />
+                            text="Cancelar"
+                            onPress={() => { cancelConfirmDialog.setVisible(true) }} />
                     </View>
                     <View style={{ flex: 1, marginLeft: 10, paddingTop: 50 }}>
                         <SecundaryButton
                             style={{ marginTop: 15, }}
-                            text="Confirmar" />
+                            text="Confirmar" 
+                            onPress={() => { finalizeConfirmDialog.setVisible(true) }} />
                     </View>
                 </View>
+                <ConfirmDialog
+                    title="Finalizar"
+                    text="Su reservación quedará registrada."
+                    reference={finalizeConfirmDialog}
+                    onConfirm={finalize} />
+                <ConfirmDialog
+                    title="Cancelar"
+                    text="Su reservación se cancelará."
+                    reference={cancelConfirmDialog}
+                    onConfirm={cancel} />
             </View>
         </View>
     </View>
@@ -124,7 +156,6 @@ const styles = StyleSheet.create({
         padding:35,
         borderRadius:10,
         backgroundColor: theme.colors.light,
-       
         width: "100%",
         maxWidth: 1000,
     }

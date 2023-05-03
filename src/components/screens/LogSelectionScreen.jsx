@@ -72,20 +72,26 @@ export default function LogSelectionScreen({navigation}){
                         // Pasando el navigation
                         navigation={navigation} />
                 </ScrollView>    
-                <View style={styles.bottonContainer}>
-                    <View style={{flex: 1, marginRight: 10, paddingTop:50}}>
-                        <SecundaryButton
-                            style={{marginTop: 15 }}
-                            text= "Anterior"
-                            noEnable={true} />
-                    </View>
-                    <View style={{flex: 1, marginLeft: 10, paddingTop:50}}>
-                        <SecundaryButton
-                            style={{marginTop: 15 }}
-                            text= "Siguiente"
-                            noEnable={true} />
-                    </View>
-                </View>        
+                {
+                    // IMPLEMENTAR: Botones de navegacion...
+                    /*
+                    <View style={styles.bottonContainer}>
+                        <View style={{ flex: 1, marginRight: 10, paddingTop: 50 }}>
+                            <SecundaryButton
+                                style={{ marginTop: 15 }}
+                                text="Anterior"
+                                noEnable={true} />
+                        </View>
+                        <View style={{ flex: 1, marginLeft: 10, paddingTop: 50 }}>
+                            <SecundaryButton
+                                style={{ marginTop: 15 }}
+                                text="Siguiente"
+                                noEnable={true} />
+                        </View>
+                    </View>  
+                    */
+                }
+                      
             </View>
         </View>
     )

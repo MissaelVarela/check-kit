@@ -84,14 +84,14 @@ export default function LogScreen({ navigation, route }){
 
     return(
         <View style={styles.screen}>
-            <HeaderBar buttonType="menu">Registros</HeaderBar>
+            <HeaderBar buttonType="back">Registros</HeaderBar>
             <View style= {styles.body}>
                 <Title style={{marginBottom: 15}}>Detalles del Check List</Title>
                 <ScrollView style={styles.scroll}>
                     <DataTable   
                         dataHeader={dataHeader}
                         dataMatrix={data} 
-                        columnsWidth={[40, 120,80]} />
+                        columnsWidth={[40]} />
                 </ScrollView>
                 
             </View> 
