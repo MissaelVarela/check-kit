@@ -33,11 +33,17 @@ export default function HomeScreen({ navigation }) {
                         style={styles.logoImage}
                         resizeMode='contain'/>
                 </View>
-                
-                <Section
-                    style={[styles.section, {marginTop: 60}]}
-                    title="Accesos rápidos">
-                </Section> 
+
+                {
+                    // IMPLEMENTAR: Accesos rapidos.
+                    /*
+                    <Section
+                        style={[styles.section, { marginTop: 60 }]}
+                        title="Accesos rápidos">
+                    </Section>
+                    */
+                }
+                 
             </ScrollView>
             
         </ImageBackground>

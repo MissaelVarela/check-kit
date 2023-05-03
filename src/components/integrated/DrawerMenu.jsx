@@ -73,7 +73,7 @@ export default function DrawerMenu(props) {
                         ?
                             <DrawerMenuItem
                                 text="Laboratorio ing. biomédica"
-                                onPress={() => {setActiveDrawerSection("CatalogNavigation/LabBio"); navigation.navigate("CatalogNavigation", {area: "LabBio"})}}
+                                onPress={() => {setActiveDrawerSection("CatalogNavigation/LabBio"); navigation.navigate("CatalogNavigation", { locationId: 0, location: "Laboratorio ing. biomédica"})}}
                                 isActive={activeDrawerSection === "CatalogNavigation/LabBio"}
                                 textStyle={{fontSize: theme.fontSizes.subtitle, fontWeight: theme.fontWeights.regular}}/> 
                         :

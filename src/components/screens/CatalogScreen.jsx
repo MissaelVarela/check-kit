@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme.js';
@@ -12,9 +12,18 @@ import StackContext from '../../context/StackContext.js';
 
 let equipments;
 
-export default function CatalogScreen({navigation}) {
+export default function CatalogScreen({navigation, route}) {
   
-    const { setGoBack } = React.useContext(StackContext);
+    const { setGoBack, catalogLocation } = React.useContext(StackContext);
+
+    const [ title, setTitle ] = React.useState("todos los Equipos médicos");
+    
+    React.useEffect(() => {
+        if (catalogLocation) {
+            const location = catalogLocation.location;
+            setTitle(location ? "Equipos médicos del " + location : "todos los Equipos médicos");
+        }
+    }, [catalogLocation]);
 
     if (!equipments) equipments = Data.getEquipments();
 
@@ -41,7 +50,7 @@ export default function CatalogScreen({navigation}) {
         <View style={styles.screen}>
             <HeaderBar buttonType="menu">Equipos médicos</HeaderBar>
             <View style={styles.header}>
-                <Subtitle>Lista de Equipos Medicos</Subtitle>
+                <Subtitle>Lista de <Subtitle style={{fontWeight: theme.fontWeights.semiBold, color: theme.colors.primary}}>{title}</Subtitle></Subtitle>
                 {
                     //<IconButton icon={sources.icons.catalogue} small />
                 }

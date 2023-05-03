@@ -39,9 +39,9 @@ export default function EquipmentScreen({route, navigation}) {
         ];
     
         var dataMaintenance = [
-            ["Estado del equipo::", equipment.maintenance.descripcionState],
-            ["Ultimo Mantenimiento:", equipment.maintenance.lastMaintenace],
-            ["Proximo Mantenimiento:", equipment.maintenance.nextMaintenace],
+            ["Estado del equipo:", "-"],
+            ["Ultimo Mantenimiento:", "-"],
+            ["Proximo Mantenimiento:", "-"],
         ];
     }
     else {

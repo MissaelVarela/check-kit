@@ -8,14 +8,25 @@ import StackContext from '../../context/StackContext';
 
 const Stack = createNativeStackNavigator();
 
-export default function CatalogNavigation() {
+export default function CatalogNavigation({ navigation, route }) {
 
   // Creando el estado del Stack que almacena el metodo navigation.goBack().
   const [ goBack, setGoBack ] = React.useState({ method: null });
+  const [ catalogLocation, setCatalogLocation ] = React.useState({ });
+
+  React.useEffect(() => {
+    console.log("entrando en cat nav", route.params);
+    const { locationId,  location } = route.params ?  route.params : {};
+    setCatalogLocation({ locationId: locationId, location: location });
+  }, [route.params]);
 
   return (
     <StackContext.Provider
-      value={{goBack: goBack, setGoBack: setGoBack}}>
+      value={{ 
+        goBack: goBack,
+        setGoBack: setGoBack,
+        catalogLocation: catalogLocation,
+        }}>
       <Stack.Navigator
         initialRouteName='Catalog'
         screenOptions={{ 
