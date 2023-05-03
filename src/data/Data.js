@@ -39,6 +39,15 @@ export default class Data {
         return equipmentTypes;
     }
 
+    static getEquipmentType(id){
+        const type = equipmentTypes.find(
+            (item) => item.id === id
+        );
+
+        return type;
+    }
+
+
     static getCheckLists(){
         return checklists;
     }

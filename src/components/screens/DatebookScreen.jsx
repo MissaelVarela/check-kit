@@ -26,7 +26,26 @@ export default function DatebookScreen({navigation, route}) {
     // Temporal: solo para mostrar que esta llegando la informacion
     let equipment = selectedEquipment && Data.getEquipment(selectedEquipment);
 
-    if (!equipment) equipment = Data.getEquipment(1);
+    if (!equipment) {
+        let type = selectedType && Data.getEquipmentType(selectedType);
+        
+        if (!type) {
+            //equipment = Data.getEquipment(1);
+
+            var typeText = "Todos los equipos";
+            var nameText = null;
+        }
+        else {
+            var typeText = type.type;
+            var nameText = null;
+        }
+        
+    }
+    else {
+        var typeText = equipment.type;
+        var nameText = equipment.name;
+    }
+        
 
     function UpdateDate(days) {
         dateObj.setDate(dateObj.getDate() + days);
@@ -43,7 +62,7 @@ export default function DatebookScreen({navigation, route}) {
         <View style={styles.screen}>
             <HeaderBar buttonType="back" needGoBackToOrigin={needGoBackToOrigin} stackNavigation={navigation}>Agenda</HeaderBar>
             <View style={styles.header}>
-                <Subtitle>Reservacion del equipo: {equipment.type}, {equipment.name}</Subtitle>
+                <Subtitle>Reservación de: <Subtitle style={{fontWeight: theme.fontWeights.semiBold, color: theme.colors.primary}}>{typeText}{ nameText ? ": " + nameText : ""}</Subtitle></Subtitle>
             </View>
             <View style={styles.body}>
                 <ReservationList 
