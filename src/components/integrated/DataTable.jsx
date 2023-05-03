@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, useWindowDimensions, TouchableHighlight } from 'react-native';
 import theme from '../../utils/theme';
 
 export default function DataTable(props){
 
     const { dataMatrix, dataHeader, columnsWidth, style, onPress, touchable, navigation } = props;
+
+    const dimensions = useWindowDimensions();
+    const isShortScreen = dimensions.width <= 600;
 
     return(
         <View style={[styles.main, style]}>
@@ -13,7 +16,13 @@ export default function DataTable(props){
                     {
                         dataHeader.map((cell, index) =>
                             <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? { width: columnsWidth[index] } : { flex: 1 }]}>
-                                <Text style={styles.headerText}>{cell ? cell : "-"}</Text>
+                                <Text 
+                                    style={[
+                                        styles.headerText, 
+                                        isShortScreen ? {fontSize: theme.fontSizes.smallText} : {fontSize: theme.fontSizes.text}
+                                    ]}>
+                                        {cell ? cell : "-"}
+                                </Text>
                             </View>
                         )
                     }
@@ -24,17 +33,27 @@ export default function DataTable(props){
                     touchable 
                     ?
                     (
-                            <TouchableOpacity key={index} onPress={onPress ? onPress : () => {navigation.navigate("Log", { logId: row[0] }) }}>
+                            <TouchableHighlight 
+                                underlayColor={theme.colors.quaternary}
+                                key={index} 
+                                onPress={onPress ? onPress : () => {navigation.navigate("Log", { logId: row[0] }) }}>
                                 <View style={styles.row}>
                                     {
                                         row.map((cell, index) =>
                                             <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? { width: columnsWidth[index] } : { flex: 1 }]}>
-                                                <Text style={styles.text} >{cell ? cell : "-"}</Text>
+                                                <Text 
+                                                    style={[
+                                                        styles.text, 
+                                                        index == 0 ? {textAlign: "left"} : {textAlign: "center"},
+                                                        isShortScreen ? {fontSize: theme.fontSizes.smallestText} : {fontSize: theme.fontSizes.text}
+                                                    ]}>
+                                                        {cell ? cell : "-"}
+                                                </Text>
                                             </View>
                                         )
                                     }
                                 </View>
-                            </TouchableOpacity> 
+                            </TouchableHighlight> 
                     )
                     :
                     (
@@ -43,7 +62,14 @@ export default function DataTable(props){
                                     {
                                         row.map((cell, index) =>
                                             <View key={index} style={[styles.cell, columnsWidth && columnsWidth[index] ? { width: columnsWidth[index] } : { flex: 1 }]}>
-                                                <Text style={styles.text} >{cell ? cell : "-"}</Text>
+                                                <Text 
+                                                    style={[
+                                                        styles.text, 
+                                                        index == 0 ? {textAlign: "left"} : {textAlign: "center"},
+                                                        isShortScreen ? {fontSize: theme.fontSizes.smallestText} : {fontSize: theme.fontSizes.text}
+                                                    ]}>
+                                                        {cell ? cell : "-"}
+                                                </Text>
                                             </View>
                                         )
                                     }
@@ -72,14 +98,13 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     },
     headerText: {
-        fontSize: theme.fontSizes.smallText,
         fontWeight: theme.fontWeights.bold,
+        flex: 1,
         textAlign: "center",
+        textAlignVertical: "center",
     },
     text: {
         flex: 1,
-        fontSize: theme.fontSizes.smallestText,
-        textAlign: "center",
         textAlignVertical: "center",
     }
 })

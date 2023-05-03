@@ -120,7 +120,6 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
                                 onChecked={() => { 
                                     setSelected(index + 1);
                                     if (log && log.sections) {
-                                        console.log("llegue..", answer, "sec:",sectionIndex, "che:", checkIndex, "gro:", rowIndex)
                                         log.sections[sectionIndex].checks[checkIndex].groups[rowIndex].answers = answer;
                                     }
                                 }}

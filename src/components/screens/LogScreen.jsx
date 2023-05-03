@@ -1,67 +1,71 @@
 import React from 'react';
-import {View, Text, ScrollView, StyleSheet} from 'react-native';
+import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 
 import theme from '../../utils/theme';
 import { getLog } from '../../utils/checklist';
+import sources from '../../utils/sources';
 
 import Title from '../core/Title';
 import HeaderBar from '../integrated/HeaderBar';
 import DataTable from '../integrated/DataTable';
+import Section from '../integrated/Section';
+import Subtitle from '../core/Subtitle';
+import Table from '../integrated/Table';
+
+import IconButton from '../core/IconButton';
 
 let checklistLog;
 
 export default function LogScreen({ navigation, route }){
 
     const [ data, setData ] = React.useState([]);
-
-    console.log(route)
-
+    const [ generalData, setGeneralData ] = React.useState([]);
+    
     async function getData() {
         if (route && route.params) {
-
             const { logId } = route.params;
-            if (!checklistLog) checklistLog = await getLog(logId);
-        
-            console.log(checklistLog)
+            if (!checklistLog || (checklistLog && checklistLog.logId != logId)) checklistLog = await getLog(logId);
 
             const logData = JSON.parse(checklistLog[0].data);
 
-            console.log( logData)
-
             if (logData) {
-
-                const newData = logData.sections.map((section) => {
+                const newData = [];
+                logData.sections.forEach((section) => {
                     const sectionRow = [
                         section.number,
                         section.sectionTitle,
+                        " ",
+                        " ",
                     ];
 
-                    const checkRows = section.checks.map((check) => {
-                        return [
+                    newData.push(sectionRow);
+
+                    section.checks.forEach((check) => {
+                        const checkRow = [
                             section.number + "." + check.number,
                             check.question,
                             check.answers,
-                            // Aqui ira el comentario
-                            "...",
-                        ]
+                            check.observations,
+                        ];
+
+                        newData.push(checkRow);
+
+                        if (check.groups) {
+                            check.groups.forEach((group) => {
+                                const groupRow = [
+                                    section.number + "." + check.number + "." + group.number,
+                                    group.subQuestion,
+                                    group.answers,
+                                    "",
+                                ];
+        
+                                newData.push(groupRow);
+                            });
+                        }
                     })
-
-                    return checkRows;
-                });
-
-                
-                let array = [];
-
-                newData.forEach((section, index) => {
-                    section.forEach((check, index) => {
-                        array.push(check);
-                    }) 
-                    
                 })
 
-                console.log(array)
-                setData(array)    
-    
+                setData(newData)    
         } 
         
         }
@@ -72,29 +76,57 @@ export default function LogScreen({ navigation, route }){
         getData();
 
 
-    }, []);
+    }, [route.params]);
 
-    const dataHeader = ["Num", "Pregunta", "Respuesta", "Obeservaciones" ];
+    const dataHeader = [" ", "Pregunta", "Respuesta", "Obeservaciones" ];
 
-    const data2 = [
-        ["Num", "Pregunta", "Respuesta", "Obeservaciones" ],
-        ["Num", "Pregunta", "Respuesta", "Obeservaciones" ],
-        ["Num", "Pregunta", "Respuesta", "Obeservaciones" ],
-    ]
+    
+    React.useEffect(() => {
+        if (checklistLog && checklistLog[0]) {
+            setGeneralData([
+                ["Id del Registro:", checklistLog[0].id],
+                ["Fecha:", checklistLog[0].dateTime],
+                ["Tipo del Equipo:", checklistLog[0].equipmentType],
+                ["Nombre del Equipo:", checklistLog[0].equipmentName],
+                ["Responsable:", checklistLog[0].responsableName + " " + checklistLog[0].responsableLastName],
+            ]);
+        }
+    }, [checklistLog]);
 
     return(
         <View style={styles.screen}>
             <HeaderBar buttonType="back">Registros</HeaderBar>
-            <View style= {styles.body}>
-                <Title style={{marginBottom: 15}}>Detalles del Check List</Title>
-                <ScrollView style={styles.scroll}>
-                    <DataTable   
+            <ScrollView style= {styles.body}>
+                <View style={{ alignItems: "center", flex: 1, width: "100%", marginVertical: 35 }}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                        <View/>
+                        <Title style={{ marginBottom: 15 }}>Detalles del Check List</Title>
+                        <IconButton 
+                            icon={sources.icons.refresh}
+                            onPress={() => {
+                                getData()
+                            }} />
+                    </View>
+                    
+                    <View style={styles.subtitleContairner}>
+                        <Image source={sources.icons.maintenance} style={styles.icon}/> 
+                        <Title style={styles.subtitle}>Datos generales:</Title>
+                    </View>
+                    <Table
+                        style={[styles.table, {marginBottom: 50}]}
+                        dataMatrix={generalData}
+                        columnsWidth={[]} />
+                    <View style={styles.subtitleContairner}>
+                        <Image source={sources.icons.checklist} style={styles.icon}/>
+                        <Title style={styles.subtitle}>Respuestas:</Title>
+                    </View>
+                    <DataTable
+                        style={styles.table}
                         dataHeader={dataHeader}
-                        dataMatrix={data} 
-                        columnsWidth={[40]} />
-                </ScrollView>
-                
-            </View> 
+                        dataMatrix={data}
+                        columnsWidth={[60]} />
+                </View>
+            </ScrollView> 
         </View>
     )
 }
@@ -106,11 +138,30 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        padding: 35,
+        paddingHorizontal: 35,
     },
-    scroll: {
-        flex: 1,
+    table: {
         marginTop: 15,
         width: "100%",
+        maxWidth: 1000,
     },
+    subtitleContairner: {
+        flex: 1,
+        flexDirection: "row",
+        width: "100%", 
+        maxWidth: 1000, 
+        justifyContent: "flex-start",
+        alignItems: "center",
+        
+    },
+    subtitle: {
+        textAlignVertical: "center",
+        flex: 1,
+        marginLeft: 10,
+        fontWeight: theme.fontWeights.semiBold
+    },
+    icon: {
+        width: 36,
+        height: 36
+    }
 });

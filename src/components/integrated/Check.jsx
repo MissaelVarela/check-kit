@@ -18,8 +18,7 @@ export default function Check({ question, checkIndex, sectionIndex, answerType, 
     const { log } = React.useContext(LogContext);
     
     // Creando el Check en el log.
-    if (log && log.sections) { 
-        console.log(sectionIndex, checkIndex)
+    if (log && log.sections && !log.sections[sectionIndex].checks[checkIndex]) { 
         log.sections[sectionIndex].checks[checkIndex] = { 
             number: checkIndex + 1,
             question: question,
@@ -57,6 +56,15 @@ export default function Check({ question, checkIndex, sectionIndex, answerType, 
         }
     }
 
+    const [ textFieldValue, setTextFieldValue ] = React.useState();
+
+    // Cuando cambie el texto del textFiel Obeservaciones.
+    React.useEffect(() => {
+        if (log && log.sections) {
+            log.sections[sectionIndex].checks[checkIndex].observations = textFieldValue;
+        }
+    }, [textFieldValue]);
+
     return (
         <View style={[styles.main, style]}>
             <View style={styles.header}>
@@ -74,7 +82,9 @@ export default function Check({ question, checkIndex, sectionIndex, answerType, 
                 <TextField 
                     style={{height: 70}}
                     placeHolder="Observaciones" 
-                    multiline />
+                    multiline
+                    value={textFieldValue}
+                    onTextChange={setTextFieldValue}/>
             </View>
         </View>
     )

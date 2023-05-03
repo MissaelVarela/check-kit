@@ -33,8 +33,8 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
         switch(Sesion.getUserType()) {
             case 1: var tipo = "Administrador"; break;
-            case 1: var tipo = "Maestro"; break;
-            case 1: var tipo = "Alumno"; break;
+            case 2: var tipo = "Maestro"; break;
+            case 3: var tipo = "Alumno"; break;
             default: var tipo = "Usuario"; break;
         }
     
@@ -65,7 +65,6 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
 
     function navigateToCheckList() {
         if (navigation) {
-            console.log("Mandando la info:", equipment)
             const selectedEquipment = { equipmentId: equipment.id, checkListId: equipment.checkListsId[0] };
             navigation.navigate("CheckList", selectedEquipment);
         }

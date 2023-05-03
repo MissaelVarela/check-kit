@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import theme from '../../utils/theme';
+import sources from '../../utils/sources';
 import { getLogs } from '../../utils/checklist';
 
 import Subtitle from '../core/Subtitle';
@@ -8,6 +9,7 @@ import Title from '../core/Title';
 import SecundaryButton from '../core/SecundaryButton';
 import DataTable from '../integrated/DataTable';
 import HeaderBar from '../integrated/HeaderBar';
+import IconButton from '../core/IconButton';
 
 import StackContext from '../../context/StackContext.js';
 
@@ -20,9 +22,8 @@ export default function LogSelectionScreen({navigation}){
     const [ data, setData ] = React.useState([]);
 
     async function getData() {
-        if (!logs) logs = await getLogs();
+        logs = await getLogs();
         
-        console.log(logs)
         if (logs) {
             const newData = logs.map((element) => { 
                 return [ 
@@ -46,7 +47,7 @@ export default function LogSelectionScreen({navigation}){
 
     
 
-    const dataHeader = ["ID", "Fecha", "Equipo", "Responsable" ];
+    const dataHeader = ["Id", "Fecha", "Equipo", "Responsable" ];
     
 
     // Cuando LogSelectionScreen se cargue por primera vez.
@@ -61,17 +62,30 @@ export default function LogSelectionScreen({navigation}){
         <View style={styles.screen}>
             <HeaderBar buttonType="menu" >Registros</HeaderBar>
             <View style={styles.body} >
-                <Title>Registros de los Check List</Title>
-                <ScrollView style={styles.scroll} showsHorizontalScrollIndicator={true}>    
-                    <DataTable   
-                        dataHeader={dataHeader}
-                        dataMatrix={data} 
-                        columnsWidth={[40]} 
-                        touchable
-                        //onPress={()=> {navigation.navigate("Log")}}
-                        // Pasando el navigation
-                        navigation={navigation} />
-                </ScrollView>    
+                <View style={{alignItems: "center", flex: 1, width: "100%"}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                        <View/>
+                        <Title>Registros de los Check List</Title>
+                        <IconButton
+                            icon={sources.icons.refresh}
+                            onPress={() => {
+                                getData()
+                            }} />
+                    </View>
+                    
+                    <ScrollView style={styles.scroll} showsHorizontalScrollIndicator={true}>
+                        <DataTable
+                            style={styles.table}
+                            dataHeader={dataHeader}
+                            dataMatrix={data}
+                            columnsWidth={[40]}
+                            touchable
+                            //onPress={()=> {navigation.navigate("Log")}}
+                            // Pasando el navigation
+                            navigation={navigation} />
+                    </ScrollView>  
+                </View>
+                  
                 {
                     // IMPLEMENTAR: Botones de navegacion...
                     /*
@@ -110,9 +124,13 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 15,
         width: "100%",
+        maxWidth: 1000,
     },
     bottonContainer: {
         flexDirection: "row",
     },
+    table: {
+        width: "100%",
+    }
    
 });

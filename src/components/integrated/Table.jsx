@@ -3,10 +3,10 @@ import theme from '../../utils/theme';
 
 export default function Table(props){
 
-    const { dataMatrix, dataHeader, columnsWidth } = props;
+    const { dataMatrix, dataHeader, columnsWidth, style } = props;
 
     return(
-        <View style={styles.main}>
+        <View style={[styles.main, style]}>
             {
                 dataMatrix && dataMatrix.map((row, index) => 
                     <View style={styles.row} key={index}>

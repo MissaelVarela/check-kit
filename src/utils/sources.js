@@ -27,6 +27,7 @@ const sources = {
             check: trySearch('./check.png'),
             logout: trySearch('./logout.png'),
             empty: trySearch('./empty.png'),
+            refresh: trySearch('./refresh.png'),
         }  
     }
 

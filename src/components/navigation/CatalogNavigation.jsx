@@ -15,7 +15,6 @@ export default function CatalogNavigation({ navigation, route }) {
   const [ catalogLocation, setCatalogLocation ] = React.useState({ });
 
   React.useEffect(() => {
-    console.log("entrando en cat nav", route.params);
     const { locationId,  location } = route.params ?  route.params : {};
     setCatalogLocation({ locationId: locationId, location: location });
   }, [route.params]);
