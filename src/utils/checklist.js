@@ -1,5 +1,27 @@
 import Sesion from "./Sesion.js"
-import { insertCheckListLog } from '../api/checklist.js';
+import { insertCheckListLog, getCheckListLogs, getCheckListLog } from '../api/checklist.js';
+
+export async function getLogs() {
+    const logs = await getCheckListLogs()
+
+    if (logs) {
+        return logs;
+    }
+    else {
+        return false;
+    }
+}
+
+export async function getLog(logId) {
+    const log = await getCheckListLog(logId)
+
+    if (log) {
+        return log;
+    }
+    else {
+        return false;
+    }
+}
 
 export async function insertLog(checklistId, equipmentId, responsableId, dateTime, authorizedById, log) {
     

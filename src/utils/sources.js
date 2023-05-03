@@ -8,6 +8,7 @@ const sources = {
             logo: trySearch('./logo.png'),
             logo_text: trySearch('./logo-text.png'),
             backgroundHome: trySearch('./background-home.png'),
+            iso: trySearch('./iso.png'),
         },
         icons: {
             menu: trySearch('./menu.png'),

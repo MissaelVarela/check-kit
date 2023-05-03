@@ -34,6 +34,11 @@ export default function HomeScreen({ navigation }) {
                         resizeMode='contain'/>
                 </View>
 
+                <View style={{ flex: 1, justifyContent: "flex-end", width: "100%"}}>
+                    <View style={{alignItems: "flex-end"}}>
+                        <Image source={sources.images.iso} style={{ width: 80, height: 80}}/>
+                    </View>
+                </View>
                 {
                     // IMPLEMENTAR: Accesos rapidos.
                     /*
@@ -57,10 +62,12 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.light,
     },
     body: {
+        flex: 1,
         width: "100%",
         padding: 25,
     },
     bodyContent: {
+        flex: 1,
         alignItems: "flex-start",
     },
     section: {

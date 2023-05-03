@@ -103,8 +103,8 @@ export default function DrawerMenu(props) {
                         <DrawerMenuItem
                             text="Registros"
                             icon={sources.icons.checklist}
-                            onPress={() => {setActiveDrawerSection("CheckListLog"); navigation.navigate("CheckListLog")}}
-                            isActive={activeDrawerSection === "CheckListLog"} /> 
+                            onPress={() => {setActiveDrawerSection("LogNavigation"); navigation.navigate("LogNavigation")}}
+                            isActive={activeDrawerSection === "LogNavigation"} /> 
                         :
                         null
                     }

@@ -7,11 +7,11 @@ import HomeScreen from '../screens/HomeScreen';
 import CatalogScreen from '../screens/CatalogScreen';
 import DatebookScreen from '../screens/DatebookScreen';
 import MaintenanceScreen from '../screens/MaintenanceScreen';
-import CheckListLogScreen from '../screens/CheckListLogScreen';
 
 import CatalogNavigation from './CatalogNavigation';
 import MaintenanceNavigation from './MaintenanceNavigation';
 import DatebookNavigation from './DatebookNavigation';
+import LogNavigation from './LogNavigation';
 
 import DrawerMenu from '../integrated/DrawerMenu';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -53,7 +53,7 @@ export default function MainNavigation() {
                 <Drawer.Screen name="CatalogNavigation" component={CatalogNavigation} options={{ title: "Equipos medicos" }} />
                 <Drawer.Screen name="DatebookNavigation" component={DatebookNavigation} options={{ title: "Agenda" }} />
                 <Drawer.Screen name="MaintenanceNavigation" component={MaintenanceNavigation} options={{ title: "Mantenimiento" }} />
-                <Drawer.Screen name="CheckListLog" component={CheckListLogScreen} options={{ title: "Registros" }} />
+                <Drawer.Screen name="LogNavigation" component={LogNavigation} options={{ title: "Registros" }} />
             </Drawer.Navigator>
         </DrawerContext.Provider>
         

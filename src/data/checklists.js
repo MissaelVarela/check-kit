@@ -55,7 +55,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -65,7 +65,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -146,7 +146,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -156,7 +156,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -166,7 +166,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -176,7 +176,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -269,7 +269,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -279,7 +279,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -289,7 +289,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -299,7 +299,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -359,7 +359,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -369,7 +369,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -379,7 +379,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -389,7 +389,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -399,7 +399,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -476,7 +476,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -486,7 +486,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -496,7 +496,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -506,7 +506,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -516,7 +516,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -526,7 +526,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -555,7 +555,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -565,7 +565,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -575,7 +575,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
@@ -585,7 +585,7 @@ export default [
                         answerType: 1,
                         answers: [
                             "Cumple",
-                            "No cumple (indique por que)",
+                            "No cumple",
                         ],
                         observations: "",
                     },
