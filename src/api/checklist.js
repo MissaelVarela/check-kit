@@ -44,7 +44,7 @@ export async function insertCheckListLog(checklistId, equipmentId, responsableId
     data.append('checklist', checklistId);
     data.append('equipment', equipmentId);
     data.append('responsableUser', responsableId);
-    //data.append('dateTime', dateTime);
+    data.append('dateTime', dateTime);
     data.append('authorizedBy', authorizedById);
     data.append('log', JSON.stringify(log));
 

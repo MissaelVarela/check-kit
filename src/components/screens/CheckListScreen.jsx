@@ -6,6 +6,7 @@ import Data from '../../data/Data';
 import theme from '../../utils/theme';
 import { insertLog } from '../../utils/checklist'
 import Sesion from '../../utils/Sesion';
+import { getCurrentTime } from '../../utils/formatDate';
 
 import Title from '../core/Title';
 import Check from '../integrated/Check';
@@ -63,14 +64,14 @@ export default function CheckListScreen({ navigation, route }) {
     }
 
     function finalize() {
-        
+    
         try {
             const result = insertLog(
                 checkListInfo.id, 
                 equipmentId, 
                 // Por pruebas se esta poniendo el id del admin
                 Sesion.getUserId() ? Sesion.getUserId() : 1, 
-                null,
+                getCurrentTime(),
                 Sesion.getUserId() ? Sesion.getUserId() : 1, 
                 log,
             );
@@ -90,6 +91,10 @@ export default function CheckListScreen({ navigation, route }) {
     function cancel() {
         navigation && navigation.goBack();
     }
+
+    
+
+    
 
     return (
         <LinearGradient 
