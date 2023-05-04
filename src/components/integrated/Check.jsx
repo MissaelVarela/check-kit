@@ -79,12 +79,16 @@ export default function Check({ question, checkIndex, sectionIndex, answerType, 
                 { selectAnswerType(answerType) }
             </View>
             <View style={styles.observationContainer}>
-                <TextField 
-                    style={{height: 70}}
-                    placeHolder="Observaciones" 
-                    multiline
-                    value={textFieldValue}
-                    onTextChange={setTextFieldValue}/>
+                {
+                    answerType !== 4 && 
+                    <TextField 
+                        style={{height: 70}}
+                        placeHolder="Observaciones" 
+                        multiline
+                        value={textFieldValue}
+                        onTextChange={setTextFieldValue}/>
+                }
+                
             </View>
         </View>
     )

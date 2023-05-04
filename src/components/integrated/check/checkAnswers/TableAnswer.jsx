@@ -12,6 +12,7 @@ export default function TableAnswer({ answers, elements, elementsHeader, columns
 
     // Creando el Group en el log.
     if (log && log.sections) {
+        console.log("Volviendo a cargar")
         log.sections[sectionIndex].checks[checkIndex].groups = [];
     }
 

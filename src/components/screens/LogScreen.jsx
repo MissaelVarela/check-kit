@@ -98,7 +98,7 @@ export default function LogScreen({ navigation, route }){
             <HeaderBar buttonType="back">Registros</HeaderBar>
             <ScrollView style= {styles.body}>
                 <View style={{ alignItems: "center", flex: 1, width: "100%", marginVertical: 35 }}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginBottom: 30}}>
                         <View/>
                         <Title style={{ marginBottom: 15 }}>Detalles del Check List</Title>
                         <IconButton 

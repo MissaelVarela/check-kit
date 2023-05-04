@@ -63,7 +63,7 @@ export default function LogSelectionScreen({navigation}){
             <HeaderBar buttonType="menu" >Registros</HeaderBar>
             <View style={styles.body} >
                 <View style={{alignItems: "center", flex: 1, width: "100%"}}>
-                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+                    <View style={{flexDirection: "row", justifyContent: "space-between", width: "100%", marginBottom: 30}}>
                         <View/>
                         <Title>Registros de los Check List</Title>
                         <IconButton

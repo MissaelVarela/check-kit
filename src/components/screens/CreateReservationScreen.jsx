@@ -10,6 +10,8 @@ import TextField from '../core/TextField';
 import SecundaryButton from '../core/SecundaryButton';
 import HeaderBar from '../integrated/HeaderBar';
 import ConfirmDialog from '../integrated/ConfirmDialog';
+import TimePicker from '../core/pickers/TimePicker';
+import DatePicker from '../core/pickers/DatePicker';
 
 export default function CreateReservationScreen({navigation}) {
 
@@ -25,6 +27,7 @@ export default function CreateReservationScreen({navigation}) {
     // Creando los objetos que tendran referencia algunos componentes hijo:
     const finalizeConfirmDialog = { setVisible: () => {} };
     const cancelConfirmDialog = { setVisible: () => {} };
+    const timePicker = { value: "sin referenciar" };
 
     function UpdateEquipmentComboBox(value, label){
         const equipments = Data.getEquipmentsByType(value);
@@ -34,6 +37,7 @@ export default function CreateReservationScreen({navigation}) {
     }
 
     function finalize() {
+        console.log("Valor guardado:", timePicker.value);
         navigation && navigation.goBack();
     }
 
@@ -86,22 +90,24 @@ export default function CreateReservationScreen({navigation}) {
                     <Subtitle style={{ paddingTop: 18, marginBottom: 5 }} > Fecha</Subtitle>
                 </View>
                 <View>
-                    <TextField
-                        placeHolder=""
-                        shownBorder />
+                    <DatePicker
+                        reference={timePicker}
+                        visible={false}/>
                 </View>
                 <View style={styles.comboContainer}>
                     <View style={{ flex: 1, marginRight: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5, }}> Hora inicio:</Subtitle>
-                        <TextField
-                            placeHolder=""
-                            shownBorder />
+                        <TimePicker
+                            reference={timePicker}
+                            visible={false}
+                            initialHour={8} />
                     </View>
                     <View style={{ flex: 1, marginLeft: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5 }}> Hora final:</Subtitle>
-                        <TextField
-                            placeHolder=""
-                            shownBorder />
+                        <TimePicker
+                            reference={timePicker}
+                            visible={false}
+                            initialHour={9} />
                     </View>
                 </View>
                 <View style={styles.comboContainer}>
@@ -120,7 +126,7 @@ export default function CreateReservationScreen({navigation}) {
                 </View>
                 <ConfirmDialog
                     title="Finalizar"
-                    text="Su reservación quedará registrada."
+                    text="¿Desea confirmar la reservación?."
                     reference={finalizeConfirmDialog}
                     onConfirm={finalize} />
                 <ConfirmDialog

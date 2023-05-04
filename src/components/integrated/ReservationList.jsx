@@ -137,11 +137,17 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                         
                     } />
             </View>
-            <CircularButton 
+            {
+                // IMPLEMENTAR: Creacion de reservación
+                /*
+                <CircularButton 
                     style={styles.plusButton}
                     color={theme.colors.primary}
                     icon={sources.icons.add} 
-                    onPress={onPressPlusButton} />     
+                    onPress={onPressPlusButton} />  
+                */
+            }
+               
         </View>
     )
 }

@@ -28,6 +28,8 @@ const sources = {
             logout: trySearch('./logout.png'),
             empty: trySearch('./empty.png'),
             refresh: trySearch('./refresh.png'),
+            calendar: trySearch('./calendar.png'),
+            clock: trySearch('./clock.png'),
         }  
     }
 
