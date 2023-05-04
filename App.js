@@ -15,12 +15,13 @@ import DatebookSelectionScreen from './src/components/screens/DatebookSelectionS
 import MaintenanceSelectionScreen from './src/components/screens/MaintenanceSelectionScreen.jsx';
 import MaintenanceConfirmScreen from './src/components/screens/MaintenanceConfirmScreen.jsx';
 import CheckListScreen from './src/components/screens/CheckListScreen.jsx';
+import CreateReservationScreen from './src/components/screens/CreateReservationScreen.jsx';
 
 export default function App() {
   
   return (
     <NavigationContainer>
-      <AuthNavigation/>
+      <AuthNavigation />
     </NavigationContainer>
   );
 }

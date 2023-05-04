@@ -8,10 +8,10 @@ import React from 'react';
 
 export default function DatePicker({ style, reference }) {
 
-    const [ value, setValue ] = React.useState({ hours: null, minutes: null, representation: ""});
+    const [ value, setValue ] = React.useState({ hours: null, minutes: null, representationLarge: "", representationShort: ""});
     const [ yearValue, setYearValue ] = React.useState({ text: "2023", number: 0 });
-    const [ monthValue, setMonthValue ] = React.useState({ text: "enero", number: 0 });
-    const [ dayValue, setDayValue ] = React.useState({ text: "1", number: 0 });
+    const [ monthValue, setMonthValue ] = React.useState({ text: "mayo", number: 4 });
+    const [ dayValue, setDayValue ] = React.useState({ text: "4", number: 3 });
     const [ visible, setVisible ] = React.useState(false);
 
     // Arreglos
@@ -28,8 +28,17 @@ export default function DatePicker({ style, reference }) {
     }, [monthValue])
 
     React.useEffect(() => {
-        const representation = dayValue.text + " de " + monthValue.text + ", " + yearValue.text;
-        setValue({ year: yearValue, month: monthValue, day: dayValue, representation: representation});
+        var month = (monthValue.number + 1) < 10 ? "0" + (monthValue.number + 1): (monthValue.number + 1);
+        var day = (dayValue.text) < 10 ? "0" + (dayValue.text): (dayValue.text);
+        const representationLarge = dayValue.text + " de " + monthValue.text + ", " + yearValue.text;
+        const representationShort = yearValue.text + "-" + month + "-" + day;
+        setValue({ 
+            year: yearValue, 
+            month: monthValue, 
+            day: dayValue, 
+            representationLarge: representationLarge,
+            representationShort: representationShort,
+        });
     }, [yearValue, monthValue, dayValue]);
 
     // Referenciando el valor
@@ -51,7 +60,7 @@ export default function DatePicker({ style, reference }) {
                 underlayColor={"rgba(200, 200, 200, 0.25)"}>
                     <>
                         <Text numberOfLines={1} style={[styles.text]}>
-                            {value.representation}
+                            {value.representationLarge}
                         </Text>
                         <Icon
                             icon={sources.icons.calendar}
@@ -77,12 +86,14 @@ export default function DatePicker({ style, reference }) {
                                     setValue={setYearValue}
                                     dataArray={yearsArray} />
                                 <Selector
-                                    minWidth={140}
+                                    minWidth={90}
+                                    initialIndex={4}
                                     isCircular
                                     value={monthValue}
                                     setValue={setMonthValue}
                                     dataArray={monthsArray} />
                                 <Selector
+                                    initialIndex={3}
                                     isCircular
                                     value={dayValue}
                                     setValue={setDayValue}
@@ -100,9 +111,9 @@ export default function DatePicker({ style, reference }) {
     )
 }
 
-function Selector({ dataArray, isCircular, value, setValue, minWidth }) {
+function Selector({ dataArray, isCircular, value, setValue, minWidth, initialIndex = 0 }) {
     
-    const [ current, setCurrent ] = React.useState(0);
+    const [ current, setCurrent ] = React.useState(initialIndex);
 
     React.useEffect(() => {
         setValue && setValue({text: dataArray[current], number: current});
@@ -202,7 +213,7 @@ const styles = StyleSheet.create({
     modal: {
         flexGrow: 0,
         flexDirection: "row",
-        maxWidth: "80%",
+        maxWidth: "85%",
         minHeight: 40,
         maxHeight: 500,
         borderRadius: 20,
@@ -217,7 +228,7 @@ const styles = StyleSheet.create({
         minWidth: 64,
         alignItems: "center",
         justifyContent: "center",
-        paddingHorizontal: 15,
+        paddingHorizontal: 0,
     },
     selectorText: {
         fontSize: theme.fontSizes.title,

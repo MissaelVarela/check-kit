@@ -12,7 +12,7 @@ export default function TimePicker({ style, reference, initialHour }) {
     const [ value, setValue ] = React.useState({ hours: null, minutes: null, representation: ""});
     const [ hoursValue, setHoursValue ] = React.useState({ text: initialHour, number: initialHour - 1 });
     const [ minutesValue, setMinutesValue ] = React.useState({ text: "00", number: 0 });
-    const [ amPmValue, setAmPmValue ] = React.useState({ text: "a.m.", number: 0 });
+    const [ amPmValue, setAmPmValue ] = React.useState({ text: "am", number: 0 });
     const [ visible, setVisible ] = React.useState(false);
 
     React.useEffect(() => {
@@ -67,7 +67,7 @@ export default function TimePicker({ style, reference, initialHour }) {
                                 <Selector
                                     value={amPmValue}
                                     setValue={setAmPmValue}
-                                    dataArray={["a.m.", "p.m."]} />
+                                    dataArray={["am", "pm"]} />
                             </View>
                         </TouchableWithoutFeedback>
                         

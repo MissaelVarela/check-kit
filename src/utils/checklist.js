@@ -1,4 +1,3 @@
-import Sesion from "./Sesion.js"
 import { insertCheckListLog, getCheckListLogs, getCheckListLog } from '../api/checklist.js';
 
 export async function getLogs() {
@@ -38,9 +37,4 @@ export async function insertLog(checklistId, equipmentId, responsableId, dateTim
     else {
         return false;
     }  
-}
-
-export function logout() {
-    Sesion.setName(null);
-    Sesion.setUserType(null);
 }

@@ -10,6 +10,9 @@ import ReservationElement from './ReservationElement';
 import CircularButton from '../core/CircularBurtton';
 import Subtitle from '../core/Subtitle';
 import React from 'react';
+import { getReservations } from '../../utils/reservations';
+
+let reservationData;
 
 export default function ReservationList({ date, onPressPlusButton, selectedType, selectedEquipment }) {
 
@@ -18,8 +21,10 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
     const [ reservations, setReservations ] = React.useState([]);
 
     React.useEffect(() => {
-        const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.date);
-        setReservations(reservationsResult);
+        //const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.date);
+        //setReservations(reservationsResult);
+
+        getData();
 
         if (date.date === today.getDate() 
         && date.month === today.getMonth() 
@@ -66,6 +71,45 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
         }
     }
 
+
+    // Obtener los datos del servidor:
+    const [ data, setData ] = React.useState([]);
+
+    async function getData() {
+        reservationData = await getReservations();
+        if (reservationData) {
+            const todayReservations = [];
+            reservationData.forEach((element) => { 
+                
+                const elementDate = new Date(element.start);
+
+                if (elementDate.getFullYear() === date.year) {
+                    if (elementDate.getMonth() === date.month) {
+                        if (elementDate.getDate() === date.date) {
+                            console.log("entre")
+                            const reservation = {
+                                start: elementDate,
+                                end: new Date(element.end),
+                                equipmentType: element.equipmentType,
+                                equipmentName: element.equipmentName,
+                                user: element.userName + " " + element.userLastName,
+                            };
+
+                            todayReservations.push(reservation);
+                        }
+                    }
+                }
+            });
+
+            setReservations(todayReservations);
+        }
+    } 
+
+    React.useEffect(() => {
+        // Obteniendo la información
+        getData();
+    }, []);
+
     return(
         <View style={styles.main}>
             <View style={styles.header}>
@@ -83,12 +127,15 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                         // Corregir la forma de actualizar las reservaciones por fecha
                     }
                 <FlatList
+                    showsVerticalScrollIndicator={false}
                     style={styles.list} 
                     data={reservations}
                     ListFooterComponent={ () => <View style={{height: 50}}/> }
                     renderItem={
                         ({ item }) => {
+
                             // Implementar una forma mas organizada para darle el formato al texto:
+                            /*
                             if (item.startHour) {
                                 const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
                                 if (item.startHour.hour > 12) {
@@ -109,17 +156,41 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                                 } else {
                                     var endHour = item.endHour.hour + ":" + minutes + " AM";
                                 }
+                            }*/
+                            if (item.start) {
+                                const hour = item.start.getHours();
+                                const min = item.start.getMinutes();
+                                const minutes = min < 10 ? "0" + min : min;
+                                if (hour > 12) {
+                                    var startHour = (hour - 12) + ":" + minutes + " PM";
+                                } else if (hour === 12) {
+                                    var startHour = hour + ":" + minutes + " PM";
+                                } else {
+                                    var startHour = hour + ":" + minutes + " AM";
+                                }
+                            };
+
+                            if (item.end) {
+                                const hour = item.end.getHours();
+                                const min = item.end.getMinutes();
+                                const minutes = min < 10 ? "0" + min : min;
+                                if (hour > 12) {
+                                    var endHour = (hour - 12) + ":" + minutes + " PM";
+                                } else if (hour === 12) {
+                                    var endHour = hour + ":" + minutes + " PM";
+                                } else {
+                                    var endHour = hour + ":" + minutes + " AM";
+                                }
                             }
-                            
 
                             return (
                                 <ReservationElement
                                     style={{marginBottom: 20}}
                                     startHour={startHour}
                                     endHour={endHour}
-                                    equipmentType={item.equipment && item.equipment.type}
-                                    equipmentName={item.equipment && item.equipment.name}
-                                    responsibleName={item.responsible} />
+                                    equipmentType={item.equipmentType}
+                                    equipmentName={item.equipmentName}
+                                    responsibleName={item.user} />
                             )
 
                         }
@@ -137,16 +208,16 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                         
                     } />
             </View>
-            {
-                // IMPLEMENTAR: Creacion de reservación
-                /*
+            
+                
+                
                 <CircularButton 
                     style={styles.plusButton}
                     color={theme.colors.primary}
                     icon={sources.icons.add} 
                     onPress={onPressPlusButton} />  
-                */
-            }
+                
+            
                
         </View>
     )

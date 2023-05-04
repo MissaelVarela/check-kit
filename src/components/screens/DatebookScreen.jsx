@@ -4,11 +4,14 @@ import { View, Text, StyleSheet } from 'react-native';
 import theme from '../../utils/theme';
 import Data from '../../data/Data';
 import sources from '../../utils/sources';
+import { getReservations } from '../../data/reservations';
 
 import Subtitle from '../core/Subtitle';
 import ReservationList from '../integrated/ReservationList';
 import CircularButton from '../core/CircularBurtton';
 import HeaderBar from '../integrated/HeaderBar';
+
+
 
 export default function DatebookScreen({navigation, route}) {
 
@@ -46,7 +49,6 @@ export default function DatebookScreen({navigation, route}) {
         var nameText = equipment.name;
     }
         
-
     function UpdateDate(days) {
         dateObj.setDate(dateObj.getDate() + days);
         const newDate = { 
@@ -57,6 +59,8 @@ export default function DatebookScreen({navigation, route}) {
         }
         setDate(newDate);
     }
+
+    
 
     return (    
         <View style={styles.screen}>
