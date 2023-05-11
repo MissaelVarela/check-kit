@@ -85,6 +85,18 @@ export default function EquipmentScreen({route, navigation}) {
             });
         }
     }
+
+    function navigateToLogs() {
+        // Si el DrawerNavigation existe:
+        if (navigation && navigation.getParent()) {
+            // Actualizamos la seccion del drawer activa.
+            setActiveDrawerSection("LogNavigation");
+            // Y navegamos hacia la seccion del drawer con la pantalla target.
+            navigation.getParent().navigate("LogNavigation", { 
+                targetScreen: "Log", origin: "CatalogNavigation", data: { equipmentId: id } 
+            });
+        }
+    }
     
     return(
         <View style={styles.screen}>
@@ -136,7 +148,12 @@ export default function EquipmentScreen({route, navigation}) {
                             <Button 
                                 style={{ marginTop: 20, width: 240 }}
                                 onPress={navigateToMaintenance}>
-                                Dar Mantenimiento
+                                Dar mantenimiento
+                            </Button>
+                            <Button 
+                                style={{ marginTop: 20, width: 240 }}
+                                onPress={navigateToLogs}>
+                                Registros del equipo
                             </Button>
                         </View>
                     </View>

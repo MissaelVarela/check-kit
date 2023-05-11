@@ -6,7 +6,7 @@ import Data from '../../data/Data';
 import theme from '../../utils/theme';
 import { insertLog } from '../../utils/checklist'
 import Sesion from '../../utils/Sesion';
-import { getCurrentTime } from '../../utils/formatDate';
+import { getCurrentTime } from '../../utils/dateFormat';
 
 import Title from '../core/Title';
 import Check from '../integrated/Check';

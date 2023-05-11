@@ -61,7 +61,7 @@ export default [
                     },
                     {
                         id: 5,
-                        question: "¿El funcionamineto del equipo es correcto?",
+                        question: "¿El funcionamiento del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -152,7 +152,7 @@ export default [
                     },
                     {
                         id: 5,
-                        question: "¿El funcionamineto del equipo es correcto?",
+                        question: "¿El funcionamiento del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -275,7 +275,7 @@ export default [
                     },
                     {
                         id: 5,
-                        question: "¿El funcionamineto del equipo es correcto?",
+                        question: "¿El funcionamiento del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -365,7 +365,7 @@ export default [
                     },
                     {
                         id: 5,
-                        question: "¿El funcionamineto del equipo es correcto?",
+                        question: "¿El funcionamiento del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",
@@ -482,7 +482,7 @@ export default [
                     },
                     {
                         id: 5,
-                        question: "¿El funcionamineto del equipo es correcto?",
+                        question: "¿El funcionamiento del equipo es correcto?",
                         answerType: 1,
                         answers: [
                             "Cumple",

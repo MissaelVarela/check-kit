@@ -15,7 +15,7 @@ import DatePicker from '../core/pickers/DatePicker';
 import MessageDialog from '../integrated/MessageDialog';
 
 import { insertReservation } from '../../utils/reservations';
-import { formatDate } from '../../utils/formatDate';
+import { toShortDateString } from '../../utils/dateFormat';
 import Sesion from '../../utils/Sesion';
 
 export default function CreateReservationScreen({navigation}) {
@@ -70,8 +70,8 @@ export default function CreateReservationScreen({navigation}) {
             }
 
             const result = insertReservation(
-                formatDate(startDate),
-                formatDate(endDate),
+                toShortDateString(startDate),
+                toShortDateString(endDate),
                 selectedEquipment.value,
                 Sesion.getUserId() ? Sesion.getUserId() : 1,
             );
