@@ -8,7 +8,7 @@ function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
 }
 
-function destructure(date) {
+function destructureDate(date) {
     return {
         month: date.getMonth(),
         day: date.getDate(),
@@ -17,6 +17,14 @@ function destructure(date) {
         minutes: date.getMinutes(),
         seconds: date.getSeconds(),
     };   
+}
+
+function destructureHour(hour) {
+    if (hour > 12) {
+        return { hourBase12: hour - 12, ampm: "pm" }
+    } else {
+        return { hourBase12: hour, ampm: "am" }
+    }
 }
 
 // Public Functions
@@ -30,22 +38,31 @@ export function monthToShortText(month) {
 }
 
 export function toDateString(date) {
-
     if (date instanceof Date) {
-        const { month, day, year } = destructure(date);
+        const { month, day, year } = destructureDate(date);
     
         return day + " de " + monthToText(month) + ", " + year;
     }
     else {
         return "No es una fecha"
     }
+}
 
+export function toTimeString(date) {
+    if (date instanceof Date) {
+        const { hour, minutes } = destructureDate(date);
+        const  { hourBase12, ampm } = destructureHour(hour);
+        return padTo2Digits(hourBase12) + ":" + padTo2Digits(minutes) + " " + ampm ;
+    }
+    else {
+        return "No es una hora"
+    }
 }
 
 
 export function toShortDateString(date) {
     if (date instanceof Date) {
-        const { month, day, year, hour, minutes } = destructure(date);
+        const { month, day, year, hour, minutes } = destructureDate(date);
     
         return year + "-" + padTo2Digits(month + 1) + "-" + padTo2Digits(day) + " " + padTo2Digits(hour) + ":" + padTo2Digits(minutes);
     }

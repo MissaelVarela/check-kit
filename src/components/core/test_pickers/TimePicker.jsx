@@ -3,12 +3,12 @@ import { Text, View, TouchableHighlight, StyleSheet } from 'react-native';
 
 import theme from '../../../utils/theme';
 import sources from '../../../utils/sources';
-import { toDateString } from '../../../utils/dateFormat';
+import { toTimeString } from '../../../utils/dateFormat';
 
 import Icon from '../Icon';
-import DatePickerModal from './DatePickerModal';
+import TimePickerModal from './TimePickerModal';
 
-export default function DatePicker({ style, value = new Date(), setValue, visible, setVisible}) {
+export default function TimePicker({ style, value = new Date(), setValue, visible, setVisible}) {
     
     return (
         <View style={style}>
@@ -18,15 +18,15 @@ export default function DatePicker({ style, value = new Date(), setValue, visibl
                 onPress={() => setVisible && setVisible(true)}>
                     <>
                         <Text numberOfLines={1} style={[styles.text]}>
-                            {toDateString(value)}
+                            {toTimeString(value)}
                         </Text>
                         <Icon
-                            icon={sources.icons.calendar}
+                            icon={sources.icons.clock}
                             small /> 
                     </>        
             </TouchableHighlight>
 
-            <DatePickerModal
+            <TimePickerModal
                 value={value}
                 setValue={setValue}
                 visible={visible}

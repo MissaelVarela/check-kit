@@ -6,17 +6,22 @@ import { monthToText } from '../../../utils/dateFormat';
 
 import Selector from './Selector';
 
-export default function DatePickerModal({ style, value = new Date(), setValue, visible, setVisible }) {
-
-    const yearRange = (2023, 2025);
+export default function TimePickerModal({ style, value = new Date(), setValue, visible, setVisible }) {
 
     // Arreglos
     const yearsArray = [2023, 2024, 2025];
     const monthsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    
+    const hoursArray = [12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+    const minutesArray = [0, 15, 30, 45];
+    const ampmArray = ["am", "pm"];
 
     // Creando los estados de cada selector. Guardan el Index actual.
     const [ year, setYear ] = React.useState(yearsArray.findIndex((item) => item === value.getFullYear()));
     const [ month, setMonth ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
+    const [ hour, setHour ] = React.useState(yearsArray.findIndex((item) => item === value.getFullYear()));
+    const [ minutes, setMinutes ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
+    const [ ampm, setAmpm ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
     // Antes de crear el estado del day se genera el daysArray.
     const [ daysArray, setDaysArray ] = React.useState(getDaysArray(yearsArray[year], monthsArray[month]));
     const [ day, setDay ] = React.useState(daysArray.findIndex((item) => item === value.getDate()));

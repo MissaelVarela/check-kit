@@ -5,9 +5,6 @@ import theme from '../../../utils/theme';
 
 export default function Selector({ dataArray, current = 0, setCurrent, isCircular, minWidth, toText }) {
     
-    // Creando el estado del valor actual del componente.
-    //const [ current, setCurrent ] = React.useState(initialIndex);
-
     function up() {
         if (isUnderStack()) {
             if (isCircular) {
