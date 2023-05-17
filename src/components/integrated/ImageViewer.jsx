@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "rgba(52, 52, 52, 0.9)",
+        backgroundColor: "rgba(52, 52, 52, 0.75)",
     },
     imageContainer: {
         //backgroundColor: "rgba(255, 255, 255, 1)",

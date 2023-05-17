@@ -13,6 +13,9 @@ export default function HomeScreen({ navigation }) {
 
     const userName = Sesion.getName();
 
+    // Si es usuario invitado se mostrara un mensaje distinto en vez de el userName.
+    const welcomeMessage = Sesion.getUserType() !== 5 ? " " + userName : ""
+
     return (
         <ImageBackground 
             style={styles.screen}
@@ -22,7 +25,7 @@ export default function HomeScreen({ navigation }) {
                 <View style={{ width: "100%", alignItems: "center"}}>
                     <View style={styles.blurContainer}>
                         <Subtitle>
-                            ¡Bienvenido <Text style={{fontWeight: theme.fontWeights.bold}}>{userName}</Text>!
+                            ¡Bienvenido<Text style={{fontWeight: theme.fontWeights.bold}}>{welcomeMessage}</Text>!
                         </Subtitle> 
                     </View>
                 </View>

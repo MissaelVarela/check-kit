@@ -1,18 +1,21 @@
-import React from 'react'
-import { View, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import React from 'react';
+import { View, TouchableOpacity, Image, StyleSheet } from 'react-native';
 
-import theme from '../../utils/theme'
-import sources from '../../utils/sources'
+import theme from '../../utils/theme';
+import sources from '../../utils/sources';
+import Sesion from '../../utils/Sesion';
 
-import IconButton from '../core/IconButton'
-import Title from '../core/Title'
-import Subtitle from '../core/Subtitle'
+import IconButton from '../core/IconButton';
+import Title from '../core/Title';
+import Subtitle from '../core/Subtitle';
 
-import DrawerContext from '../../context/DrawerContext'
+import DrawerContext from '../../context/DrawerContext';
 
 export default function EquipmentCard(props) {
 
-    const { id, image, type, name, style, navigation } = props
+    const { id, image, type, name, style, navigation } = props;
+
+    const userType = Sesion.getUserType();
 
     // Cachando el contexto del estado seccion activa del drawer
     const { activeDrawerSection, setActiveDrawerSection } = React.useContext(DrawerContext);
@@ -68,10 +71,16 @@ export default function EquipmentCard(props) {
                         icon={sources.icons.datebook} 
                         small 
                         onPress={navigateToDatebook} />
-                    <IconButton 
-                        icon={sources.icons.maintenance} 
-                        small 
+                    {
+                    
+                    (userType === 1 || userType === 2) &&
+                    <IconButton
+                        icon={sources.icons.maintenance}
+                        small
                         onPress={navigateToMaintenance} />
+
+                    }
+                    
                 </View>
             </View>
         </View>

@@ -1,15 +1,17 @@
+import React from 'react';
 import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import sources from '../../utils/sources';
 import Data from '../../data/Data';
+import Sesion from '../../utils/Sesion';
 
 import TextDefault from '../core/TextDefault';
 import Title from '../core/Title';
 import ReservationElement from './ReservationElement';
 import CircularButton from '../core/CircularBurtton';
 import Subtitle from '../core/Subtitle';
-import React from 'react';
+
 import { getReservations } from '../../utils/reservations';
 
 let reservationData;
@@ -19,6 +21,8 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
     const [ today ] = React.useState(new Date());
     const [ highlight, setHighlight ] = React.useState(false);
     const [ reservations, setReservations ] = React.useState([]);
+
+    const userType = Sesion.getUserType();
 
     React.useEffect(() => {
         //const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.date);
@@ -70,10 +74,6 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
             default: return "-";
         }
     }
-
-
-    // Obtener los datos del servidor:
-    const [ data, setData ] = React.useState([]);
 
     async function getData() {
         reservationData = await getReservations();
@@ -133,30 +133,6 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                     ListFooterComponent={ () => <View style={{height: 50}}/> }
                     renderItem={
                         ({ item }) => {
-
-                            // Implementar una forma mas organizada para darle el formato al texto:
-                            /*
-                            if (item.startHour) {
-                                const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
-                                if (item.startHour.hour > 12) {
-                                    var startHour = (item.startHour.hour - 12) + ":" + minutes + " PM";
-                                } else if (item.startHour.hour === 12) {
-                                    var startHour = item.startHour.hour + ":" + minutes + " PM";
-                                } else {
-                                    var startHour = item.startHour.hour + ":" + minutes + " AM";
-                                }
-                            }
-                            
-                            if (item.endHour) {
-                                const minutes = item.startHour.minute < 10 ? "0" + item.startHour.minute : item.startHour.minute;
-                                if (item.endHour.hour > 12) {
-                                    var endHour = (item.endHour.hour - 12) + ":" + minutes + " PM";
-                                } else if (item.endHour.hour === 12) {
-                                    var endHour = item.endHour.hour + ":" + minutes + " PM";
-                                } else {
-                                    var endHour = item.endHour.hour + ":" + minutes + " AM";
-                                }
-                            }*/
                             if (item.start) {
                                 const hour = item.start.getHours();
                                 const min = item.start.getMinutes();
@@ -208,12 +184,14 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
             </View>
             
                 
-                
+            {
+                (userType === 1 || userType === 2) &&
                 <CircularButton 
                     style={styles.plusButton}
                     color={theme.colors.primary}
                     icon={sources.icons.add} 
                     onPress={onPressPlusButton} />  
+            }
                 
             
                

@@ -9,7 +9,11 @@ import Logo from '../core/Logo.jsx'
 import TextField from '../core/TextField.jsx'
 import MessageDialog from '../integrated/MessageDialog.jsx';
 
-import { login } from '../../utils/auth.js';
+import { login, loginAsInvited } from '../../utils/auth.js';
+import TextDefault from '../core/TextDefault.jsx';
+import TextButton from '../core/TextButton.jsx';
+
+const version = "0.1.0";
 
 export default function LoginScreen({navigation}) {
 
@@ -20,7 +24,7 @@ export default function LoginScreen({navigation}) {
     // Creando los objetos que tendran referencia algunos componentes hijo:
     const messageDialog = { setVisible: () => {} };
 
-    async function buttonAction() {
+    async function tryLogin() {
         if(!userText || !passText) {
             setMessageText("Campo vacío.\nPor favor ingresa tu usuario y contraseña.");
             messageDialog.setVisible(true);
@@ -39,7 +43,12 @@ export default function LoginScreen({navigation}) {
             messageDialog.setVisible(true);
         }
         
-    };
+    }
+
+    function invitedLogin() {
+        loginAsInvited();
+        if (navigation) navigation.navigate("Main");
+    }
 
     // Cuando se le hace focus al LoginScreen.
     React.useEffect(() => {
@@ -70,8 +79,13 @@ export default function LoginScreen({navigation}) {
                 <Button 
                     style={{marginTop: 15}}
                     text="Iniciar sesión" 
-                    onPress={buttonAction}/> 
+                    onPress={tryLogin}/> 
+                <TextDefault style={{marginTop: 10}}>o ingresar como <TextButton onPress={invitedLogin}>invitado</TextButton></TextDefault>
+                
             </View>
+
+            <TextDefault style={styles.versionContainer}>v {version}</TextDefault>
+
             <MessageDialog
                 title="Aviso"
                 text={messageText}
@@ -91,7 +105,7 @@ const styles = StyleSheet.create({
     login: {
         width: "75%",
         maxWidth: 350,
-        height: 320,
+        height: 400,
         borderRadius: 10,
         backgroundColor: theme.colors.lightDark,
         padding: 22,
@@ -99,4 +113,10 @@ const styles = StyleSheet.create({
         justifyContent: "space-around",
         alignItems: "center",
     },
+    versionContainer: {
+        position: "absolute",
+        right: 25,
+        bottom: 15,
+        color: theme.colors.lightDark,
+    }
 });

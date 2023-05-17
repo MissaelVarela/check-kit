@@ -21,3 +21,10 @@ export function logout() {
     Sesion.setName(null);
     Sesion.setUserType(null);
 }
+
+export function loginAsInvited() {
+    Sesion.setName("Invitado");
+    Sesion.setUserType(5);
+    Sesion.setUser("Usuario invitado");
+    Sesion.setUserId(null);
+}

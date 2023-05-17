@@ -21,7 +21,7 @@ export default function TextButton(props) {
 
 const styles = StyleSheet.create({
     textButton: {
-        paddingHorizontal: 25,
+        paddingHorizontal: 0,
     },
     text: {
         color: theme.colors.primary,

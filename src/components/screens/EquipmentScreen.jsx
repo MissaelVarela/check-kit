@@ -16,11 +16,14 @@ import Table from '../integrated/Table';
 
 import DrawerContext from '../../context/DrawerContext'
 import HeaderBar from '../integrated/HeaderBar';
+import Sesion from '../../utils/Sesion';
 
 export default function EquipmentScreen({route, navigation}) {
 
     const [shownImageViewer, setShownImageViewer] = React.useState(false);
     
+    const userType = Sesion.getUserType();
+
     // Cachando el contexto del estado seccion activa del drawer
     const { setActiveDrawerSection } = React.useContext(DrawerContext);
 
@@ -146,16 +149,26 @@ export default function EquipmentScreen({route, navigation}) {
                                 onPress={navigateToDatebook}>
                                 Agendar
                             </Button>
+
+                            {
+                            (userType === 1 || userType === 2) &&
                             <Button 
                                 style={{ marginTop: 20, width: 240 }}
                                 onPress={navigateToMaintenance}>
                                 Dar mantenimiento
                             </Button>
-                            <Button 
+                            }
+
+                            {
+                            (userType === 1 || userType === 2) &&
+                            <Button
                                 style={{ marginTop: 20, width: 240 }}
                                 onPress={navigateToLogs}>
                                 Registros del equipo
                             </Button>
+                            }
+
+                            
                         </View>
                     </View>
                 </View> 
@@ -177,6 +190,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     body: {
+        flex: 1,
         paddingHorizontal: 25,
     },
     bodyHeader: {
@@ -193,8 +207,7 @@ const styles = StyleSheet.create({
         maxWidth: 600,
         width: "100%",
         backgroundColor: theme.colors.light,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        borderRadius: 20,
         alignItems: "center",
     },
     content: {
