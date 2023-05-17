@@ -33,16 +33,14 @@ export default function HomeScreen({ navigation }) {
                         style={styles.logoImage}
                         resizeMode='contain'/>
                 </View>
-                {
-                    // IMPLEMENTAR: Logo ISO
-                    /*
-                    <View style={{ flex: 1, justifyContent: "flex-end", width: "100%"}}>
-                    <View style={{alignItems: "flex-end"}}>
-                        <Image source={sources.images.iso} style={{ width: 80, height: 80}}/>
+                
+                <View style={{ flex: 1, justifyContent: "flex-end", width: "100%" }}>
+                    <View style={{ alignItems: "flex-end" }}>
+                        <Image source={sources.images.iso} style={{ width: 80, height: 80 }} />
                     </View>
                 </View>
-                */
-                }
+                
+                
                 
                 {
                     // IMPLEMENTAR: Accesos rapidos.

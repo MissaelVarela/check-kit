@@ -5,12 +5,12 @@ import theme from '../../utils/theme';
 
 export default function Section(props){
 
-    const { title, style, contentStyle, children } = props;
+    const { title, style, contentStyle, children, showLine = true } = props;
 
     return(
         <View style={[styles.main, style]}>
             <Subtitle style={styles.title}>{title}</Subtitle>
-            <View style={styles.linea}/>
+            <View style={[styles.linea, showLine && {backgroundColor: theme.colors.lightDark}]}/>
             <View style={contentStyle}>
                 {children}
             </View>
@@ -29,10 +29,9 @@ const styles = StyleSheet.create({
         fontSize: 20
     },
     linea: {
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: 5,
+        marginBottom: 10,
         width: "100%", 
         height: 2, 
-        backgroundColor: theme.colors.lightDark
     },
 })

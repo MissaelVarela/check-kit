@@ -13,7 +13,7 @@ import StackContext from '../../context/StackContext.js';
 export default function HeaderBar(props) {
 
     const { openDrawer, isLargeScreen } = React.useContext(DrawerContext);
-    const { goBack, goBackToOrigin } = React.useContext(StackContext);
+    const { goBack, goBackToOrigin, pop } = React.useContext(StackContext);
 
     const { title, children, buttonType, transparent, needGoBackToOrigin, stackNavigation, style } = props;
 
@@ -34,6 +34,22 @@ export default function HeaderBar(props) {
                     } 
                     else {
                         goBack && goBack.method();
+                    }
+                    
+                }}/>;
+            case 'pop': 
+                return <IconButton icon={sources.icons.arrow_left} onPress={() => { 
+                    if (needGoBackToOrigin && goBackToOrigin && goBackToOrigin.method) {
+                        // Reiniciar el stack actual
+                        if (stackNavigation){
+                            stackNavigation.popToTop();
+                        }
+                        // Regresar al origin
+                        goBackToOrigin.method();
+                        goBackToOrigin.method = null;
+                    } 
+                    else {
+                        pop && pop.method();
                     }
                     
                 }}/>;

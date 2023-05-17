@@ -4,6 +4,7 @@ import { createContext } from "react";
 const StackContext = createContext({ 
     goBack: null, 
     setGoBack: null,
+    pop: null,
 });
 
 export default StackContext;

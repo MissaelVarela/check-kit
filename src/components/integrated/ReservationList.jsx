@@ -1,4 +1,4 @@
-import { View, FlatList, Image, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
 import sources from '../../utils/sources';
@@ -197,13 +197,11 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
                             
                     } 
                     ListEmptyComponent={() => 
-                        <View style={{flex: 1}}>
-                            <Subtitle>No hay reservaciones para mostrar...</Subtitle>
-                            <View style={{flex: 1, paddingVertical: 100}}>
-                                <Image 
-                                    source={sources.icons.empty}
-                                    style={{height: 256, width: 256, alignSelf: "center"}}/>
-                            </View>
+                        <View style={styles.emptyList}>
+                            <Text style={styles.emptyListText}>No hay reservaciones para mostrar...</Text>
+                            <Image 
+                                source={sources.icons.empty}
+                                style={{height: 128, width: 128, marginTop: 15}}/>
                         </View>
                         
                     } />
@@ -258,5 +256,16 @@ const styles = StyleSheet.create({
         right: 15,
         bottom: 15,
     },
+
+    emptyList: {
+        height: 250,
+        padding: 20,
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    emptyListText: {
+        color: theme.colors.dark,
+        fontSize: theme.fontSizes.smallText
+    }
 
 })

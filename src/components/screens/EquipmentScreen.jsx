@@ -101,13 +101,13 @@ export default function EquipmentScreen({route, navigation}) {
     return(
         <View style={styles.screen}>
             <HeaderBar buttonType="back">Equipos médicos</HeaderBar>
-            <ScrollView>
-                <View style={styles.header}>
+            <ScrollView style={styles.body} contentContainerStyle={{alignItems: "center"}}>
+                <View style={styles.bodyHeader}>
                     <Title>{equipment && equipment.type}</Title>
                     <Subtitle>{equipment && equipment.name}</Subtitle>
                 </View>
                 <View style={styles.space}/>
-                <View style={styles.body}>
+                <View style={styles.card}>
 
                     <TouchableOpacity
                         style={styles.imageContainer}
@@ -121,7 +121,8 @@ export default function EquipmentScreen({route, navigation}) {
                         style={[styles.content, {alignItems: "center"}]}>
                         <Section
                             style={{ marginTop: 100 }}
-                            title="Datos del equipo:">
+                            title="Datos del equipo:"
+                            showLine={false}>
                             <Table
                                 dataMatrix={dataEquipment}
                                 columnsWidth={[140]} />
@@ -141,7 +142,7 @@ export default function EquipmentScreen({route, navigation}) {
                         
                         <View style={styles.buttonConteiner}>
                             <Button 
-                                style={{ marginTop: 60, width: 240 }}
+                                style={{ marginTop: 0, width: 240 }}
                                 onPress={navigateToDatebook}>
                                 Agendar
                             </Button>
@@ -171,12 +172,15 @@ export default function EquipmentScreen({route, navigation}) {
 
 const styles = StyleSheet.create({
     screen: {
-        //marginTop: 35,
         flex: 1,
         backgroundColor: theme.colors.lightDark,
         justifyContent: "space-between"
     },
-    header: {
+    body: {
+        paddingHorizontal: 25,
+    },
+    bodyHeader: {
+        width: "100%",
         marginLeft: 25, 
         paddingVertical: 15
     },
@@ -184,9 +188,10 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 200,
     },
-    body: {
+    card: {
         flex: 1,
-        marginHorizontal: 25,
+        maxWidth: 600,
+        width: "100%",
         backgroundColor: theme.colors.light,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
@@ -214,6 +219,6 @@ const styles = StyleSheet.create({
     buttonConteiner: {
         width: "100%",
         alignItems: "center",
-        marginBottom: 25,
+        marginBottom: 35,
     }
 })

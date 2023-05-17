@@ -16,12 +16,15 @@ export default function LogNavigation({ navigation, route }) {
 
 // Creando el estado del Stack que almacena el metodo navigation.goBack().
 const [ goBack, setGoBack ] = React.useState({ method: null });
+const [ pop, setPop ] = React.useState({ method: null });
 
   return (
     <StackContext.Provider
       value={{ 
         goBack: goBack, 
         setGoBack: setGoBack,
+        pop: pop,
+        setPop: setPop,
       }}>
       <Stack.Navigator
         initialRouteName={"LogSelection"}

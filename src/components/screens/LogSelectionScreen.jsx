@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import theme from '../../utils/theme';
 import sources from '../../utils/sources';
 import { getLogs } from '../../utils/checklist';
+import { toDateString, toTimeString } from '../../utils/dateFormat';
 
 import Subtitle from '../core/Subtitle';
 import Title from '../core/Title';
@@ -17,7 +18,7 @@ let logs;
 
 export default function LogSelectionScreen({navigation}){
 
-    const { setGoBack } = React.useContext(StackContext);
+    const { setGoBack, setPop } = React.useContext(StackContext);
 
     const [ data, setData ] = React.useState([]);
 
@@ -25,11 +26,12 @@ export default function LogSelectionScreen({navigation}){
         logs = await getLogs();
         
         if (logs) {
-            const newData = logs.map((element) => { 
+            const newData = logs.map((element, index) => { 
+
                 return [ 
-                    element.id, 
-                    element.dateTime, 
-                    element.equipmentType + "\n" + element.equipmentName,
+                    index + 1 + ".", 
+                    tryFormatDate(element.dateTime), 
+                    { title: element.equipmentType, text: element.equipmentName},
                     element.responsableName + " " + element.responsableLastName,
                 ] 
             });
@@ -37,6 +39,18 @@ export default function LogSelectionScreen({navigation}){
             setData(newData);
         }
     } 
+
+    function tryFormatDate(info) {
+
+        try {
+            const date = new Date(info);
+
+            return { title: toDateString(date), text: toTimeString(date) };
+        }
+        catch {
+            return info;
+        }
+    }
 
     React.useEffect(() => {
         // Obteniendo la información
@@ -47,14 +61,17 @@ export default function LogSelectionScreen({navigation}){
 
     
 
-    const dataHeader = ["Id", "Fecha", "Equipo", "Responsable" ];
+    const dataHeader = [" ", "Fecha", "Equipo", "Responsable" ];
     
 
     // Cuando LogSelectionScreen se cargue por primera vez.
     React.useEffect(() => {
         // Se agrega el metodo goBack para que se pueda utilizar en el contexto del Stack.
-        if (navigation && setGoBack) {
-            setGoBack({ method: () => navigation.goBack() });
+        if (navigation) {
+            if (setGoBack) 
+                setGoBack({ method: () => navigation.goBack() });
+            if (setPop)
+                setPop({ method: () => navigation.pop() });
         } 
     }, []);
 
@@ -78,11 +95,9 @@ export default function LogSelectionScreen({navigation}){
                             style={styles.table}
                             dataHeader={dataHeader}
                             dataMatrix={data}
-                            columnsWidth={[40]}
+                            columnsWidth={[30]}
                             touchable
-                            //onPress={()=> {navigation.navigate("Log")}}
-                            // Pasando el navigation
-                            navigation={navigation} />
+                            onPress={(row) => navigation.navigate("Log", { logId: logs && logs[row].id }) } />
                     </ScrollView>  
                 </View>
                   
@@ -118,7 +133,8 @@ const styles = StyleSheet.create({
     },
     body: {
         flex: 1,
-        padding: 35,
+        paddingVertical: 35,
+        paddingHorizontal: 25,
     },
     scroll: {
         flex: 1,
