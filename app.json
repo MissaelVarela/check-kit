@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "check-kit",
+    "name": "Check kit",
     "slug": "check-kit",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.missaelvarela.checkkit"
+      "package": "com.app.checkkit"
     },
     "web": {
       "favicon": "./assets/favicon.png"

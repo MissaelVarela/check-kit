@@ -141,7 +141,7 @@ export default function DrawerMenu(props) {
 const styles = StyleSheet.create({
     drawer: {
         flex: 1,
-        marginTop: Constants.statusBarHeight, 
+        //marginTop: Constants.statusBarHeight, 
     },
     drawerHeader: {
         padding: 12,

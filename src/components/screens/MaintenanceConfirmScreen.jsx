@@ -100,7 +100,7 @@ export default function MaintenanceConfirmScreen({ route, navigation }){
                 </Section>
                 <Button 
                     onPress={navigateToCheckList}
-                    style={{maxWidth: 300, marginBottom: 25, marginHorizontal: "auto"}}>
+                    style={{maxWidth: 300, marginBottom: 45, marginHorizontal: "auto"}}>
                     Empezar Mantenimiento
                 </Button>
             </ScrollView>

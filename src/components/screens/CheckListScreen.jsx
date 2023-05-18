@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SectionList, Image, StyleSheet } from 'react-native';
+import { View, Text, SectionList, Image, StyleSheet, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Data from '../../data/Data';
@@ -100,82 +100,86 @@ export default function CheckListScreen({ navigation, route }) {
         <LinearGradient 
             style={styles.screen}
             colors={[theme.colors.secundary, theme.colors.tertiary, theme.colors.quaternary]}>
-                <LogContext.Provider
-                    value={{ log: log }}>
-                    <SectionList
-                        style={styles.checkList}
-                        contentContainerStyle={styles.checkListContent}
-                        sections={checklistSections}
-                        keyExtractor={(element) => element.id}
-                        renderItem={({ item, index, section }) => (
-                            <Check
-                                style={{ marginBottom: 30 }}
-                                question={item.question}
-                                checkIndex={index}
-                                sectionIndex={section.index}
-                                answerType={item.answerType}
-                                answers={item.answers}
-                                // Opcionales
-                                elements={item.elements}
-                                elementsHeader={item.elementsHeader} />
-                        )}
-                        renderSectionHeader={({ section: { title } }) => (
-                            <View style={styles.sectionContainer}>
-                                <Title>{title}</Title>
-                            </View>
+            <StatusBar
+                backgroundColor={theme.colors.secundary}
+                barStyle={"dark-content"} />
+                
+            <LogContext.Provider
+                value={{ log: log }}>
+                <SectionList
+                    style={styles.checkList}
+                    contentContainerStyle={styles.checkListContent}
+                    sections={checklistSections}
+                    keyExtractor={(element) => element.id}
+                    renderItem={({ item, index, section }) => (
+                        <Check
+                            style={{ marginBottom: 30 }}
+                            question={item.question}
+                            checkIndex={index}
+                            sectionIndex={section.index}
+                            answerType={item.answerType}
+                            answers={item.answers}
+                            // Opcionales
+                            elements={item.elements}
+                            elementsHeader={item.elementsHeader} />
+                    )}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <View style={styles.sectionContainer}>
+                            <Title>{title}</Title>
+                        </View>
 
-                        )}
-                        ListEmptyComponent={() => (
-                            <Text>No hay elementos que revisar en este checklist...</Text>
-                        )}
-                        ListHeaderComponent={() => (
-                            <View style={styles.checkListHeader}>
-                                <Title style={{ color: theme.colors.light, fontSize: theme.fontSizes.bigText }}>Check List</Title>
-                                <TextDefault style={{ color: theme.colors.light, textAlign: "center" }}>Responda todas las preguntas para completar el Check List.</TextDefault>
-                                <View style={{ paddingVertical: 15, flexDirection: "row", alignItems: "center" }}>
-                                    <Image
-                                        style={styles.image}
-                                        source={equipment.image} />
-                                    <View>
-                                        <TextDefault style={{ color: theme.colors.light, fontWeight: theme.fontWeights.bold }}>{equipment.type}</TextDefault>
-                                        <TextDefault style={{ color: theme.colors.light }}>{equipment.name}</TextDefault>
-                                    </View>
+                    )}
+                    ListEmptyComponent={() => (
+                        <Text>No hay elementos que revisar en este checklist...</Text>
+                    )}
+                    ListHeaderComponent={() => (
+                        <View style={styles.checkListHeader}>
+                            <Title style={{ color: theme.colors.light, fontSize: theme.fontSizes.bigText }}>Check List</Title>
+                            <TextDefault style={{ color: theme.colors.light, textAlign: "center" }}>Responda todas las preguntas para completar el Check List.</TextDefault>
+                            <View style={{ paddingVertical: 15, flexDirection: "row", alignItems: "center" }}>
+                                <Image
+                                    style={styles.image}
+                                    source={equipment.image} />
+                                <View>
+                                    <TextDefault style={{ color: theme.colors.light, fontWeight: theme.fontWeights.bold }}>{equipment.type}</TextDefault>
+                                    <TextDefault style={{ color: theme.colors.light }}>{equipment.name}</TextDefault>
                                 </View>
                             </View>
-                        )}
-                        ListFooterComponent={() => (
-                            <View style={styles.checkListFooter}>
-                                <SecundaryButton
-                                    onPress={() => cancelConfirmDialog.setVisible(true)}>
-                                    Cancelar
-                                </SecundaryButton>
-                                <Button
-                                    onPress={() => finalizeConfirmDialog.setVisible(true)}>
-                                    Finalizar
-                                </Button>
-                            </View>
-                        )} />
-                </LogContext.Provider>
-                
-                <ConfirmDialog
-                    title="Finalizar"
-                    text="¿Deseas finalizar el Check List?"
-                    reference={finalizeConfirmDialog}
-                    onConfirm={finalize} />
-                <ConfirmDialog
-                    title="Cancelar"
-                    text="Si cancelas el Check List ahora se perderá el progreso."
-                    reference={cancelConfirmDialog}
-                    onConfirm={cancel} />
-                <MessageDialog
-                    title="Información"
-                    text="Se guardó correctamente el Check List."
-                    reference={successfulMessageDialog}
-                    onConfirm={() => navigation && navigation.goBack() } />
-                <MessageDialog
-                    title="Información"
-                    text="No se pudo guardar el Check List."
-                    reference={errorMessageDialog} />
+                        </View>
+                    )}
+                    ListFooterComponent={() => (
+                        <View style={styles.checkListFooter}>
+                            <SecundaryButton
+                                onPress={() => cancelConfirmDialog.setVisible(true)}>
+                                Cancelar
+                            </SecundaryButton>
+                            <Button
+                                onPress={() => finalizeConfirmDialog.setVisible(true)}>
+                                Finalizar
+                            </Button>
+                        </View>
+                    )} />
+            </LogContext.Provider>
+            
+            <ConfirmDialog
+                title="Finalizar"
+                text="¿Deseas finalizar el Check List?"
+                reference={finalizeConfirmDialog}
+                onConfirm={finalize} />
+            <ConfirmDialog
+                title="Cancelar"
+                text="Si cancelas el Check List ahora se perderá el progreso."
+                reference={cancelConfirmDialog}
+                onConfirm={cancel} />
+            <MessageDialog
+                title="Información"
+                text="Se guardó correctamente el Check List."
+                reference={successfulMessageDialog}
+                onConfirm={() => navigation && navigation.goBack() } />
+            <MessageDialog
+                title="Información"
+                text="No se pudo guardar el Check List."
+                reference={errorMessageDialog} />
         </LinearGradient>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, StatusBar } from 'react-native';
 import Constants from 'expo-constants';
 import theme from '../../utils/theme.js';
 import sources from '../../utils/sources.js';
@@ -60,22 +60,29 @@ export default function HeaderBar(props) {
         }
     }
 
+    // Quitar el espacio?
+    // Centrar el text button invitado YA
+    // Cambiar el nombre y paque de la app YA
+    // Cambiar las imagenes de blanco y negro a color YA
+    // Mas pequeña la imagen del icono de la app YA
+
+    //<View style={[{height: Constants.statusBarHeight}, !transparent &&  { backgroundColor: theme.colors.light }]}/>
+
     return(
-        <>
-            <View style={[{height: Constants.statusBarHeight}, !transparent &&  { backgroundColor: theme.colors.light }]}/>
+        <View style={{width: "100%"}}>
+            <StatusBar
+                backgroundColor={theme.colors.light}
+                barStyle={"dark-content"} />
             <View style={[styles.header, !transparent && { backgroundColor: theme.colors.light, borderBottomWidth: 2 }, style]}>
-                
-                <View style={styles.bar}>
-                    {
-                        isLargeScreen && buttonType === "menu"
-                            ? selectButtonType("none")
-                            : selectButtonType(buttonType)
-                    }
-                    <Title style={{ fontWeight: theme.fontWeights.semiBold }}>{children ? children : title}</Title>
-                    <View style={{width: 36}}/>
-                </View>
+                {
+                    isLargeScreen && buttonType === "menu"
+                        ? selectButtonType("none")
+                        : selectButtonType(buttonType)
+                }
+                <Title style={{ fontWeight: theme.fontWeights.semiBold }}>{children ? children : title}</Title>
+                <View style={{ width: 36 }} />
             </View>
-        </>
+        </View>
         
     )
 
@@ -86,13 +93,9 @@ const styles = StyleSheet.create({
         width: "100%",
         height: 65,
         borderBottomColor: theme.colors.lightDark,
-    },
-    bar: {
-        width: "100%",
-        height: "100%",
         paddingHorizontal: 12,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
-    }
+    },
 });

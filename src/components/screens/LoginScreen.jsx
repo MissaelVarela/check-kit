@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet,StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import theme from '../../utils/theme.js';
 
@@ -63,10 +63,16 @@ export default function LoginScreen({navigation}) {
     return (
         <LinearGradient style={styles.screen}
             colors={[theme.colors.light, theme.colors.tertiary, theme.colors.primary]}>
+            <StatusBar
+                backgroundColor={theme.colors.light}
+                barStyle={"dark-content"} />
+
             <View style={styles.login}>
-                <Logo/>
-                <Title 
-                    text="Check Kit"/>
+                <View style={styles.logoContainer}>
+                    <Logo/>
+                    <Title 
+                        text="Check Kit"/>
+                </View>
                 <TextField 
                     value={userText}
                     placeHolder="Usuario" 
@@ -80,11 +86,15 @@ export default function LoginScreen({navigation}) {
                     style={{marginTop: 15}}
                     text="Iniciar sesión" 
                     onPress={tryLogin}/> 
-                <TextDefault style={{marginTop: 10}}>o ingresar como <TextButton onPress={invitedLogin}>invitado</TextButton></TextDefault>
+                <View style={{flexDirection: "row", alignItems: "center", marginTop: 10}}>
+                    <TextDefault>o ingresar como </TextDefault>
+                    <TextButton onPress={invitedLogin}>invitado</TextButton>
+                </View>
+                
                 
             </View>
 
-            <TextDefault style={styles.versionContainer}>v {version}</TextDefault>
+            <TextDefault style={styles.version}>versión {version}</TextDefault>
 
             <MessageDialog
                 title="Aviso"
@@ -101,22 +111,29 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: theme.colors.tertiary,
+        
     },
     login: {
         width: "75%",
         maxWidth: 350,
         height: 400,
-        borderRadius: 10,
+        borderRadius: 20,
         backgroundColor: theme.colors.lightDark,
-        padding: 22,
+        paddingVertical: 20,
+        paddingHorizontal: 25,
 
         justifyContent: "space-around",
         alignItems: "center",
     },
-    versionContainer: {
+    logoContainer: {
+        alignItems: "center",
+        marginTop: 15,
+    },
+    version: {
         position: "absolute",
         right: 25,
         bottom: 15,
-        color: theme.colors.lightDark,
+        fontSize: theme.fontSizes.smallText,
+        color: theme.colors.secundary,
     }
 });
