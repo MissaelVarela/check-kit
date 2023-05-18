@@ -1,9 +1,7 @@
 import React from 'react';
-import { View, Text, Modal, TouchableWithoutFeedback, StyleSheet } from 'react-native';
+import { View, Modal, StyleSheet } from 'react-native';
 
 import theme from '../../utils/theme';
-import IconButton from '../core/IconButton';
-import sources from '../../utils/sources';
 import TextDefault from '../core/TextDefault';
 import Title from '../core/Title';
 import TextButton from '../core/TextButton'
@@ -33,7 +31,7 @@ export default function MessageDialog(props) {
                     <View style={styles.modal}>
                         <View style={styles.modalBody}>
                             <Title style={styles.titleStyle}>{title}</Title>
-                            <TextDefault style={{maxWidth: 450}}>{children ? children : text}</TextDefault>
+                            <TextDefault style={{maxWidth: 450, textAlign: "center",}}>{children ? children : text}</TextDefault>
                         </View>
                         <View style={styles.modalFooter}>
                             <TextButton onPress={() => {setVisible(false); onConfirm && onConfirm()}}>Ok</TextButton>
@@ -49,12 +47,13 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
+        paddingHorizontal: 45,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgba(52, 52, 52, 0.25)"  
     },
     modal: {
-        width: "0%",
+        width: "100%",
         minWidth: 245,
         maxWidth: 500,
         backgroundColor: theme.colors.light,
@@ -68,7 +67,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     modalHeader: {
-        paddingHorizontal: 15,
+        paddingHorizontal: 0,
         paddingTop: 10,
         width: "100%",
         height: 34,
@@ -78,6 +77,7 @@ const styles = StyleSheet.create({
     titleStyle: {
         fontSize: theme.fontSizes.text, 
         textAlign: "center",
+        marginBottom: 5,
         maxWidth: 450,
     },
     modalBody: {

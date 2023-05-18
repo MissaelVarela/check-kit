@@ -14,21 +14,25 @@ import Subtitle from '../core/Subtitle';
 
 import { getReservations } from '../../utils/reservations';
 
-let reservationData;
+//let reservationData;
 
-export default function ReservationList({ date, onPressPlusButton, selectedType, selectedEquipment }) {
+export default function ReservationList({ date, onPressPlusButton, selectedType, selectedEquipment, reference }) {
 
     const [ today ] = React.useState(new Date());
     const [ highlight, setHighlight ] = React.useState(false);
     const [ reservations, setReservations ] = React.useState([]);
 
+    const [ reservationData, setReservationData ] = React.useState([]);
+
     const userType = Sesion.getUserType();
 
-    React.useEffect(() => {
-        //const reservationsResult = Data.getReservations(selectedType, selectedEquipment, date.year, date.month, date.date);
-        //setReservations(reservationsResult);
+    if (reference) {
+        reference.getData = getData;
+    }
 
-        getData();
+    React.useEffect(() => {
+
+        updateData();
 
         if (date.date === today.getDate() 
         && date.month === today.getMonth() 
@@ -76,39 +80,73 @@ export default function ReservationList({ date, onPressPlusButton, selectedType,
     }
 
     async function getData() {
-        reservationData = await getReservations();
+        console.log("Consultado en la BD.")
+        const result = await getReservations();
+        setReservationData(result);
+    } 
+
+    function updateData() {
         if (reservationData) {
             const todayReservations = [];
             reservationData.forEach((element) => { 
-                
                 const elementDate = new Date(element.start);
 
                 if (elementDate.getFullYear() === date.year) {
                     if (elementDate.getMonth() === date.month) {
                         if (elementDate.getDate() === date.date) {
-                            console.log("entre")
-                            const reservation = {
-                                start: elementDate,
-                                end: new Date(element.end),
-                                equipmentType: element.equipmentType,
-                                equipmentName: element.equipmentName,
-                                user: element.userName + " " + element.userLastName,
-                            };
-
-                            todayReservations.push(reservation);
+                            if (filterRersevation(element.equipmentId, selectedType, selectedEquipment)) {
+                                const reservation = {
+                                    start: elementDate,
+                                    end: new Date(element.end),
+                                    equipmentType: element.equipmentType,
+                                    equipmentName: element.equipmentName,
+                                    user: element.userName + " " + element.userLastName,
+                                };
+    
+                                todayReservations.push(reservation);
+                            } 
                         }
                     }
                 }
             });
 
+            // Ordenando las reservaciones:
+            todayReservations.sort((a, b) => {
+                if (a.start < b.start) return -1;
+                else if (a.start === b.start) return 0;
+                else return 1;
+            })
+
             setReservations(todayReservations);
         }
-    } 
+    }
 
+    // La comparación se hace con los datos locales estaticos... cambiar despues
+    function filterRersevation(reservationEquipmentId, selectedEquipmentType, selectedEquipmentId) {
+        
+        if (selectedEquipmentId && selectedEquipmentId !== -1) {
+            if (selectedEquipmentId == reservationEquipmentId) return true; 
+            else return false;   
+        } 
+        else if (selectedEquipmentType && selectedEquipmentType !== -1) {
+            if (selectedEquipmentType == Data.findEquipmentType(reservationEquipmentId)) return true;
+            else return false; 
+        }
+        else {
+            return true;
+        }
+
+    }
+
+    // Cuando cargue por primera vez.
     React.useEffect(() => {
-        // Obteniendo la información
         getData();
     }, []);
+
+    // Cuando cambie la data de reservaciones.
+    React.useEffect(() => {
+        updateData();
+    }, [reservationData]);
 
     return(
         <View style={styles.main}>

@@ -5,11 +5,13 @@ import theme from '../../utils/theme';
 import Data from '../../data/Data';
 import sources from '../../utils/sources';
 import { getReservations } from '../../data/reservations';
+import { destructureDate } from '../../utils/dateFormat';
 
 import Subtitle from '../core/Subtitle';
 import ReservationList from '../integrated/ReservationList';
 import CircularButton from '../core/CircularBurtton';
 import HeaderBar from '../integrated/HeaderBar';
+import IconButton from '../core/IconButton';
 
 
 
@@ -17,7 +19,7 @@ export default function DatebookScreen({navigation, route}) {
 
     const { selectedEquipment, needGoBackToOrigin, selectedType } = route && route.params ? route.params : { selectedEquipment: -1, selectedType: -1 };
     
-    const [ dateObj, setObj ] = React.useState(new Date());
+    const [ dateObj ] = React.useState(new Date());
 
     const [ date, setDate ] = React.useState({ 
         year: dateObj.getFullYear(), 
@@ -60,21 +62,31 @@ export default function DatebookScreen({navigation, route}) {
         setDate(newDate);
     }
 
-    
+    // Referenciando la ReservationList para acceder al metodo getData.
+    const [ reservationList ] = React.useState({ getData: () => {}});
 
     return (    
         <View style={styles.screen}>
             <HeaderBar buttonType="back" needGoBackToOrigin={needGoBackToOrigin} stackNavigation={navigation}>Agenda</HeaderBar>
             <View style={styles.header}>
-                <Subtitle>Reservación de: <Subtitle style={{fontWeight: theme.fontWeights.semiBold, color: theme.colors.primary}}>{typeText}{ nameText ? ": " + nameText : ""}</Subtitle></Subtitle>
+                <View>
+                    <Subtitle>Reservación de: </Subtitle>
+                    <Subtitle style={{fontWeight: theme.fontWeights.semiBold, color: theme.colors.primary}}>{typeText}{ nameText ? ": " + nameText : ""}</Subtitle>
+                </View>
+                
+                <IconButton 
+                    icon={sources.icons.refresh}
+                    onPress={() => reservationList.getData()} />
             </View>
             <View style={styles.body}>
                 <ReservationList 
                     style={{marginHorizontal: "auto"}}
                     date={date}
-                    onPressPlusButton={() => navigation && navigation.navigate("CreateReservation")}
+                    onPressPlusButton={() => navigation && navigation.navigate("CreateReservation", {equipmentId: selectedEquipment, equipmentType: selectedType, selectedDate: destructureDate(dateObj)})}
                     selectedType={selectedType}
-                    selectedEquipment={selectedEquipment} />
+                    selectedEquipment={selectedEquipment}
+                    
+                    reference={reservationList}/>
                 
                 <CircularButton 
                     style={styles.rightButton}
@@ -97,6 +109,8 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.light,
     },    
     header: {
+        flexDirection: "row",
+        justifyContent: "space-between",
         width: "100%",
         maxWidth: 650,
         marginHorizontal: "auto",

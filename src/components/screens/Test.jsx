@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, Text } from 'react-native'
 
-import DatePicker from '../core/test_pickers/DatePicker.jsx';
+import DatePicker from '../core/pickers/DatePicker.jsx';
 import Button from '../core/Button.jsx';
-import TimePicker from '../core/test_pickers/TimePicker.jsx';
+import TimePicker from '../core/pickers/TimePicker.jsx';
 
 
 export default function Test() {

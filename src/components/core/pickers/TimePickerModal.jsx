@@ -2,9 +2,10 @@ import React from 'react';
 import { View, TouchableWithoutFeedback, Modal, StyleSheet } from 'react-native';
 
 import theme from '../../../utils/theme';
-import { monthToText } from '../../../utils/dateFormat';
+import { monthToText, hour24ToHour12, hour12ToHour24, padTo2Digits } from '../../../utils/dateFormat';
 
 import Selector from './Selector';
+import Title from '../Title';
 
 export default function TimePickerModal({ style, value = new Date(), setValue, visible, setVisible }) {
 
@@ -19,9 +20,13 @@ export default function TimePickerModal({ style, value = new Date(), setValue, v
     // Creando los estados de cada selector. Guardan el Index actual.
     const [ year, setYear ] = React.useState(yearsArray.findIndex((item) => item === value.getFullYear()));
     const [ month, setMonth ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
-    const [ hour, setHour ] = React.useState(yearsArray.findIndex((item) => item === value.getFullYear()));
-    const [ minutes, setMinutes ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
-    const [ ampm, setAmpm ] = React.useState(monthsArray.findIndex((item) => item === value.getMonth()));
+
+    const hourDestructured = hour24ToHour12(value.getHours());
+
+    const [ hour, setHour ] = React.useState(hoursArray.findIndex((item) => item === hourDestructured.hourBase12));
+    const [ minutes, setMinutes ] = React.useState(minutesArray.findIndex((item) => item === value.getMinutes()));
+    const [ ampm, setAmpm ] = React.useState(ampmArray.findIndex((item) => item === hourDestructured.ampm));
+
     // Antes de crear el estado del day se genera el daysArray.
     const [ daysArray, setDaysArray ] = React.useState(getDaysArray(yearsArray[year], monthsArray[month]));
     const [ day, setDay ] = React.useState(daysArray.findIndex((item) => item === value.getDate()));
@@ -39,13 +44,20 @@ export default function TimePickerModal({ style, value = new Date(), setValue, v
 
     // Cuando cambien un valor en los selectors o el daysArray
     React.useEffect(() => {
-        if (year === -1) { var invalidDate = true; setYear(0) };
-        if (month === -1) { var invalidDate = true; setMonth(0) };
-        if (day === -1) { var invalidDate = true; setDay(0) };
+        console.log(hoursArray[hour], minutesArray[minutes], ampmArray[ampm])
+        if (hour === -1) { var invalidHour = true; setHour(0) };
+        if (minutes === -1) { var invalidHour = true; setMinutes(0) };
+        if (ampm === -1) { var invalidHour = true; setAmpm(0) };
         
-        if (!invalidDate)
-            setValue(new Date(yearsArray[year], monthsArray[month], daysArray[day]));
-    }, [year, month, day, daysArray]);
+        if (!invalidHour) {
+            const newHour = hour12ToHour24(hoursArray[hour], ampmArray[ampm]);
+            const newMinutes = minutesArray[minutes];
+            value.setHours(newHour, newMinutes, 0);
+            // Forzando a actulizar el estado:
+            setValue(new Date(value));
+        }
+            
+    }, [hour, minutes, ampm]);
 
     
 
@@ -77,23 +89,26 @@ export default function TimePickerModal({ style, value = new Date(), setValue, v
                             {/* Contenido del Modal */}
                             
                             <Selector 
-                                dataArray={daysArray}
+                                dataArray={hoursArray}
                                 isCircular
-                                current={day}
-                                setCurrent={setDay} />
+                                current={hour}
+                                setCurrent={setHour} />
+
+                            <View style={{justifyContent: "center"}}>
+                                <Title style={{textAlignVertical: "center", marginBottom: 5}}>:</Title>
+                            </View>
 
                             <Selector
-                                dataArray={monthsArray}
+                                dataArray={minutesArray}
                                 isCircular
-                                minWidth={120}
-                                toText={monthToText}
-                                current={month}
-                                setCurrent={setMonth} />
+                                toText={padTo2Digits}
+                                current={minutes}
+                                setCurrent={setMinutes} />
                             
                             <Selector
-                                dataArray={yearsArray}
-                                current={year}
-                                setCurrent={setYear} />
+                                dataArray={ampmArray}
+                                current={ampm}
+                                setCurrent={setAmpm} />
 
                         </View>
                     </TouchableWithoutFeedback>

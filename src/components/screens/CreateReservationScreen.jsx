@@ -17,11 +17,14 @@ import MessageDialog from '../integrated/MessageDialog';
 import { insertReservation } from '../../utils/reservations';
 import { toShortDateString } from '../../utils/dateFormat';
 import Sesion from '../../utils/Sesion';
+import Button from '../core/Button';
 
-export default function CreateReservationScreen({navigation}) {
+export default function CreateReservationScreen({navigation, route}) {
+
+    const { equipmentType, equipmentId, selectedDate } = route ? route.params : {};
 
     const equipmentsTypes = Data.getEquipmentTypes();
-
+    
     const typeOptions = equipmentsTypes.map((element) => { return { value: element.id, label: element.type }});
 
     const [equipmentOptions, setEquipmentOptions] = React.useState([]);
@@ -29,17 +32,26 @@ export default function CreateReservationScreen({navigation}) {
     const [selectedType, setSelectedType] = React.useState();
     const [selectedEquipment, setSelectedEquipment] = React.useState();
 
+    // Estados de los pickers
+    const [ dateVisible, setDateVisible ] = React.useState(false);
+    const [ startHourVisible, setStartHourVisible ] = React.useState(false);
+    const [ endHourVisible, setEndHourVisible ] = React.useState(false);
+    const selectedDateObj = new Date(selectedDate.year, selectedDate.month, selectedDate.day);
+    const dateInitialValue = selectedDate ? selectedDateObj : new Date();
+    const [ dateValue, setDateValue ] = React.useState(dateInitialValue);
+    const star = new Date();
+    star.setHours(8,0,0);
+    const [ startHourValue, setStartHourValue ] = React.useState(star);
+    const end = new Date();
+    end.setHours(9,0,0);
+    const [ endHourValue, setEndHourValue ] = React.useState(end);
+
     // Creando los objetos que tendran referencia algunos componentes hijo:
-    const finalizeConfirmDialog = { setVisible: () => {} };
-    const cancelConfirmDialog = { setVisible: () => {} };
-    const successfulMessageDialog = { setVisible: () => {} };
-    const errorMessageDialog = { setVisible: () => {} };
-
+    const [finalizeConfirmDialog] = React.useState({ setVisible: () => {} });
+    const [cancelConfirmDialog] = React.useState({ setVisible: () => {} });
+    const [successfulMessageDialog] = React.useState({ setVisible: () => {} });
+    const [errorMessageDialog] = React.useState({ setVisible: () => {} });
     const [errorMessage, setErrorMessage] = React.useState("");
-
-    const startTimePicker = { value: "sin referenciar" };
-    const endTimePicker = { value: "sin referenciar" };
-    const datePicker = { value: "sin referenciar" };
 
     function UpdateEquipmentComboBox(value, label){
         const equipments = Data.getEquipmentsByType(value);
@@ -49,24 +61,26 @@ export default function CreateReservationScreen({navigation}) {
     }
 
     function finalize() {
-        console.log("Valor guardado:", startTimePicker.value);
-        console.log("Valor guardado:", endTimePicker.value);
-        console.log("Valor guardado:", datePicker.value);
-
-        const startH = (startTimePicker.value.amPm.text === "am" ? startTimePicker.value.hours.text : (startTimePicker.value.hours.number + 13)) + ":" + startTimePicker.value.minutes.text;
-        const endH = (endTimePicker.value.amPm.text === "am" ? endTimePicker.value.hours.text : (endTimePicker.value.hours.number + 13)) + ":" + endTimePicker.value.minutes.text;
-        console.log(datePicker.value.representationShort + " " + startH)
-        console.log(datePicker.value.representationShort + " " + endH)
-        const startDate = new Date(datePicker.value.representationShort + " " + startH);//
-        const endDate = new Date(datePicker.value.representationShort + " " + endH);
-        console.log(startDate, endDate)
         try {
+            const startDate = new Date(dateValue);
+            startDate.setHours(startHourValue.getHours(), startHourValue.getMinutes(), 0);
 
+            const endDate = new Date(dateValue);
+            endDate.setHours(endHourValue.getHours(), endHourValue.getMinutes(), 0);
+            
             if (!selectedEquipment || selectedEquipment.value === -1) {
                 throw new Error("No hay un equipo seleccionado.");
             }
             if (!startDate || !endDate ) {
                 throw new Error("La fecha esta mal.");
+            }
+
+            if (startDate >= endDate) {
+                throw new Error("La fecha de inicio debe ser mayor a la hora de fin.");
+            }
+
+            if (startDate < (new Date())) {
+                throw new Error("No es posible reservar para una fecha pasada.");
             }
 
             const result = insertReservation(
@@ -84,16 +98,45 @@ export default function CreateReservationScreen({navigation}) {
             
         }
         catch (error) {
-            setErrorMessage("No se pudo guardar la Reservación. " + error.message)
+            console.log("trone", error.message);
+            setErrorMessage(error.message)
             errorMessageDialog.setVisible(true); 
         } 
 
-        navigation && navigation.goBack();
+        //navigation && navigation.goBack();
     }
 
     function cancel() {
         navigation && navigation.goBack();
     }
+
+    // Cuando se cargue el componente.
+    React.useEffect(() => {
+
+        if (equipmentType && equipmentType !== -1 && typeOptions) {
+            const resultType = typeOptions.find((item) => {
+                return item.value === equipmentType;
+            })
+            setSelectedType(resultType);
+            //UpdateEquipmentComboBox(resultType);
+            
+            const equipments = Data.getEquipmentsByType(resultType.value);
+            const newEquipmentsOptions = equipments.map((element) => { return { value: element.id, label: element.name }});
+
+            if (equipmentId && equipmentId !== -1 && newEquipmentsOptions) {
+                console.log("entre", newEquipmentsOptions);
+                const resultEquipment = newEquipmentsOptions.find((item) => {
+                    console.log(item);
+                    return item.value === equipmentId;
+                })
+
+                setSelectedEquipment(resultEquipment);
+            }
+
+            setEquipmentOptions(newEquipmentsOptions);
+        }
+
+    }, []);
 
     return (
      <View style={styles.screen}>
@@ -137,27 +180,31 @@ export default function CreateReservationScreen({navigation}) {
                 }
                 
                 <View>
-                    <Subtitle style={{ paddingTop: 18, marginBottom: 5 }} > Fecha</Subtitle>
+                    <Subtitle style={{ paddingTop: 18, marginBottom: 5 }} > Fecha:</Subtitle>
                 </View>
                 <View>
                     <DatePicker
-                        reference={datePicker}
-                        visible={false}/>
+                        value={dateValue}
+                        setValue={setDateValue}
+                        visible={dateVisible}
+                        setVisible={setDateVisible} />
                 </View>
                 <View style={styles.comboContainer}>
                     <View style={{ flex: 1, marginRight: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5, }}> Hora inicio:</Subtitle>
                         <TimePicker
-                            reference={startTimePicker}
-                            visible={false}
-                            initialHour={8} />
+                            value={startHourValue}
+                            setValue={setStartHourValue}
+                            visible={startHourVisible}
+                            setVisible={setStartHourVisible} />
                     </View>
                     <View style={{ flex: 1, marginLeft: 10, paddingTop: 18 }}>
                         <Subtitle style={{ marginBottom: 5 }}> Hora final:</Subtitle>
                         <TimePicker
-                            reference={endTimePicker}
-                            visible={false}
-                            initialHour={9} />
+                            value={endHourValue}
+                            setValue={setEndHourValue}
+                            visible={endHourVisible}
+                            setVisible={setEndHourVisible} />
                     </View>
                 </View>
                 <View style={styles.comboContainer}>
@@ -168,15 +215,15 @@ export default function CreateReservationScreen({navigation}) {
                             onPress={() => { cancelConfirmDialog.setVisible(true) }} />
                     </View>
                     <View style={{ flex: 1, marginLeft: 10, paddingTop: 50 }}>
-                        <SecundaryButton
-                            style={{ marginTop: 15, }}
+                        <Button
+                            style={{ marginTop: 15 }}
                             text="Confirmar" 
                             onPress={() => { finalizeConfirmDialog.setVisible(true) }} />
                     </View>
                 </View>
                 <ConfirmDialog
                     title="Finalizar"
-                    text="¿Desea confirmar la reservación?."
+                    text="¿Desea confirmar la reservación?"
                     reference={finalizeConfirmDialog}
                     onConfirm={finalize} />
                 <ConfirmDialog
@@ -190,7 +237,7 @@ export default function CreateReservationScreen({navigation}) {
                     reference={successfulMessageDialog}
                     onConfirm={() => navigation && navigation.goBack() } />
                 <MessageDialog
-                    title="Información"
+                    title="No se pudo guardar la reservación"
                     text={errorMessage}
                     reference={errorMessageDialog} />
             </View>
@@ -223,6 +270,6 @@ const styles = StyleSheet.create({
         borderRadius:10,
         backgroundColor: theme.colors.light,
         width: "100%",
-        maxWidth: 1000,
+        maxWidth: 700,
     }
 });

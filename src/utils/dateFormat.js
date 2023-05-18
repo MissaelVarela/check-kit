@@ -4,11 +4,11 @@ const shortMonthsArray = ["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO"
 
 // Private Functions
 
-function padTo2Digits(num) {
+export function padTo2Digits(num) {
     return num.toString().padStart(2, '0');
 }
 
-function destructureDate(date) {
+export function destructureDate(date) {
     return {
         month: date.getMonth(),
         day: date.getDate(),
@@ -19,11 +19,32 @@ function destructureDate(date) {
     };   
 }
 
-function destructureHour(hour) {
+export function hour24ToHour12(hour) {
     if (hour > 12) {
         return { hourBase12: hour - 12, ampm: "pm" }
-    } else {
+    } 
+    else if (hour === 12) {
+        return { hourBase12: 12, ampm: "pm" }
+    } 
+    else if (hour === 0) {
+        return { hourBase12: 12, ampm: "am" }
+    } 
+    else {
         return { hourBase12: hour, ampm: "am" }
+    }
+}
+
+export function hour12ToHour24(hourBase12, ampm) {
+    if (ampm === "am") {
+        if (hourBase12 === 12) {
+            return 0;
+        }
+        return hourBase12;
+    } else if (ampm === "pm") {
+        if (hourBase12 === 12) {
+            return 12;
+        }
+        return hourBase12 + 12;
     }
 }
 
@@ -51,8 +72,8 @@ export function toDateString(date) {
 export function toTimeString(date) {
     if (date instanceof Date) {
         const { hour, minutes } = destructureDate(date);
-        const  { hourBase12, ampm } = destructureHour(hour);
-        return padTo2Digits(hourBase12) + ":" + padTo2Digits(minutes) + " " + ampm ;
+        const  { hourBase12, ampm } = hour24ToHour12(hour);
+        return hourBase12 + ":" + padTo2Digits(minutes) + " " + ampm ;
     }
     else {
         return "No es una hora"

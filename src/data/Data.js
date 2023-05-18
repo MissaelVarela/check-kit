@@ -78,5 +78,12 @@ export default class Data {
         return reservationsResult;
     }
 
+    static findEquipmentType(equipmentId) {
+        const found = equipments.find((item) => {
+            return item.id == equipmentId
+        });
+
+        if (found) return found.typeId; 
+    }
 }
 

@@ -50,12 +50,13 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         flex: 1,
+        paddingHorizontal: 45,
         alignItems: "center",
         justifyContent: "center",
         backgroundColor: "rgba(52, 52, 52, 0.25)"  
     },
     modal: {
-        width: "0%",
+        width: "100%",
         minWidth: 250,
         maxWidth: 500,
         backgroundColor: theme.colors.light,
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
         marginBottom: 25,
     },
     modalHeader: {
-        paddingHorizontal: 15,
+        paddingHorizontal: 0,
         paddingTop: 10,
         width: "100%",
         height: 34,
@@ -79,6 +80,7 @@ const styles = StyleSheet.create({
     titleStyle: {
         fontSize: theme.fontSizes.text, 
         textAlign: "center",
+        marginBottom: 5,
         maxWidth: 450,
     },
     modalBody: {
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     modalFooter: {
         width: "100%",
         height: 40,
-        paddingHorizontal: 15,
+        paddingHorizontal: 25,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
