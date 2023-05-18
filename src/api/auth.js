@@ -1,4 +1,5 @@
-import { API_URL } from "@env";
+//import { API_URL } from "@env";
+const API_URL = process.env.API_URL;
 
 const post = {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
@@ -19,7 +20,6 @@ const get = {
 }
 
 export async function auth(user, password) {
-
     const response = await fetch(API_URL + "user/auth?user=" + user + "&pass=" + password )
     .then(res => {
         try {

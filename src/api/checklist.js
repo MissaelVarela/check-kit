@@ -1,4 +1,5 @@
-import { API_URL } from "@env";
+//import { API_URL } from "@env";
+const API_URL = process.env.API_URL;
 
 export async function getCheckListLogs() {
     const response = await fetch(API_URL + "log/list?limit=20")
